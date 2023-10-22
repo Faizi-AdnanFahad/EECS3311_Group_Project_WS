@@ -9,8 +9,9 @@
         cd $project_folder
 3. This script should create product database and admin database
 
-        ./database/setup.cmd
+        cd database
+        ./setup.cmd
 
-4. Connect to your newly created table using Sqlite3 DB Browser
+5. Connect to your newly created table using Sqlite3 DB Browser
    
 ![Alt text](../documents/db_example.png)
