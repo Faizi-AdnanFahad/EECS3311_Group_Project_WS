@@ -37,8 +37,8 @@ public class Server {
 			System.out.println(exchange.toString());
 			System.out.println("test 1");
 			Map<String, String> parms = queryToMap(exchange.getRequestURI().getQuery());
-			String response = "Hello World! " + "P1 was: " + parms.get("p1") + " and p2 was: " + parms.get("p2");
-//			String response = "Hello, We are in test 1";
+//			String response = "Hello World! " + "P1 was: " + parms.get("p1") + " and p2 was: " + parms.get("p2");
+			String response = "Hello, We are in test 1";
 			exchange.sendResponseHeaders(200, response.length());
 			OutputStream os = exchange.getResponseBody();
 			os.write(response.getBytes());

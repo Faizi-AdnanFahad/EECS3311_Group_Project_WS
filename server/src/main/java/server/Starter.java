@@ -92,83 +92,83 @@ public class Starter extends JFrame implements ActionListener, PopupMenuListener
 	private Starter() {
 		// Set window title
 		super("Ali's Environment");
-		productData = AvailableProductList.getInstance().findAvailableProductsAndQuantities();
-		theLastOrder = LastOrder.getInstance().findLastOrder();
+//		productData = AvailableProductList.getInstance().findAvailableProductsAndQuantities();
+//		theLastOrder = LastOrder.getInstance().findLastOrder();
 
+
+		// Set charts region
+//		JPanel west = new JPanel();
+//		west.setLayout(new GridLayout(2, 0));
+//
+//		JPanel east = new JPanel();
+//		east.setLayout(new GridLayout(2, 0));
+//
+//		getContentPane().add(west, BorderLayout.WEST);
+//		getContentPane().add(east, BorderLayout.EAST);
+//
+//		createCharts(west, east);
+//		 Set top bar
+		JLabel step1 = new JLabel("Step1 Choose Product");
+		JLabel step2 = new JLabel("Step2 Choose Quantity");
+
+		JLabel chooseProductLabel = new JLabel(": ");
+		Vector<String> productNames = new Vector<String>();
+		productList = new JComboBox<String>(productNames);
+		productNames.add("Product1");
+		productNames.add("Product2");
+		productNames.add("Product3");
+		productNames.add("Product4");
+		productNames.add("Product5");
+		productNames.sort(null);
+
+		JButton addProduct = new JButton("Choose");
+		addProduct.setActionCommand("addProduct");
+		addProduct.addActionListener(this);
+
+		JLabel qty = new JLabel(": ");
+		// JLabel to = new JLabel("To");
+		Vector<String> quantity = new Vector<String>();
+		for (int i = 0; i <= 1000; i = i + 50) {
+			quantity.add("" + i);
+		}
+		quantity.remove(0);
+		quantity.add(0, "1");
+		quantityList = new JComboBox<String>(quantity);
+		JButton addQuantity = new JButton("Choose");
+		addQuantity.setActionCommand("placeOrder");
+		addQuantity.addActionListener(this);
+		productList.addPopupMenuListener(this);
+		productList.addActionListener(this);
+		quantityList.setActionCommand("selectQuantity");
+		quantityList.addActionListener(this);
+
+		JPanel north = new JPanel();
+		north.add(step1);
+		north.add(chooseProductLabel);
+		north.add(productList);
+		north.add(addProduct);
+		north.add(step2);
+		north.add(qty);
+		north.add(quantityList);
+		north.add(addQuantity);
+
+		JPanel east = new JPanel();
 
 		// Set charts region
 		JPanel west = new JPanel();
 		west.setLayout(new GridLayout(2, 0));
+		// createCharts(west);
 
-		JPanel east = new JPanel();
-		east.setLayout(new GridLayout(2, 0));
+		JLabel orderDetailsLabel = new JLabel("Order Details: ");
+		orderDetails = new JTextArea(30, 60);
+		JScrollPane orderDetailsScrollPane = new JScrollPane(orderDetails);
+		east.setLayout(new BoxLayout(east, BoxLayout.Y_AXIS));
+		east.add(orderDetailsLabel);
+		east.add(orderDetailsScrollPane);
 
-		getContentPane().add(west, BorderLayout.WEST);
+		getContentPane().add(north, BorderLayout.NORTH);
 		getContentPane().add(east, BorderLayout.EAST);
-
-		createCharts(west, east);
-		// Set top bar
-//		JLabel step1 = new JLabel("Step1 Choose Product");
-//		JLabel step2 = new JLabel("Step2 Choose Quantity");
-//
-//		JLabel chooseProductLabel = new JLabel(": ");
-//		Vector<String> productNames = new Vector<String>();
-//		productList = new JComboBox<String>(productNames);
-//		productNames.add("Product1");
-//		productNames.add("Product2");
-//		productNames.add("Product3");
-//		productNames.add("Product4");
-//		productNames.add("Product5");
-//		productNames.sort(null);
-//
-//		JButton addProduct = new JButton("Choose");
-//		addProduct.setActionCommand("addProduct");
-//		addProduct.addActionListener(this);
-//
-//		JLabel qty = new JLabel(": ");
-//		// JLabel to = new JLabel("To");
-//		Vector<String> quantity = new Vector<String>();
-//		for (int i = 0; i <= 1000; i = i + 50) {
-//			quantity.add("" + i);
-//		}
-//		quantity.remove(0);
-//		quantity.add(0, "1");
-//		quantityList = new JComboBox<String>(quantity);
-//		JButton addQuantity = new JButton("Choose");
-//		addQuantity.setActionCommand("placeOrder");
-//		addQuantity.addActionListener(this);
-//		productList.addPopupMenuListener(this);
-//		productList.addActionListener(this);
-//		quantityList.setActionCommand("selectQuantity");
-//		quantityList.addActionListener(this);
-//
-//		JPanel north = new JPanel();
-//		north.add(step1);
-//		north.add(chooseProductLabel);
-//		north.add(productList);
-//		north.add(addProduct);
-//		north.add(step2);
-//		north.add(qty);
-//		north.add(quantityList);
-//		north.add(addQuantity);
-//
-//		JPanel east = new JPanel();
-//
-//		// Set charts region
-//		JPanel west = new JPanel();
-//		west.setLayout(new GridLayout(2, 0));
-//		// createCharts(west);
-//
-//		JLabel orderDetailsLabel = new JLabel("Order Details: ");
-//		orderDetails = new JTextArea(30, 60);
-//		JScrollPane orderDetailsScrollPane = new JScrollPane(orderDetails);
-//		east.setLayout(new BoxLayout(east, BoxLayout.Y_AXIS));
-//		east.add(orderDetailsLabel);
-//		east.add(orderDetailsScrollPane);
-//
-//		getContentPane().add(north, BorderLayout.NORTH);
-//		getContentPane().add(east, BorderLayout.EAST);
-//		getContentPane().add(west, BorderLayout.WEST);
+		getContentPane().add(west, BorderLayout.WEST);
 	}
 
 	private void createCharts(JPanel west) {
