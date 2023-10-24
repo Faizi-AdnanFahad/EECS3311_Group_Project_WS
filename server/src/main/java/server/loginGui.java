@@ -13,11 +13,9 @@ public class loginGui extends JFrame implements ActionListener {
     
     
     //some colors to make the GUI nice
-    
     private static final Color primary_Colour = new Color(38,37,70);
     private static final Color Secondary_Colour = new Color(255,171,63);
     private static final Color Button_Colour = new Color(0,0,0);
-    
 
     public loginGui() {
     	
@@ -26,8 +24,6 @@ public class loginGui extends JFrame implements ActionListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         
-        
-       
 
         JPanel inputPanel = new JPanel();
         inputPanel.setLayout(new GridLayout(3, 2));
@@ -90,20 +86,5 @@ public class loginGui extends JFrame implements ActionListener {
         } else {
             messageLabel.setText("Login failed. Please try again.");
         }
-    }
-    
-  
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            try {
-                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            loginGui loginGUI = new loginGui();
-            loginGUI.setVisible(true);
-        });
     }
 }

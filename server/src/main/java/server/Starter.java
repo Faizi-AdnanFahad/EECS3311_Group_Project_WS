@@ -19,8 +19,12 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 
@@ -65,13 +69,17 @@ public class Starter extends JFrame implements ActionListener, PopupMenuListener
 	private static LastOrder theLastOrder;
 
 	public static void main(String[] args) {
-		JFrame frame = Starter.getInstance();
-		frame.setSize(900, 600);
-		frame.pack();
-		frame.setVisible(true);
+
+//		JFrame frame = Starter.getInstance();
+//		frame.setSize(900, 600);
+//		frame.pack();
+//		frame.setVisible(true);
 		Server anHttpServer = new Server();
 
 		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			loginGui loginGUI = new loginGui();
+			loginGUI.setVisible(true);
 			anHttpServer.startServer();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -94,7 +102,6 @@ public class Starter extends JFrame implements ActionListener, PopupMenuListener
 		super("Ali's Environment");
 //		productData = AvailableProductList.getInstance().findAvailableProductsAndQuantities();
 //		theLastOrder = LastOrder.getInstance().findLastOrder();
-
 
 		// Set charts region
 //		JPanel west = new JPanel();
@@ -175,7 +182,6 @@ public class Starter extends JFrame implements ActionListener, PopupMenuListener
 		createReport(west);
 
 	}
-
 
 	public void actionPerformed(ActionEvent e) {
 		String command = e.getActionCommand();
