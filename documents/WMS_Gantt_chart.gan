@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2023-10-02" view-index="0" gantt-divider-location="491" resource-divider-location="300" version="3.2.3247" locale="en_CA">
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2023-10-02" view-index="0" gantt-divider-location="596" resource-divider-location="300" version="3.2.3247" locale="en_CA">
     <description/>
     <view zooming-state="default:2" id="gantt-chart">
-        <field id="tpd3" name="Name" width="244" order="0"/>
-        <field id="tpd4" name="Begin date" width="92" order="1"/>
-        <field id="tpd5" name="End date" width="93" order="2"/>
-        <field id="tpc0" name="Assigned to" width="61" order="3"/>
+        <field id="tpd3" name="Name" width="296" order="0"/>
+        <field id="tpd4" name="Begin date" width="112" order="1"/>
+        <field id="tpd5" name="End date" width="113" order="2"/>
+        <field id="tpc0" name="Assigned to" width="74" order="3"/>
         <option id="filter.completedTasks" value="false"/>
         <option id="color.recent">
             <![CDATA[#cc0000 #f4f4f4 #990000 #ffff33 #ff9999 #ccff00 #ccff33 #0000ff #000000 #cc33ff]]>
@@ -39,7 +39,7 @@
             <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
             <taskproperty id="tpc0" name="Assigned to" type="custom" valuetype="text" defaultvalue=""/>
         </taskproperties>
-        <task id="15" name="Deliverable 1" color="#0000ff" meeting="false" start="2023-10-05" duration="13" complete="0" thirdDate="2023-10-05" thirdDate-constraint="0" expand="true">
+        <task id="15" name="Deliverable 1" color="#0000ff" meeting="false" start="2023-10-05" duration="13" complete="0" thirdDate="2023-10-05" thirdDate-constraint="0" expand="false">
             <customproperty taskproperty-id="tpc0" value=""/>
             <task id="24" name="The login UI" color="#990000" meeting="false" start="2023-10-12" duration="3" complete="0" thirdDate="2023-10-02" thirdDate-constraint="0" expand="true">
                 <customproperty taskproperty-id="tpc0" value="Ali Jansiz"/>
@@ -96,6 +96,30 @@
                     <customproperty taskproperty-id="tpc0" value="Adnan Faizi"/>
                 </task>
             </task>
+        </task>
+        <task id="26" name="Deliverable 2" meeting="false" start="2023-10-02" duration="1" complete="0" expand="true">
+            <task id="27" name="Detailed Component Diagram" color="#8cb6ce" meeting="false" start="2023-10-02" duration="1" complete="0" thirdDate="2023-10-02" thirdDate-constraint="0" expand="true">
+                <notes>
+                    <![CDATA[detailed component diagram with all subsystems (see project description) and their internal modules and exposed interfaces;]]>
+                </notes>
+            </task>
+            <task id="28" name="Signature of operations by modules" color="#8cb6ce" meeting="false" start="2023-10-02" duration="1" complete="0" thirdDate="2023-10-02" thirdDate-constraint="0" expand="true">
+                <notes>
+                    <![CDATA[The signatures of operations exposed by each module as depicted in Section 3 “Overall System Structure” in the Project Description Document. Here you revise and update the Deliverable 1 submission section.  ]]>
+                </notes>
+            </task>
+            <task id="29" name="Discussion on Design Pattens used so far" meeting="false" start="2023-10-02" duration="1" complete="0" expand="true"/>
+            <task id="30" name="Class Diagrams" meeting="false" start="2023-10-02" duration="1" complete="0" expand="false">
+                <task id="31" name="Design Pattern A" meeting="false" start="2023-10-02" duration="1" complete="0" expand="true"/>
+                <task id="32" name="Design Pattern B" color="#8cb6ce" meeting="false" start="2023-10-02" duration="1" complete="0" thirdDate="2023-10-02" thirdDate-constraint="0" expand="true"/>
+                <task id="33" name="Design Pattern C" color="#8cb6ce" meeting="false" start="2023-10-02" duration="1" complete="0" thirdDate="2023-10-02" thirdDate-constraint="0" expand="true"/>
+            </task>
+            <task id="34" name="Gantt Chart Update" meeting="false" start="2023-10-02" duration="1" complete="0" expand="true"/>
+            <task id="35" name="Implementation" color="#8cb6ce" meeting="false" start="2023-10-02" duration="1" complete="0" thirdDate="2023-10-02" thirdDate-constraint="0" expand="true">
+                <task id="36" name="Ordering Component" color="#8cb6ce" meeting="false" start="2023-10-02" duration="1" complete="0" thirdDate="2023-10-02" thirdDate-constraint="0" expand="true"/>
+                <task id="37" name="Observer Pattern for updating viewers" color="#8cb6ce" meeting="false" start="2023-10-02" duration="1" complete="0" thirdDate="2023-10-02" thirdDate-constraint="0" expand="true"/>
+            </task>
+            <task id="38" name="Additional 18 Test Cases" meeting="false" start="2023-10-02" duration="1" complete="0" expand="true"/>
         </task>
     </tasks>
     <resources/>
