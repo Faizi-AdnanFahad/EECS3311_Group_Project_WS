@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2023-10-02" view-index="0" gantt-divider-location="596" resource-divider-location="300" version="3.2.3247" locale="en_CA">
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2023-10-02" view-index="0" gantt-divider-location="603" resource-divider-location="300" version="3.2.3230" locale="en_CA">
     <description/>
     <view zooming-state="default:2" id="gantt-chart">
-        <field id="tpd3" name="Name" width="296" order="0"/>
-        <field id="tpd4" name="Begin date" width="112" order="1"/>
-        <field id="tpd5" name="End date" width="113" order="2"/>
-        <field id="tpc0" name="Assigned to" width="74" order="3"/>
+        <field id="tpd3" name="Name" width="257" order="0"/>
+        <field id="tpd4" name="Begin date" width="97" order="1"/>
+        <field id="tpd5" name="End date" width="97" order="2"/>
+        <field id="tpc0" name="Assigned to" width="151" order="3"/>
         <option id="filter.completedTasks" value="false"/>
         <option id="color.recent">
             <![CDATA[#cc0000 #f4f4f4 #990000 #ffff33 #ff9999 #ccff00 #ccff33 #0000ff #000000 #cc33ff]]>
@@ -102,6 +102,9 @@
                 <notes>
                     <![CDATA[detailed component diagram with all subsystems (see project description) and their internal modules and exposed interfaces;]]>
                 </notes>
+                <task id="41" name="Component Diagram - General" color="#8cb6ce" meeting="false" start="2023-10-02" duration="1" complete="0" thirdDate="2023-10-02" thirdDate-constraint="0" expand="true">
+                    <customproperty taskproperty-id="tpc0" value="Adnan F"/>
+                </task>
             </task>
             <task id="28" name="Signature of operations by modules" color="#8cb6ce" meeting="false" start="2023-10-02" duration="1" complete="0" thirdDate="2023-10-02" thirdDate-constraint="0" expand="true">
                 <notes>
@@ -116,8 +119,64 @@
             </task>
             <task id="34" name="Gantt Chart Update" meeting="false" start="2023-10-02" duration="1" complete="0" expand="true"/>
             <task id="35" name="Implementation" color="#8cb6ce" meeting="false" start="2023-10-02" duration="1" complete="0" thirdDate="2023-10-02" thirdDate-constraint="0" expand="true">
-                <task id="36" name="Ordering Component" color="#8cb6ce" meeting="false" start="2023-10-02" duration="1" complete="0" thirdDate="2023-10-02" thirdDate-constraint="0" expand="true"/>
-                <task id="37" name="Observer Pattern for updating viewers" color="#8cb6ce" meeting="false" start="2023-10-02" duration="1" complete="0" thirdDate="2023-10-02" thirdDate-constraint="0" expand="true"/>
+                <task id="58" name="Server" meeting="false" start="2023-10-02" duration="1" complete="0" expand="true">
+                    <task id="55" name="Data Layer" color="#8cb6ce" meeting="false" start="2023-10-02" duration="1" complete="0" thirdDate="2023-10-02" thirdDate-constraint="0" expand="false">
+                        <customproperty taskproperty-id="tpc0" value="Shreya V"/>
+                        <task id="39" name="Create DB schemas" meeting="false" start="2023-10-02" duration="1" complete="0" expand="true">
+                            <customproperty taskproperty-id="tpc0" value=""/>
+                        </task>
+                        <task id="56" name="Product DAO" color="#8cb6ce" meeting="false" start="2023-10-02" duration="1" complete="0" thirdDate="2023-10-02" thirdDate-constraint="0" expand="true"/>
+                        <task id="57" name="Admin DAO" color="#8cb6ce" meeting="false" start="2023-10-02" duration="1" complete="0" thirdDate="2023-10-02" thirdDate-constraint="0" expand="true"/>
+                    </task>
+                    <task id="43" name="Model" color="#8cb6ce" meeting="false" start="2023-10-02" duration="1" complete="0" thirdDate="2023-10-02" thirdDate-constraint="0" expand="false">
+                        <customproperty taskproperty-id="tpc0" value="Adnan F"/>
+                        <task id="62" name="Create product model" meeting="false" start="2023-10-02" duration="1" complete="0" expand="true">
+                            <customproperty taskproperty-id="tpc0" value=" "/>
+                        </task>
+                        <task id="63" name="Create User model" meeting="false" start="2023-10-02" duration="1" complete="0" expand="true"/>
+                        <task id="64" name="Create order model" meeting="false" start="2023-10-02" duration="1" complete="0" expand="true"/>
+                        <task id="77" name="Interface with viewer" meeting="false" start="2023-10-02" duration="1" complete="0" expand="true"/>
+                        <task id="80" name="Interface with Data Layer" meeting="false" start="2023-10-02" duration="1" complete="0" expand="true"/>
+                    </task>
+                    <task id="50" name="Controller" meeting="false" start="2023-10-02" duration="1" complete="0" expand="false">
+                        <customproperty taskproperty-id="tpc0" value="Adnan F"/>
+                        <task id="53" name="Interface with Model" color="#8cb6ce" meeting="false" start="2023-10-02" duration="1" complete="0" thirdDate="2023-10-02" thirdDate-constraint="0" expand="true"/>
+                    </task>
+                    <task id="47" name="Front End" color="#8cb6ce" meeting="false" start="2023-10-02" duration="1" complete="0" thirdDate="2023-10-02" thirdDate-constraint="0" expand="false">
+                        <customproperty taskproperty-id="tpc0" value="Ali U / Shreya V"/>
+                        <task id="71" name="Public API for Client" meeting="false" start="2023-10-02" duration="1" complete="0" expand="true"/>
+                        <task id="73" name="Interface with Admin" meeting="false" start="2023-10-02" duration="1" complete="0" expand="true"/>
+                        <task id="72" name="Interface with Middleware" meeting="false" start="2023-10-02" duration="1" complete="0" expand="true"/>
+                    </task>
+                    <task id="48" name="Middleware" meeting="false" start="2023-10-02" duration="1" complete="0" expand="false">
+                        <customproperty taskproperty-id="tpc0" value="Ali U / Shreya V"/>
+                        <task id="74" name="Order Queue" meeting="false" start="2023-10-02" duration="1" complete="0" expand="true"/>
+                        <task id="75" name="Interface with controller" meeting="false" start="2023-10-02" duration="1" complete="0" expand="true"/>
+                    </task>
+                    <task id="46" name="Admin" color="#8cb6ce" meeting="false" start="2023-10-02" duration="1" complete="0" thirdDate="2023-10-02" thirdDate-constraint="0" expand="false">
+                        <customproperty taskproperty-id="tpc0" value="Ali J"/>
+                        <task id="42" name="Authentication" meeting="false" start="2023-10-02" duration="1" complete="0" expand="true">
+                            <customproperty taskproperty-id="tpc0" value=""/>
+                        </task>
+                        <task id="60" name="Login GUI" meeting="false" start="2023-10-02" duration="1" complete="0" expand="true"/>
+                        <task id="61" name="Interface with Front End" meeting="false" start="2023-10-02" duration="1" complete="0" expand="true"/>
+                        <task id="79" name="Interface with Data Layer" meeting="false" start="2023-10-02" duration="1" complete="0" expand="true"/>
+                    </task>
+                    <task id="51" name="Viewer" meeting="false" start="2023-10-02" duration="1" complete="0" expand="false">
+                        <customproperty taskproperty-id="tpc0" value="Ali U"/>
+                        <task id="70" name="Order view" meeting="false" start="2023-10-02" duration="1" complete="0" expand="true"/>
+                        <task id="78" name="Interface with the Server GUI" meeting="false" start="2023-10-02" duration="1" complete="0" expand="true"/>
+                    </task>
+                </task>
+                <task id="59" name="Client" meeting="false" start="2023-10-02" duration="1" complete="0" expand="false">
+                    <customproperty taskproperty-id="tpc0" value="Ali J"/>
+                    <task id="65" name="Client GUI" meeting="false" start="2023-10-02" duration="1" complete="0" expand="true">
+                        <customproperty taskproperty-id="tpc0" value=""/>
+                        <task id="69" name="Dropdowns / Labels" meeting="false" start="2023-10-02" duration="1" complete="0" expand="true"/>
+                        <task id="68" name="Client messages" meeting="false" start="2023-10-02" duration="1" complete="0" expand="true"/>
+                    </task>
+                    <task id="66" name="Ordering fnaility" color="#8cb6ce" meeting="false" start="2023-10-02" duration="1" complete="0" thirdDate="2023-10-02" thirdDate-constraint="0" expand="true"/>
+                </task>
             </task>
             <task id="38" name="Additional 18 Test Cases" meeting="false" start="2023-10-02" duration="1" complete="0" expand="true"/>
         </task>
