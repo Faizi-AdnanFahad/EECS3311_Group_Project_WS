@@ -11,6 +11,7 @@ public class OrderQueue {
 
 	public OrderQueue() {
 		orderQueue = new ArrayList<Order>();
+		size = 0;
 	}
 
 	public void enqueue(Order o) { 
@@ -19,7 +20,9 @@ public class OrderQueue {
 	}
 
 	public void dequeue() { 
-		this.orderQueue.remove(0);
-		--this.size;
+		if(size > 0) {
+			this.orderQueue.remove(0);
+			--this.size;
+		}
 	}
 }
