@@ -5,7 +5,7 @@
  * THE CODE BELOW DOES NOT DEPICT THE DESIGN TO BE FOLLOWED 
  */
 
-package warehouseClientVisualizer.gui;
+package client;
 
 import java.awt.BasicStroke;
 import java.awt.BorderLayout;
@@ -31,7 +31,7 @@ import javax.swing.JTextArea;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 
-public class MainClientUI extends JFrame implements ActionListener, PopupMenuListener {
+public class Main extends JFrame implements ActionListener, PopupMenuListener {
 	/**
 	 * 
 	 */
@@ -46,16 +46,16 @@ public class MainClientUI extends JFrame implements ActionListener, PopupMenuLis
 	private static String timeReport = null; 
 	
 
-	private static MainClientUI instance;
+	private static Main instance;
 
-	public static MainClientUI getInstance() {
+	public static Main getInstance() {
 		if (instance == null)
-			instance = new MainClientUI();
+			instance = new Main();
 
 		return instance;
 	}
 
-	private MainClientUI() {
+	private Main() {
 		// Set window title
 		super("Product Ordering Client");
 
@@ -150,7 +150,7 @@ public class MainClientUI extends JFrame implements ActionListener, PopupMenuLis
 	
 	public static void main(String[] args) {
 
-		JFrame frame = MainClientUI.getInstance();
+		JFrame frame = Main.getInstance();
 		frame.setSize(900, 600);
 		frame.pack();
 		frame.setVisible(true);
