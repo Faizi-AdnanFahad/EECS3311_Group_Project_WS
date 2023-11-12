@@ -51,6 +51,7 @@ import org.jfree.data.time.Year;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
+import gui.LoginGUI;
 import utils.AvailableProductList;
 import utils.LastOrder;
 
@@ -70,10 +71,10 @@ public class Main extends JFrame implements ActionListener, PopupMenuListener {
 
 	public static void main(String[] args) {
 
-		JFrame frame = Main.getInstance();
-		frame.setSize(900, 600);
-		frame.pack();
-		frame.setVisible(true);
+//		JFrame frame = Main.getInstance();
+//		frame.setSize(900, 600);
+//		frame.pack();
+//		frame.setVisible(true);
 		Server anHttpServer = new Server();
 
 		try {
