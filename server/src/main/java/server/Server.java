@@ -14,6 +14,8 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
+import utils.Constants;
+
 // The client calls http://localhost:8000/test1?p1=10&p2=20 (e.g. from a Web browser or a Java Client program)
 // and gets back as a response "Hello World! P1 was: 10 and p2 was: 20"
 // If the client calls http://http://localhost:8000/test2/?p3=1000
@@ -23,65 +25,20 @@ import com.sun.net.httpserver.HttpServer;
 // which is interpreted by the client appropriately as per the logic of the client
 
 public class Server {
+	final int port = 8000;
 	public void startServer() throws Exception {
-		HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
-		server.createContext("/test1", new MyHandler1());
-		server.createContext("/test2", new MyHandler2());
+		HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
+
+		for(int i = 0; i < Constants.ROUTES.length; ++i) {
+			server.createContext(Constants.ROUTES[i], Constants.HANDLERS[i]);
+		}
+
 		server.setExecutor(Executors.newCachedThreadPool());
 		server.start();
-		System.out.println("Started server");
+
+		System.out.printf("Started server on http://localhost:%d\n", port);
+		System.out.printf("Avaliable routes are: \n");
+		for(String route : Constants.ROUTES) System.out.println(route);
 	}
 
-	static class MyHandler1 implements HttpHandler {
-		public void handle(HttpExchange exchange) throws IOException {
-			System.out.println(exchange.toString());
-			System.out.println("test 1");
-			Map<String, String> parms = queryToMap(exchange.getRequestURI().getQuery());
-//			String response = "Hello World! " + "P1 was: " + parms.get("p1") + " and p2 was: " + parms.get("p2");
-			String response = "Hello, We are in test 1";
-			exchange.sendResponseHeaders(200, response.length());
-			OutputStream os = exchange.getResponseBody();
-			os.write(response.getBytes());
-			try {
-				wait(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			response = " FOO";
-			exchange.sendResponseHeaders(200, response.length());
-			OutputStream os2 = exchange.getResponseBody();
-			os2 = exchange.getResponseBody();
-			os2.write(response.getBytes());
-			os.close();
-			os2.close();
-		}
-	}
-	
-	
-	static class MyHandler2 implements HttpHandler {
-		public void handle(HttpExchange exchange) throws IOException {
-			System.out.println("test 2");
-//			Map<String, String> parms = queryToMap(exchange.getRequestURI().getQuery());
-			String response = "Hello, We are in test 2";
-			exchange.sendResponseHeaders(200, response.length());
-			OutputStream os = exchange.getResponseBody();
-			os.write(response.getBytes());
-			os.close();
-		}
-	}
-
-	public static Map<String, String> queryToMap(String query){
-
-	    Map<String, String> result = new HashMap<String, String>();
-	    for (String param : query.split("&")) {
-	        String pair[] = param.split("=");
-	        if (pair.length>1) {
-	            result.put(pair[0], pair[1]);
-	        }else{
-	            result.put(pair[0], "");
-	        }
-	    }
-	    return result;
-	  }
 }
