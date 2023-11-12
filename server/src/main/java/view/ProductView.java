@@ -1,5 +1,5 @@
-package viewer;
+package view;
 
-public class View {
+public class ProductView {
 
 }
