@@ -54,7 +54,7 @@ import org.jfree.data.xy.XYSeriesCollection;
 import utils.AvailableProductList;
 import utils.LastOrder;
 
-public class Starter extends JFrame implements ActionListener, PopupMenuListener {
+public class Main extends JFrame implements ActionListener, PopupMenuListener {
 
 	private static final long serialVersionUID = 1L;
 	private static JComboBox<String> productList;
@@ -70,7 +70,7 @@ public class Starter extends JFrame implements ActionListener, PopupMenuListener
 
 	public static void main(String[] args) {
 
-		JFrame frame = Starter.getInstance();
+		JFrame frame = Main.getInstance();
 		frame.setSize(900, 600);
 		frame.pack();
 		frame.setVisible(true);
@@ -78,7 +78,7 @@ public class Starter extends JFrame implements ActionListener, PopupMenuListener
 
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-			loginGui loginGUI = new loginGui();
+			LoginGUI loginGUI = new LoginGUI();
 			loginGUI.setVisible(true);
 			anHttpServer.startServer();
 			
@@ -89,16 +89,16 @@ public class Starter extends JFrame implements ActionListener, PopupMenuListener
 
 	}
 
-	private static Starter instance;
+	private static Main instance;
 
-	public static Starter getInstance() {
+	public static Main getInstance() {
 		if (instance == null)
-			instance = new Starter();
+			instance = new Main();
 
 		return instance;
 	}
 
-	private Starter() {
+	private Main() {
 		// Set window title
 		super("Ali's Environment");
 		productData = AvailableProductList.getInstance().findAvailableProductsAndQuantities();

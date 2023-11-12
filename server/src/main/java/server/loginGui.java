@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class loginGui extends JFrame implements ActionListener {
+public class LoginGUI extends JFrame implements ActionListener {
     private JLabel userLabel, passwordLabel, messageLabel;
     private JTextField usernameField;
     private JPasswordField passwordField;
@@ -17,7 +17,7 @@ public class loginGui extends JFrame implements ActionListener {
     private static final Color Secondary_Colour = new Color(255,171,63);
     private static final Color Button_Colour = new Color(0,0,0);
 
-    public loginGui() {
+    public LoginGUI() {
     	
         setTitle("Server login");
         setSize(350, 200);
