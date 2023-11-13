@@ -135,12 +135,12 @@ public class ClientGUI extends JFrame implements ActionListener, PopupMenuListen
 		String command = e.getActionCommand();
 		System.out.print(command);
 
-		Client c = new Client();
 		if ("addProduct".equals(command)) {
 			/*
 			 * stats.removeAll(); DataVisualizationCreator creator = new
 			 * DataVisualizationCreator(); creator.createCharts();
 			 */
+			Client c = new Client();
 			if (productList.getSelectedItem() == null)
 				return;
 			theProduct = productList.getSelectedItem().toString();
