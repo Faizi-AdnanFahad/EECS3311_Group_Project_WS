@@ -20,6 +20,8 @@ import javax.swing.JTextArea;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 
+import http.Client;
+
 public class ClientGUI extends JFrame implements ActionListener, PopupMenuListener {
 	private static final long serialVersionUID = 1L;
 	private static JComboBox<String> productList;
@@ -133,6 +135,7 @@ public class ClientGUI extends JFrame implements ActionListener, PopupMenuListen
 		String command = e.getActionCommand();
 		System.out.print(command);
 
+		Client c = new Client();
 		if ("addProduct".equals(command)) {
 			/*
 			 * stats.removeAll(); DataVisualizationCreator creator = new

@@ -32,6 +32,7 @@ import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 
 import gui.ClientGUI;
+import http.Client;
 
 public class Main  {
 	public static void main(String[] args) {
@@ -39,5 +40,6 @@ public class Main  {
 		frame.setSize(900, 600);
 		frame.pack();
 		frame.setVisible(true);
+		
 	}
 }
