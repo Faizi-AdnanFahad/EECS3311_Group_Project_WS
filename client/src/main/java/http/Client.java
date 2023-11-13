@@ -2,6 +2,7 @@ package http;
 
 import java.net.URI;
 import java.net.http.HttpClient;
+import java.net.http.HttpClient.Version;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
@@ -11,13 +12,14 @@ public class Client {
 	private HttpClient client = null;
 
 	public Client() {
-		client = HttpClient.newHttpClient();
+		client = HttpClient.newBuilder().version(Version.HTTP_1_1).build();
 		try {
-			String products = this.get(baseUrl + "/products");
+			String products = this.get(baseUrl + "/order");
+			System.out.println();
 			System.out.println(products);
 
 		} catch (Exception e) {
-
+			System.out.println("Error occured" + e.getMessage());
 		}
 	}
 
