@@ -11,20 +11,28 @@ import utils.Constants;
 
 public class Server {
 	final int port = 8000;
-	
-	public void startServer() throws Exception {
-		HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
+	HttpServer server = null;
 
-		for(int i = 0; i < Constants.ROUTES.length; ++i) {
-			server.createContext(Constants.ROUTES[i], Constants.HANDLERS[i]);
+	Server() {
+		try {
+			server = HttpServer.create(new InetSocketAddress(port), 0);
+			for (int i = 0; i < Constants.ROUTES.length; ++i) {
+				server.createContext(Constants.ROUTES[i], Constants.HANDLERS[i]);
+			}
+			server.setExecutor(Executors.newCachedThreadPool());
+		} catch (Exception e) {
+			System.out.println("Error occured in Server: ");
+			e.printStackTrace();
 		}
+	}
 
-		server.setExecutor(Executors.newCachedThreadPool());
+	public void start() throws Exception {
 		server.start();
 
 		System.out.printf("Started server on http://localhost:%d\n", port);
 		System.out.printf("Avaliable routes are: \n");
-		for(String route : Constants.ROUTES) System.out.println(route);
+
+		for (String route : Constants.ROUTES) System.out.println(route);
 	}
 
 }

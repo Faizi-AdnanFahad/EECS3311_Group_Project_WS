@@ -75,16 +75,15 @@ public class Main extends JFrame implements ActionListener, PopupMenuListener {
 //		frame.setSize(900, 600);
 //		frame.pack();
 //		frame.setVisible(true);
-		Server anHttpServer = new Server();
+		Server http = new Server();
 
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 			LoginGUI loginGUI = new LoginGUI();
 			loginGUI.setVisible(true);
-			anHttpServer.startServer();
+			http.start();
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
