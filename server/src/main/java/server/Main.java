@@ -51,6 +51,7 @@ import org.jfree.data.time.Year;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
+import controller.OrderController;
 import gui.LoginGUI;
 import gui.ServerGUI;
 import utils.AvailableProductList;
@@ -65,6 +66,10 @@ public class Main {
 		frame.pack();
 		frame.setVisible(true);
 		Server http = new Server();
+		
+		// for testing observer and update of viewer purposes
+		OrderController orderController = new OrderController();
+		orderController.orderCompleted();
 
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
