@@ -56,9 +56,7 @@ import gui.ServerGUI;
 import utils.AvailableProductList;
 import utils.LastOrder;
 
-public class Main  {
-
-
+public class Main {
 
 	public static void main(String[] args) {
 
@@ -73,15 +71,11 @@ public class Main  {
 			LoginGUI loginGUI = new LoginGUI();
 			loginGUI.setVisible(true);
 			http.start();
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 	}
-
-
-
-	
 
 }

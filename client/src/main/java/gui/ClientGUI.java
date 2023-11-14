@@ -109,11 +109,12 @@ public class ClientGUI extends JFrame implements ActionListener, PopupMenuListen
 		getContentPane().add(north, BorderLayout.NORTH);
 		getContentPane().add(east, BorderLayout.EAST);
 		getContentPane().add(west, BorderLayout.WEST);
+		
+//		createCharts(west);
 	}
 
 	private void createCharts(JPanel west) {
 		createReport(west);
-
 	}
 
 	private void createReport(JPanel west) {
