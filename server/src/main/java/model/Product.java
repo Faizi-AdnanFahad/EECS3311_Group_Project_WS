@@ -1,5 +1,7 @@
 package model;
 
+import model.statePattern.IProductState;
+
 public class Product {
 	private String id;
 	private String name;
@@ -9,7 +11,7 @@ public class Product {
 	private int targetMinStockQuantity;
 	private int restockSchedule;
 	private int discountStrategyID;
-	private String productState;
+	private IProductState productState;
 	
 	public Product() {
 		
@@ -79,12 +81,16 @@ public class Product {
 		this.discountStrategyID = discountStrategyID;
 	}
 
-	public String getProductState() {
+	public IProductState getProductState() {
 		return this.productState;
 	}
 
-	public void setProductState(String newState) {
+	public void setProductState(IProductState newState) {
 		this.productState = newState;
+	}
+	
+	public void perform() {
+		this.productState.perform();
 	}
 
 }
