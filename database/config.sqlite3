@@ -1,9 +1,0 @@
-# Create our admin db
-.open "admin.db"
-.read admin.sql
-
-# Create our product db
-.open "product.db"
-.read product.sql
-
-.exit
