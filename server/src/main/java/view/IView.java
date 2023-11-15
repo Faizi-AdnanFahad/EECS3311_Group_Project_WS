@@ -1,6 +1,8 @@
 package view;
 
+import model.Product;
+
 public interface IView {
 	
-	public void update();
+	public void update(Product orderedProduct, int orderedQuantity);
 }

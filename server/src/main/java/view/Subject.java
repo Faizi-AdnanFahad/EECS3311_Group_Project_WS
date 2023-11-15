@@ -3,6 +3,8 @@ package view;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Product;
+
 public abstract class Subject {
 	private List<IView> observerViewers;
 
@@ -18,9 +20,9 @@ public abstract class Subject {
 		this.observerViewers.remove(view);
 	}
 	
-	public void notifyViewers() {
+	public void notifyViewers(Product orderedProduct, int orderedQuantity) {
 		for (IView view : this.observerViewers) {
-			view.update();
+			view.update(orderedProduct, orderedQuantity);
 		}
 	}
 }
