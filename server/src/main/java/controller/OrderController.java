@@ -1,21 +1,30 @@
 package controller;
 
+import model.Order;
+import model.Product;
 import view.BarChartView;
 import view.ConcreteSubject;
 import view.IView;
 import view.ReportView;
-import view.Subject;
 
 public class OrderController {
-	
+
+	/*
+	 * This method, updates all viewers using the observer pattern once an order is
+	 * complete.
+	 */
 	public void orderCompleted() {
-		// update the backend db and update all the viewers now
-		
+		Product p = new Product();
+		int quantity = 2;
+		Order order = new Order(p, quantity);
+
 		ConcreteSubject concreteSubject = new ConcreteSubject();
+		// add viewers as observers
 		IView barChartView = new BarChartView(concreteSubject);
 		IView reportView = new ReportView(concreteSubject);
-		
-		concreteSubject.orderCompleted();
+
+		order.updateView(concreteSubject);
+
 	}
 
 }
