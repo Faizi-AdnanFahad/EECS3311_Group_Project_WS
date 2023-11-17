@@ -1,4 +1,4 @@
-package server;
+package web;
 
 import java.net.InetSocketAddress;
 import java.util.concurrent.Executors;
@@ -10,10 +10,11 @@ import com.sun.net.httpserver.HttpServer;
 import utils.Constants;
 
 public class Server {
-	final int port = 8000;
-	HttpServer server = null;
+	private final int port = 8000;
+	private HttpServer server = null;
 
-	Server() {
+	// Bootstrap the HttpServer 
+	public Server() {
 		try {
 			server = HttpServer.create(new InetSocketAddress(port), 0);
 			for (int i = 0; i < Constants.ROUTES.length; ++i) {
@@ -26,6 +27,7 @@ public class Server {
 		}
 	}
 
+	// Start our server
 	public void start() throws Exception {
 		server.start();
 
