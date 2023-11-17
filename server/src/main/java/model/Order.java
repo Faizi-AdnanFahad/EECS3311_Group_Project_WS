@@ -2,10 +2,12 @@ package model;
 
 import java.sql.Date;
 import java.sql.Time;
+import view.ConcreteSubject;
 
 public class Order {
 	private Product orderedProduct;
 	private int orderedQuantity;
+	private int discountStrategyID;
 	private Date orderedRecievedDate;
 	private Time orderedRecievedTime;
 
@@ -44,5 +46,18 @@ public class Order {
 
 	public void setOrderedRecievedTime(Time orderedRecievedTime) {
 		this.orderedRecievedTime = orderedRecievedTime;
+	}
+	
+	public int getDiscountStrategyID() {
+		return discountStrategyID;
+	}
+
+	public void setDiscountStrategyID(int discountStrategyID) {
+		this.discountStrategyID = discountStrategyID;
+	}
+
+	/* Updates all viewers which result in the Observer pattern */
+	public void updateView(ConcreteSubject concreteSubject) {
+		concreteSubject.orderCompleted(this.orderedProduct, this.orderedQuantity);
 	}
 }

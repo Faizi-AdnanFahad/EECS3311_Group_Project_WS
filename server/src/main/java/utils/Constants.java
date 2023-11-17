@@ -1,7 +1,6 @@
 package utils;
 
-import server.RequestHandler.OrderHandler;
-import server.RequestHandler.ProductHandler;
+import web.*;
 
 import com.sun.net.httpserver.HttpHandler;
 

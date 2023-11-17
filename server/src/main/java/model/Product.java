@@ -10,11 +10,10 @@ public class Product {
 	private int targetMaxStockQuantity;
 	private int targetMinStockQuantity;
 	private int restockSchedule;
-	private int discountStrategyID;
 	private IProductState productState;
-	
+
 	public Product() {
-		
+
 	}
 
 	public String getId() {
@@ -73,14 +72,6 @@ public class Product {
 		this.restockSchedule = restockSchedule;
 	}
 
-	public int getDiscountStrategyID() {
-		return discountStrategyID;
-	}
-
-	public void setDiscountStrategyID(int discountStrategyID) {
-		this.discountStrategyID = discountStrategyID;
-	}
-
 	public IProductState getProductState() {
 		return this.productState;
 	}
@@ -88,9 +79,13 @@ public class Product {
 	public void setProductState(IProductState newState) {
 		this.productState = newState;
 	}
-	
+
 	public void perform() {
 		this.productState.perform();
+	}
+
+	public void restock(String restock) {
+
 	}
 
 }
