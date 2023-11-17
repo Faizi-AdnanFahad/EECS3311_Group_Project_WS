@@ -1,6 +1,6 @@
 package model.statePattern;
 
-public class RestockToFulfillOrderState implements IProductState {
+public class RestockState implements IProductState {
 
 	public void perform() {
 		// TODO Auto-generated method stub
