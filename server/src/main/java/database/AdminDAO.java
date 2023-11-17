@@ -1,5 +1,9 @@
 package database;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import model.User;
 
 
 
@@ -39,11 +43,12 @@ public class AdminDAO {
     
     
    //This method is to check if the User exists in the system and is stored in the database or no. 
-    public  static boolean checkIfUserExists(String username) {
+    public  List<User> checkIfUserExists(String username) {
     	
     	String path = "jdbc:sqlite:C://dev//repos//EECS3311_Group_Project_WS//database//admin.db";
- 		String query = "SELECT COUNT(*) as count FROM credentials WHERE Username = ?;";
+ 		String query = "SELECT * FROM credentials";
  		int count = 0;
+ 		List<User> l = new ArrayList();
  		
  		
  		try {
@@ -51,12 +56,19 @@ public class AdminDAO {
  			Connection conn = DriverManager.getConnection(path);
  			PreparedStatement pstmt = conn.prepareStatement(query);
  			
- 			pstmt.setString(1,username);
- 	      ResultSet  resultSet = pstmt.executeQuery();
+ 			ResultSet resultSet = pstmt.executeQuery();
  	      
  	      //Get the count of rows with the input username 
- 	      if(resultSet.next()) {
- 	    	  count = resultSet.getInt("count");
+ 	      while(resultSet.next()) {
+ 	    	  String u = resultSet.getString("Username");
+ 	    	  String p = resultSet.getString("Password");
+
+ 	    	  User temp = new User();
+ 	    	  temp.setUsername(u);
+ 	    	  temp.setPassword(p);
+ 	    	  
+ 	    	  l.add(temp);
+
  	      }
  		}
  	     catch (SQLException e) {
@@ -67,7 +79,7 @@ public class AdminDAO {
  			e.printStackTrace();
  		} 	
  		
- 		return count>0;
+ 		return l;
  		
     }
     
