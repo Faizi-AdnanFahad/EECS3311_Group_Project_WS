@@ -1,6 +1,6 @@
 package controller;
 
-import model.AuthenticationServer;
+import admin.AuthenticationServer;
 import model.User;
 
 public class UserController {

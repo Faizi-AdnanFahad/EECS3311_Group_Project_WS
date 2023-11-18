@@ -9,8 +9,13 @@ import database.AdminDAO;
 import database.ProductDAO;
 import gui.LoginGUI;
 import gui.ServerGUI;
+<<<<<<< Updated upstream
 import model.Product;
 import model.User;
+=======
+import middleware.MiddlewareContext;
+import middleware.OrderProcessor;
+>>>>>>> Stashed changes
 import web.Server;
 
 public class Main {
@@ -24,6 +29,7 @@ public class Main {
 		Server http = new Server();
 
 		// for testing observer and update of viewer purposes
+<<<<<<< Updated upstream
 		System.out.println("----------------Observer Pattern----------------");
 		OrderController orderController = new OrderController();
 		orderController.orderCompleted();
@@ -44,6 +50,19 @@ public class Main {
 			System.out.println("The Id is: " + p.getId() + ", the Name is " + p.getName() + ", the price is " + p.getPrice() + ", the stockQuantity is " + p.getStockQuantity() + " .");
 		}
 		
+=======
+//		System.out.println("----------------Observer Pattern----------------");
+//		OrderController orderController = new OrderController();
+//		orderController.orderCompleted();
+//		System.out.println("------------------------------------------------");
+		
+		// Create our middleware Context
+		MiddlewareContext mCtx = new MiddlewareContext();
+		OrderProcessor op = OrderProcessor.getInstance();
+		
+		// Register our Order Processor middleware
+		mCtx.register(op);
+>>>>>>> Stashed changes
 
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());

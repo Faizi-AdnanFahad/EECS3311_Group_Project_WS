@@ -1,6 +1,7 @@
-package model;
+package admin;
 
 import datalayer.AdminDAO;
+import model.User;
 
 public class AuthenticationServer {
 	private User user;
