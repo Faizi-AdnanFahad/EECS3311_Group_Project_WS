@@ -33,6 +33,7 @@ public class ClientGUI extends JFrame implements ActionListener, PopupMenuListen
 	private static String quantityReport = null;
 	private static String timeReport = null;
 	private static ClientGUI instance;
+private Client client = null;
 
 	public static ClientGUI getInstance() {
 		if (instance == null)
@@ -45,6 +46,8 @@ public class ClientGUI extends JFrame implements ActionListener, PopupMenuListen
 
 // Set window title
 		super("Product Ordering Client");
+		// init our HTTP Client
+		client = new Client();
 
 		// Set top bar
 		JLabel step1 = new JLabel("Step1 Choose Product");
@@ -137,11 +140,7 @@ public class ClientGUI extends JFrame implements ActionListener, PopupMenuListen
 		System.out.print(command);
 
 		if ("addProduct".equals(command)) {
-			/*
-			 * stats.removeAll(); DataVisualizationCreator creator = new
-			 * DataVisualizationCreator(); creator.createCharts();
-			 */
-			Client c = new Client();
+
 			if (productList.getSelectedItem() == null)
 				return;
 			theProduct = productList.getSelectedItem().toString();
@@ -162,7 +161,12 @@ public class ClientGUI extends JFrame implements ActionListener, PopupMenuListen
 	public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
 		// TODO Auto-generated method stub
 		System.out.println("Open");
-
+		try {
+			client.getProducts(33);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 
 	public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
