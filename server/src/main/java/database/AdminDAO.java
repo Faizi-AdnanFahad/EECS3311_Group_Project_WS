@@ -8,47 +8,14 @@ import model.User;
 
 
 public class AdminDAO {
-	
-	//This method retrieves the password of the respective username by the user in the GUI.
-    public static String retrivePassword(String username) {
-  	  
-  	  String path = "jdbc:sqlite:C://dev//repos//EECS3311_Group_Project_WS//database//admin.db";
- 		String query = "SELECT Password FROM credentials WHERE Username = ?;";
- 		String password = null;
- 		
- 		
- 		try {
- 		Class.forName("org.sqlite.JDBC");
-		Connection conn = DriverManager.getConnection(path);
-		PreparedStatement pstmt = conn.prepareStatement(query);
-		
-		pstmt.setString(1,username);
-      ResultSet  resultSet = pstmt.executeQuery();
-      
-      if(resultSet.next()) {
-      	password = resultSet.getString("Password");
-      }
- 		}
-      catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 		
-     
- 		return password;
-
-}
     
     
-   //This method is to check if the User exists in the system and is stored in the database or no. 
-    public  List<User> checkIfUserExists(String username) {
+   //This method retrieves all the data for the credentials of th user at once . 
+    public  List<User> retriveUsernameAndPassword() {
     	
     	String path = "jdbc:sqlite:C://dev//repos//EECS3311_Group_Project_WS//database//admin.db";
  		String query = "SELECT * FROM credentials";
- 		int count = 0;
- 		List<User> l = new ArrayList();
+ 		List<User> listOfUser = new ArrayList();
  		
  		
  		try {
@@ -58,7 +25,6 @@ public class AdminDAO {
  			
  			ResultSet resultSet = pstmt.executeQuery();
  	      
- 	      //Get the count of rows with the input username 
  	      while(resultSet.next()) {
  	    	  String u = resultSet.getString("Username");
  	    	  String p = resultSet.getString("Password");
@@ -67,7 +33,7 @@ public class AdminDAO {
  	    	  temp.setUsername(u);
  	    	  temp.setPassword(p);
  	    	  
- 	    	  l.add(temp);
+ 	    	 listOfUser.add(temp);
 
  	      }
  		}
@@ -79,7 +45,7 @@ public class AdminDAO {
  			e.printStackTrace();
  		} 	
  		
- 		return l;
+ 		return listOfUser;
  		
     }
     
