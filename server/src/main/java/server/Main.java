@@ -9,13 +9,10 @@ import database.AdminDAO;
 import database.ProductDAO;
 import gui.LoginGUI;
 import gui.ServerGUI;
-<<<<<<< Updated upstream
 import model.Product;
 import model.User;
-=======
 import middleware.MiddlewareContext;
 import middleware.OrderProcessor;
->>>>>>> Stashed changes
 import web.Server;
 
 public class Main {
