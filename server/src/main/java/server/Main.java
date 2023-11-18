@@ -29,7 +29,6 @@ public class Main {
 		Server http = new Server();
 
 		// for testing observer and update of viewer purposes
-<<<<<<< Updated upstream
 		System.out.println("----------------Observer Pattern----------------");
 		OrderController orderController = new OrderController();
 		orderController.orderCompleted();
@@ -50,7 +49,6 @@ public class Main {
 			System.out.println("The Id is: " + p.getId() + ", the Name is " + p.getName() + ", the price is " + p.getPrice() + ", the stockQuantity is " + p.getStockQuantity() + " .");
 		}
 		
-=======
 //		System.out.println("----------------Observer Pattern----------------");
 //		OrderController orderController = new OrderController();
 //		orderController.orderCompleted();
@@ -62,7 +60,6 @@ public class Main {
 		
 		// Register our Order Processor middleware
 		mCtx.register(op);
->>>>>>> Stashed changes
 
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
