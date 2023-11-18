@@ -15,7 +15,7 @@ public class OrderHandler implements HttpHandler {
 		System.out.println("Order recieved.");
 
 		// Construct our response to be sent
-		String response = "";
+		String response = "Order placed Succesfully";
 
 		// Add the order to the OrderQueue
 		
