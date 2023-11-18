@@ -9,6 +9,9 @@ import java.util.Arrays;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
+import middleware.OrderProcessor;
+import model.Order;
+
 public class OrderHandler implements HttpHandler {
 
 	public void handle(HttpExchange exchange) throws IOException {
@@ -28,6 +31,12 @@ public class OrderHandler implements HttpHandler {
 		// Print out all our data
 		System.out.println(data);
 
+		// Create our order
+		Order order = new Order(null, 33);
+
+		// Fill our order object with data
+
+		OrderProcessor.getInstance().add(order);;
 		// Close our input stream
 		in.close();
 		

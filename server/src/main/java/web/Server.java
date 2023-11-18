@@ -7,11 +7,13 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
+import middleware.MiddlewareContext;
 import utils.Constants;
 
 public class Server {
 	private final int port = 8000;
 	private HttpServer server = null;
+	private MiddlewareContext middlewareHandle = null;
 
 	// Bootstrap the HttpServer 
 	public Server() {

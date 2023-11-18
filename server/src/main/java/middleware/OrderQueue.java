@@ -8,8 +8,9 @@ import model.Order;
 public class OrderQueue {
 	private List<Order> orderQueue = null;
 	private int size;
+	
 
-	public OrderQueue() {
+	OrderQueue() {
 		orderQueue = new ArrayList<Order>();
 		size = 0;
 	}
@@ -19,10 +20,15 @@ public class OrderQueue {
 		++this.size; 
 	}
 
-	public void dequeue() { 
+	public Order dequeue() { 
 		if(size > 0) {
-			this.orderQueue.remove(0);
+			Order order = this.orderQueue.remove(0);
 			--this.size;
+			return order;
 		}
+		
+		return null;
 	}
+	
+	public int getSize() { return size; }
 }
