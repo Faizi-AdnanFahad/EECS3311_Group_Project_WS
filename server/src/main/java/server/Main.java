@@ -1,10 +1,16 @@
 package server;
 
+import java.util.List;
+
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 import controller.OrderController;
+import database.AdminDAO;
+import database.ProductDAO;
 import gui.LoginGUI;
 import gui.ServerGUI;
+import model.Product;
+import model.User;
 import web.Server;
 
 public class Main {
@@ -22,6 +28,22 @@ public class Main {
 		OrderController orderController = new OrderController();
 		orderController.orderCompleted();
 		System.out.println("------------------------------------------------");
+		
+		
+		AdminDAO a = new AdminDAO();
+		List<User> u = a.retriveUsernameAndPassword();
+
+		for(User user : u) {
+			System.out.println("The username is:" + user.getUsername() +", the password is :" + user.getPassword());
+		}
+		
+		ProductDAO product = new ProductDAO();
+		List<Product> prod = product.retriveProductDetails();
+		
+		for(Product p : prod) {
+			System.out.println("The Id is: " + p.getId() + ", the Name is " + p.getName() + ", the price is " + p.getPrice() + ", the stockQuantity is " + p.getStockQuantity() + " .");
+		}
+		
 
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
