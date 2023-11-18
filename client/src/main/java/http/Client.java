@@ -12,40 +12,33 @@ import java.net.http.HttpResponse.BodyHandlers;
 public class Client {
 	private String baseUrl = "http://localhost:8000";
 	private HttpClient client = null;
+	// Create our HTTP Client
 	public Client() {
 		client = HttpClient.newBuilder().version(Version.HTTP_1_1).build();
-		try {
-			String products = this.post(baseUrl + "/order");
-			System.out.println();
-			System.out.println(products);
-
-		} catch (Exception e) {
-			System.out.println("Error occured" + e.getMessage());
-		}
 	}
 
-	// Blocking
-	public String get(String uri) throws Exception {
-		HttpRequest request = HttpRequest.newBuilder().uri(URI.create(uri)).build();
+	public void getProducts(Integer quantity) throws Exception {
+		HttpRequest request = HttpRequest.newBuilder()
+				.uri(URI.create(baseUrl + "/products" + "?qty=" + quantity.toString()))
+				.build();
 
 		HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
 
-		return response.body();
+		System.out.println(response.body());
 	}
 
-	// Blocking
-	public String post(String uri) throws Exception {
+	public void placeOrder() throws Exception {
 		String requestData = "Data from client";
 
 		BodyPublisher bp = BodyPublishers.ofString(requestData);
 
 		HttpRequest request = HttpRequest.newBuilder()
-				.uri(URI.create(uri))
+				.uri(URI.create(baseUrl))
 				.POST(bp)
 				.build();
 
 		HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
 
-		return response.body();
+		System.out.println(response.body());
 	}
 }
