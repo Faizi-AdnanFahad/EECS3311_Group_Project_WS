@@ -1,4 +1,4 @@
-package utils;
+package util;
 
 import java.util.Date;
 import java.util.HashMap;

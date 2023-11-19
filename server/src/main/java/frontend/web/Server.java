@@ -1,4 +1,4 @@
-package web;
+package frontend.web;
 
 import java.net.InetSocketAddress;
 import java.util.concurrent.Executors;
@@ -7,16 +7,23 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
-import utils.Constants;
-
+import middleware.MiddlewareContext;
+import middleware.wares.OrderProcessorFacade;
+import util.Constants;
+import frontend.web.OrderHandler;
 public class Server {
 	private final int port = 8000;
 	private HttpServer server = null;
+	private MiddlewareContext middlewareHandle = null;
 
 	// Bootstrap the HttpServer 
-	public Server() {
+	public Server(OrderProcessorFacade opf) {
 		try {
 			server = HttpServer.create(new InetSocketAddress(port), 0);
+
+			OrderHandler oh = (OrderHandler) Constants.HANDLERS[0];
+			oh.setProcessor(opf);
+
 			for (int i = 0; i < Constants.ROUTES.length; ++i) {
 				server.createContext(Constants.ROUTES[i], Constants.HANDLERS[i]);
 			}

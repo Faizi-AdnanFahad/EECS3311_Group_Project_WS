@@ -1,6 +1,6 @@
 package controller;
 
-import model.AuthenticationServer;
+import admin.AuthenticationServer;
 import model.User;
 
 public class UserController {
@@ -8,16 +8,16 @@ public class UserController {
 
 	public void createUser() {
 		User user = new User("alex5000", "Toronto33");
-		authServer.setUser(user);
-
-		authServer.CreateUser();
+//		authServer.setUser(user);
+//
+//		authServer.CreateUser();
 	}
 
 	public boolean verifyCredintials(String username, String password) {
-		boolean result = authServer.getPassword(username);
+//		boolean result = authServer.getPassword(username);
 
 		// perform authentication
-		return result;
+		return false;
 	}
 
 //	public User getUser(String username) {
@@ -29,16 +29,16 @@ public class UserController {
 
 	public boolean changePassword(String username) {
 		// call the model
-		boolean result = authServer.changePassoword(username);
+//		boolean result = authServer.changePassoword(username);
 
-		return result;
+		return false;
 	}
 
 	public boolean deleteUser(String username) {
 		// call the model
-		boolean result = authServer.deleteUser(username);
+//		boolean result = authServer.deleteUser(username);
 
-		return result;
+		return false;
 	}
 
 }

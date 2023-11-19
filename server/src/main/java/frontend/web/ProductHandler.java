@@ -63,8 +63,7 @@ public class ProductHandler implements HttpHandler {
 			sb.append(product.getName());
 			sb.append("\n");
 		}
-		
-		System.out.print(sb.toString());
+
 		return sb.toString();
 	}
 }

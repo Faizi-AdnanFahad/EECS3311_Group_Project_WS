@@ -1,6 +1,6 @@
-package utils;
+package util;
 
-import web.*;
+import frontend.web.*;
 
 import com.sun.net.httpserver.HttpHandler;
 
