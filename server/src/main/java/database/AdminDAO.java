@@ -13,7 +13,7 @@ public class AdminDAO {
    //This method retrieves all the data for the credentials of th user at once . 
     public  List<User> retriveUsernameAndPassword() {
     	
-    	String path = "jdbc:sqlite:database\\admin.db";
+    	String path = "jdbc:sqlite:database/admin.db";
  		String query = "SELECT * FROM credentials";
  		List<User> listOfUser = new ArrayList();
  		
