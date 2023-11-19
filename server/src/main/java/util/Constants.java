@@ -1,11 +1,8 @@
-package utils;
+package util;
 
 import frontend.web.*;
 
 import com.sun.net.httpserver.HttpHandler;
-
-import frontend.web.OrderHandler;
-import frontend.web.ProductHandler;
 
 public final class Constants {
 	private Constants() { } 

@@ -9,11 +9,18 @@ import java.util.Arrays;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
-import middleware.OrderProcessor;
+import middleware.OrderQueue;
+import middleware.wares.OrderProcessorFacade;
 import model.Order;
 
 public class OrderHandler implements HttpHandler {
 
+	private OrderProcessorFacade processor = null;
+
+	public void setProcessor(OrderProcessorFacade opf) {
+		this.processor = opf;
+	}
+	
 	public void handle(HttpExchange exchange) throws IOException {
 		System.out.println("Order recieved.");
 
@@ -35,8 +42,10 @@ public class OrderHandler implements HttpHandler {
 		Order order = new Order(null, 33);
 
 		// Fill our order object with data
+		
+		// Add to Order Queue
+		processor.add(order);
 
-		OrderProcessor.getInstance().add(order);;
 		// Close our input stream
 		in.close();
 		

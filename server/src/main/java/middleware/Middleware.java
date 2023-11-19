@@ -15,4 +15,12 @@ public abstract class Middleware {
 	public boolean isActive() {
 		return active;
 	}
+
+	public void activate() {
+		this.active = true;
+	}
+
+	public void disable() {
+		this.active = false;
+	}
 }
