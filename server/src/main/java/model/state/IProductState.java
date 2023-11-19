@@ -1,4 +1,4 @@
-package model.statePattern;
+package model.state;
 
 public interface IProductState {
 

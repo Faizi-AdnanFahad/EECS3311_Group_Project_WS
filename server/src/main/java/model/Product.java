@@ -1,6 +1,6 @@
 package model;
 
-import model.statePattern.IProductState;
+import model.state.IProductState;
 
 public class Product {
 	private String id;
