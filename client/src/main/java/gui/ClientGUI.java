@@ -35,7 +35,7 @@ public class ClientGUI extends JFrame implements ActionListener, PopupMenuListen
 	private static String quantityReport = null;
 	private static String timeReport = null;
 	private static ClientGUI instance;
-    private Client client = null;
+  private Client client = null;
 
 
 	public static ClientGUI getInstance() {
@@ -49,6 +49,8 @@ public class ClientGUI extends JFrame implements ActionListener, PopupMenuListen
 
 // Set window title
 		super("Product Ordering Client");
+		// init our HTTP Client
+		client = new Client();
 
 		// init our HTTP Client
 		client = new Client();
@@ -179,8 +181,10 @@ public class ClientGUI extends JFrame implements ActionListener, PopupMenuListen
 		// TODO Auto-generated method stub
 		System.out.println("Open");
 
+
 		try {
 			client.getProducts();
+
 
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block

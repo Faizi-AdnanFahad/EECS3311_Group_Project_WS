@@ -57,12 +57,19 @@ public class Main {
 		// Create our middleware Context
 		MiddlewareContext mCtx = new MiddlewareContext();
 
+
 		
 		OrderProcessorFacade op = OrderProcessorFacade.getInstance();
 		// Register our Order Processor middleware
 	  mCtx.register(op);
 
 		
+
+		OrderProcessorFacade op = OrderProcessorFacade.getInstance();
+
+		// Register our Order Processor middleware
+		mCtx.register(op);
+
 
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -79,7 +86,5 @@ public class Main {
 		}
 
 	}
-
-	
 
 }
