@@ -17,7 +17,7 @@ public class ProductDAO {
 	//This method retrieves the price of the respective Product from the user
 	public List<Product> retriveProductDetails() {
 
-		String path = "jdbc:sqlite:C://dev//repos//EECS3311_Group_Project_WS//database//product.db";
+		String path = "jdbc:sqlite:database//product.db";
 		String query = "SELECT * FROM product;";
 		List<Product> listOfProduct = new ArrayList();
 		
@@ -54,13 +54,13 @@ public class ProductDAO {
 			e.printStackTrace();
 		} 		
 
-		return listOfProduct;
+		return null;
 	}
 
 	//This method retrieves the StockQuantity of the respective Product from the user
 	public static int retriveStockQuantity(String productName) {
 
-		String path = "jdbc:sqlite:C://dev//repos//EECS3311_Group_Project_WS//database//product.db";
+		String path = "jdbc:sqlite:database//product.db";
 		String query = "SELECT StockQuantity FROM product WHERE Name = ?;";
 		int stockQuantity = 0;
 
@@ -85,7 +85,7 @@ public class ProductDAO {
 			e.printStackTrace();
 		} 		
 
-		return stockQuantity;
+		return 0;
 
 	}
 
