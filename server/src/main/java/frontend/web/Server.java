@@ -1,4 +1,4 @@
-package web;
+package frontend.web;
 
 import java.net.InetSocketAddress;
 import java.util.concurrent.Executors;
