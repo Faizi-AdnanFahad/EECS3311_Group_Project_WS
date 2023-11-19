@@ -42,9 +42,13 @@ public class Main {
 		ProductDAO product = new ProductDAO();
 		List<Product> prod = product.retriveProductDetails();
 		
-		for(Product p : prod) {
-			System.out.println("The Id is: " + p.getId() + ", the Name is " + p.getName() + ", the price is " + p.getPrice() + ", the stockQuantity is " + p.getStockQuantity() + " .");
+		if(prod !=null) {
+		
+			for(Product p : prod) {
+				System.out.println("The Id is: " + p.getId() + ", the Name is " + p.getName() + ", the price is " + p.getPrice() + ", the stockQuantity is " + p.getStockQuantity() + " .");
+			}
 		}
+		
 		
 //		System.out.println("----------------Observer Pattern----------------");
 //		OrderController orderController = new OrderController();
