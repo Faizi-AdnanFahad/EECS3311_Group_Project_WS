@@ -63,12 +63,6 @@ public class Main {
 		// Register our Order Processor middleware
 	  mCtx.register(op);
 
-		
-
-		OrderProcessorFacade op = OrderProcessorFacade.getInstance();
-
-		// Register our Order Processor middleware
-		mCtx.register(op);
 
 
 		try {

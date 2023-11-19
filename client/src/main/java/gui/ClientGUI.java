@@ -49,9 +49,8 @@ public class ClientGUI extends JFrame implements ActionListener, PopupMenuListen
 
 // Set window title
 		super("Product Ordering Client");
-		// init our HTTP Client
-		client = new Client();
-
+		
+	
 		// init our HTTP Client
 		client = new Client();
 		Vector<String> p = new Vector<String>();
@@ -82,9 +81,9 @@ public class ClientGUI extends JFrame implements ActionListener, PopupMenuListen
 //		productNames.add("Product5");
 //		productNames.sort(null);
 
-		JButton addProduct = new JButton("Choose");
-		addProduct.setActionCommand("addProduct");
-		addProduct.addActionListener(this);
+//		JButton addProduct = new JButton("Choose");
+//		addProduct.setActionCommand("addProduct");
+//		addProduct.addActionListener(this);
 
 		JLabel qty = new JLabel(": ");
 		// JLabel to = new JLabel("To");
@@ -101,6 +100,7 @@ public class ClientGUI extends JFrame implements ActionListener, PopupMenuListen
 
 		productList.addPopupMenuListener(this);
 		productList.addActionListener(this);
+		productList.setActionCommand("selectProduct");
 		quantityList.setActionCommand("selectQuantity");
 		quantityList.addActionListener(this);
 
@@ -108,7 +108,7 @@ public class ClientGUI extends JFrame implements ActionListener, PopupMenuListen
 		north.add(step1);
 		north.add(chooseProductLabel);
 		north.add(productList);
-		north.add(addProduct);
+//		north.add(addProduct);
 		north.add(step2);
 		north.add(qty);
 		north.add(quantityList);
@@ -158,8 +158,8 @@ public class ClientGUI extends JFrame implements ActionListener, PopupMenuListen
 		String command = e.getActionCommand();
 		System.out.print(command);
 
-		if ("addProduct".equals(command)) {
-
+		if ("selectProduct".equals(command)) {
+             System.out.print("Product has been selected");
 			if (productList.getSelectedItem() == null)
 				return;
 			theProduct = productList.getSelectedItem().toString();
@@ -208,10 +208,10 @@ public class ClientGUI extends JFrame implements ActionListener, PopupMenuListen
 		 productList.removeAllItems();
 		 String[] nameArray = name.split("\n");
 		 for(String s: nameArray) {
-			 productList.addItem(s);
-		 }
-		 
-		
-	 }
-		
+			 int hyphenIndex = s.indexOf('-');
+			 String pn = s.substring(hyphenIndex + 1);
+			 productList.addItem(pn.trim());
+			 
+		 }	 		
+	 }		
 }
