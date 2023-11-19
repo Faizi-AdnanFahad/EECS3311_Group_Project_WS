@@ -35,12 +35,19 @@ public class ProductDAO {
 				String name = resultSet.getString("Name");
 				int price = resultSet.getInt("Price");
 				int quantity = resultSet.getInt("StockQuantity");
+				int targetMinStockQuantity = resultSet.getInt("targetMinStockQuantity");
+				int targetMaxStockQuantity = resultSet.getInt("targetMaxStockQuantity");
+				int restockSchedule = resultSet.getInt("restockSchedule");
+				
 				
 				Product temp = new Product();
 				temp.setId(id);
 				temp.setName(name);
 				temp.setPrice(price);
 				temp.setStockQuantity(quantity);
+				temp.setTargetMinStockQuantity(targetMinStockQuantity);
+				temp.setTargetMaxStockQuantity(targetMaxStockQuantity);
+				temp.setRestockSchedule(restockSchedule);
 				
 				listOfProduct.add(temp);
 				
@@ -58,36 +65,36 @@ public class ProductDAO {
 	}
 
 	//This method retrieves the StockQuantity of the respective Product from the user
-	public static int retriveStockQuantity(String productName) {
-
-		String path = "jdbc:sqlite:database\\product.db";
-		String query = "SELECT StockQuantity FROM product WHERE Name = ?;";
-		int stockQuantity = 0;
-
-
-		try {
-			Class.forName("org.sqlite.JDBC");
-			Connection conn = DriverManager.getConnection(path);
-			PreparedStatement pstmt = conn.prepareStatement(query);
-
-			pstmt.setString(1,productName);
-			ResultSet  resultSet = pstmt.executeQuery();
-
-			if(resultSet.next()) {
-				stockQuantity = resultSet.getInt("StockQuantity");
-			}
-		}
-		catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 		
-
-		return 0;
-
-	}
+//	public static int retriveStockQuantity(String productName) {
+//
+//		String path = "jdbc:sqlite:database\\product.db";
+//		String query = "SELECT StockQuantity FROM product WHERE Name = ?;";
+//		int stockQuantity = 0;
+//
+//
+//		try {
+//			Class.forName("org.sqlite.JDBC");
+//			Connection conn = DriverManager.getConnection(path);
+//			PreparedStatement pstmt = conn.prepareStatement(query);
+//
+//			pstmt.setString(1,productName);
+//			ResultSet  resultSet = pstmt.executeQuery();
+//
+//			if(resultSet.next()) {
+//				stockQuantity = resultSet.getInt("StockQuantity");
+//			}
+//		}
+//		catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (ClassNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} 		
+//
+//		return 0;
+//
+//	}
 
 
 
