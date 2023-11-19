@@ -22,6 +22,7 @@ public class Client {
 			System.out.println("Error occured" + e.getMessage());
 		}
 	}
+<<<<<<< Updated upstream
 
 	// Blocking
 	public String get(String uri) throws Exception {
@@ -30,6 +31,28 @@ public class Client {
 		HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
 
 		return response.body();
+=======
+	
+	public String getProducts() throws Exception {
+		HttpRequest request = HttpRequest.newBuilder()
+				.uri(URI.create(baseUrl + "/products"))
+				.build();
+
+		HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
+
+		 return response.body();
+>>>>>>> Stashed changes
 	}
+	
+
+//	public void getProducts() throws Exception {
+//		HttpRequest request = HttpRequest.newBuilder()
+//				.uri(URI.create(baseUrl + "/products"))
+//				.build();
+//
+//		HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
+//
+//		System.out.println(response.body());
+//	}
 
 }

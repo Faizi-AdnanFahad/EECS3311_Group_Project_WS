@@ -40,5 +40,15 @@ public class Main {
 		frame.setSize(900, 600);
 		frame.pack();
 		frame.setVisible(true);
+		
+		Client client = new Client();
+		try {
+			System.out.print(client.getProducts());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 	}
 }
