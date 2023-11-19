@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
@@ -33,7 +35,8 @@ public class ClientGUI extends JFrame implements ActionListener, PopupMenuListen
 	private static String quantityReport = null;
 	private static String timeReport = null;
 	private static ClientGUI instance;
-private Client client = null;
+  private Client client = null;
+
 
 	public static ClientGUI getInstance() {
 		if (instance == null)
@@ -49,19 +52,35 @@ private Client client = null;
 		// init our HTTP Client
 		client = new Client();
 
+		// init our HTTP Client
+		client = new Client();
+		Vector<String> p = new Vector<String>();
+		productList = new JComboBox<String>(p);
+
+
 		// Set top bar
 		JLabel step1 = new JLabel("Step1 Choose Product");
 		JLabel step2 = new JLabel("Step2 Choose Quantity");
 
 		JLabel chooseProductLabel = new JLabel(": ");
-		Vector<String> productNames = new Vector<String>();
-		productList = new JComboBox<String>(productNames);
-		productNames.add("Product1");
-		productNames.add("Product2");
-		productNames.add("Product3");
-		productNames.add("Product4");
-		productNames.add("Product5");
-		productNames.sort(null);
+		
+	 try {
+		 String	pName = client.getProducts();
+		 update(pName);
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	 	
+		
+//		Vector<String> productNames = new Vector<String>();
+//		productList = new JComboBox<String>(productNames);
+//		productNames.add("Product1");
+//		productNames.add("Product2");
+//		productNames.add("Product3");
+//		productNames.add("Product4");
+//		productNames.add("Product5");
+//		productNames.sort(null);
 
 		JButton addProduct = new JButton("Choose");
 		addProduct.setActionCommand("addProduct");
@@ -161,8 +180,12 @@ private Client client = null;
 	public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
 		// TODO Auto-generated method stub
 		System.out.println("Open");
+
+
 		try {
-			client.placeOrder();
+			client.getProducts();
+
+
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -179,4 +202,16 @@ private Client client = null;
 		// TODO Auto-generated method stub
 		System.out.println("Cancelled");
 	}
+	
+ public void update(String name){
+		 
+		 productList.removeAllItems();
+		 String[] nameArray = name.split("\n");
+		 for(String s: nameArray) {
+			 productList.addItem(s);
+		 }
+		 
+		
+	 }
+		
 }

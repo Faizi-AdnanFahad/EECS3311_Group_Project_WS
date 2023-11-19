@@ -17,21 +17,24 @@ public class Client {
 		client = HttpClient.newBuilder().version(Version.HTTP_1_1).build();
 	}
 
-	public void getProducts(Integer quantity) throws Exception {
-		HttpRequest request = HttpRequest.newBuilder()
-				.uri(URI.create(baseUrl + "/products" + "?qty=" + quantity.toString()))
-				.build();
 
+	
+	public String getProducts() throws Exception {
+		HttpRequest request = HttpRequest.newBuilder()
+				.uri(URI.create(baseUrl + "/products"))
+				.build();
 		HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
 
-		System.out.println(response.body());
+		 return response.body();
+
 	}
+	
+
 
 	public void placeOrder() throws Exception {
 		String requestData = "Data from client";
 
 		BodyPublisher bp = BodyPublishers.ofString(requestData);
-
 		HttpRequest request = HttpRequest.newBuilder()
 				.uri(URI.create(baseUrl + "/order"))
 				.POST(bp)
