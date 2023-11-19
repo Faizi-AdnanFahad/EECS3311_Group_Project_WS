@@ -60,7 +60,7 @@ public class ProductHandler implements HttpHandler {
 
 		// populate the string builder with products in the database
 		for (Product product : products) {
-			sb.append(product.getName());
+			sb.append(product.getId() + "-" + product.getName());
 			sb.append("\n");
 		}
 
