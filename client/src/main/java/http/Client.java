@@ -33,7 +33,7 @@ public class Client {
 		BodyPublisher bp = BodyPublishers.ofString(requestData);
 
 		HttpRequest request = HttpRequest.newBuilder()
-				.uri(URI.create(baseUrl))
+				.uri(URI.create(baseUrl + "/order"))
 				.POST(bp)
 				.build();
 

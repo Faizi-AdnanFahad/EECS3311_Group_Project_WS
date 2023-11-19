@@ -162,7 +162,7 @@ private Client client = null;
 		// TODO Auto-generated method stub
 		System.out.println("Open");
 		try {
-			client.getProducts(33);
+			client.placeOrder();
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

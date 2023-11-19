@@ -13,7 +13,7 @@ import gui.ServerGUI;
 import model.Product;
 import model.User;
 import middleware.MiddlewareContext;
-import middleware.OrderProcessor;
+import middleware.wares.OrderProcessorFacade;
 
 public class Main {
 
@@ -23,7 +23,6 @@ public class Main {
 		frame.setSize(900, 600);
 		frame.pack();
 		frame.setVisible(true);
-		Server http = new Server();
 
 		// for testing observer and update of viewer purposes
 		System.out.println("----------------Observer Pattern----------------");
@@ -40,12 +39,10 @@ public class Main {
 
 		ProductDAO product = new ProductDAO();
 		List<Product> prod = product.retriveProductDetails();
-
-		if (prod != null) {
-
-			for (Product p : prod) {
-				System.out.println("The Id is: " + p.getId() + ", the Name is " + p.getName() + ", the price is "
-						+ p.getPrice() + ", the stockQuantity is " + p.getStockQuantity() + " .");
+		
+		if(prod !=null) {
+			for(Product p : prod) {
+				System.out.println("The Id is: " + p.getId() + ", the Name is " + p.getName() + ", the price is " + p.getPrice() + ", the stockQuantity is " + p.getStockQuantity() + " .");
 			}
 		}
 
@@ -56,7 +53,7 @@ public class Main {
 
 		// Create our middleware Context
 		MiddlewareContext mCtx = new MiddlewareContext();
-		OrderProcessor op = OrderProcessor.getInstance();
+		OrderProcessorFacade op = OrderProcessorFacade.getInstance();
 
 		// Register our Order Processor middleware
 		mCtx.register(op);
@@ -65,7 +62,11 @@ public class Main {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 			LoginGUI loginGUI = new LoginGUI();
 			loginGUI.setVisible(true);
+			Server http = new Server(op);
 			http.start();
+			
+			// Process orders if they exist
+			while(op.isActive()) op.process();
 
 		} catch (Exception e) {
 			e.printStackTrace();
