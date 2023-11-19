@@ -1,5 +1,8 @@
 package model;
 
+import java.util.List;
+
+import database.ProductDAO;
 import model.state.IProductState;
 
 public class Product {
@@ -86,6 +89,14 @@ public class Product {
 
 	public void restock(String restock) {
 
+	}
+	
+	/*
+	 * Returns a list of all products from the database.
+	 */
+	public List<Product> getProductList() {
+		ProductDAO productDAO = new ProductDAO();
+		return productDAO.retriveProductDetails();
 	}
 
 }

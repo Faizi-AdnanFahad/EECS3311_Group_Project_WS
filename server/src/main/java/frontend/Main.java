@@ -40,25 +40,15 @@ public class Main {
 
 		ProductDAO product = new ProductDAO();
 		List<Product> prod = product.retriveProductDetails();
-<<<<<<< HEAD:server/src/main/java/server/Main.java
-		
-		if(prod !=null) {
-		
-			for(Product p : prod) {
-				System.out.println("The Id is: " + p.getId() + ", the Name is " + p.getName() + ", the price is " + p.getPrice() + ", the stockQuantity is " + p.getStockQuantity() + " .");
-			}
-		}
-		
-		
-=======
+
 		if (prod != null) {
+
 			for (Product p : prod) {
 				System.out.println("The Id is: " + p.getId() + ", the Name is " + p.getName() + ", the price is "
 						+ p.getPrice() + ", the stockQuantity is " + p.getStockQuantity() + " .");
 			}
 		}
 
->>>>>>> 474a74f008e3bf2dfa657f3fe214aafdcf0bc704:server/src/main/java/frontend/Main.java
 //		System.out.println("----------------Observer Pattern----------------");
 //		OrderController orderController = new OrderController();
 //		orderController.orderCompleted();
