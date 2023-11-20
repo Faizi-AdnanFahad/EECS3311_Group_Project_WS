@@ -4,7 +4,7 @@ import model.Product;
 
 public class ReportView implements IView {
 
-	public ReportView(Subject sub) {
+	public ReportView(Publisher sub) {
 		sub.addViewers(this);
 	}
 

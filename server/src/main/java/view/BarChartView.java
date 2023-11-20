@@ -4,7 +4,7 @@ import model.Product;
 
 public class BarChartView implements IView {
 
-	public BarChartView(Subject sub) {
+	public BarChartView(Publisher sub) {
 		sub.addViewers(this);
 	}
 

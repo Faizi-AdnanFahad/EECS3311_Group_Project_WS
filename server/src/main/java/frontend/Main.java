@@ -5,17 +5,15 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 import controller.OrderController;
-import controller.ProductController;
 import database.AdminDAO;
 import database.ProductDAO;
-import frontend.web.ProductHandler;
 import frontend.web.Server;
 import gui.LoginGUI;
 import gui.ServerGUI;
 import model.Product;
 import model.User;
 import middleware.MiddlewareContext;
-import middleware.wares.*;
+import middleware.jobs.*;
 
 
 public class Main {
