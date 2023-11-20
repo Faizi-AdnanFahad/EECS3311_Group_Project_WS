@@ -1,58 +1,63 @@
 package gui;
+import admin.AuthenticationProxy;
 
 import javax.swing.*;
+
+import utils.Constants;
+import web.Server;
+
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
+
+import admin.Auth;
 
 public class LoginGUI extends JFrame implements ActionListener {
-    private JLabel userLabel, passwordLabel, messageLabel;
+    private static final long serialVersionUID = 1L;
+	private JLabel userLabel, passwordLabel, messageLabel;
     private JTextField usernameField;
     private JPasswordField passwordField;
     private JButton loginButton;
     
+    private static LoginGUI instance;
     
-    //some colors to make the GUI nice
-    private static final Color primary_Colour = new Color(38,37,70);
-    private static final Color Secondary_Colour = new Color(255,171,63);
-    private static final Color Button_Colour = new Color(0,0,0);
+    
+    public static LoginGUI getInstance() {
+    	
+  		if (instance == null)
+  			instance = new LoginGUI();
+
+  		return instance;
+      }
+    
 
     public LoginGUI() {
     	
-        setTitle("Server login");
-        setSize(350, 200);
+        setTitle(Constants.loginTitle);
+        setSize(Constants.FRAME_SIZE);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new BorderLayout());
+        setLayout(Constants.BORDER_LAYOUT);
         
-
-        JPanel inputPanel = new JPanel();
-        inputPanel.setLayout(new GridLayout(3, 2));
-        inputPanel.setBackground(primary_Colour);
-
-        userLabel = new JLabel("Username:");
+        JPanel inputPanel = Constants.PANEL;
+        inputPanel.setLayout(Constants.GRID_LAYOUT);
+        inputPanel.setBackground(Constants.primary_Colour);
         
-        
+        userLabel = Constants.USERNAME;
         userLabel.setForeground(Color.white);
         
-        passwordLabel = new JLabel("Password:");
-        
+        passwordLabel = Constants.PASSWORD;
         passwordLabel.setForeground(Color.white);
         
-        messageLabel = new JLabel("");
-        usernameField = new JTextField(15);
+        messageLabel = Constants.MESSAGE_LABEL;
         
-        usernameField.setBackground(Secondary_Colour);
-     
+        usernameField = Constants.USER_TEXTFIELD;
+        usernameField.setBackground(Constants.Secondary_Colour);
         
+        passwordField = Constants.PASSWORD_TEXTFIELD;
+        passwordField.setBackground(Constants.Secondary_Colour);
         
-        passwordField = new JPasswordField(15);
-        
-        passwordField.setBackground(Secondary_Colour);
-        
-        
-         
-        loginButton = new JButton("Login");  
+        loginButton = Constants.LOGIN_BUTTON;  
 
+        //add to panel
         inputPanel.add(userLabel);
         inputPanel.add(usernameField);
         inputPanel.add(passwordLabel);
@@ -67,24 +72,49 @@ public class LoginGUI extends JFrame implements ActionListener {
         add(messageLabel, BorderLayout.SOUTH);
 
         loginButton.addActionListener(this);
+       
         
     }
     
-    
-    //the action listener to demonstrate the GUI for now
+  
 
-    public void actionPerformed(ActionEvent e) {
-    	
+	public void actionPerformed(ActionEvent e) {
+		
         String username = usernameField.getText();
+        String password = new String(passwordField.getPassword());
         
-        char[] password = passwordField.getPassword();
-        
-// for now we have no connection to the login database so I just passed 'username' and 'password' to test the fields.
-        
-        if (username.equals("username") && String.valueOf(password).equals("password")) {
-            messageLabel.setText("Login successful!");
+        AuthenticationProxy a = new AuthenticationProxy();
+
+        boolean isAuthenticated = a.authenticateUser(username, password);
+
+        if (isAuthenticated) {
+        	messageLabel.setText("Login Successful");
+        	
+        	JFrame frame = ServerGUI.getInstance();
+    		frame.setSize(900, 600);
+    		frame.pack();
+    		frame.setVisible(true);
+    		Server http = new Server();
+    		try {
+				http.start();
+				
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+    		
+    		 this.dispose();
+
         } else {
-            messageLabel.setText("Login failed. Please try again.");
+        	
+        	messageLabel.setText("login failed, Please try again.");
         }
-    }
+
+		
+	}
+
+	
+    
+    
+
 }

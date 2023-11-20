@@ -17,7 +17,7 @@ public class ProductDAO {
 	//This method retrieves the price of the respective Product from the user
 	public List<Product> retriveProductDetails() {
 
-		String path = "jdbc:sqlite:C://dev//repos//EECS3311_Group_Project_WS//database//product.db";
+		String path = "jdbc:sqlite:database//product.db";
 		String query = "SELECT * FROM product;";
 		List<Product> listOfProduct = new ArrayList();
 		

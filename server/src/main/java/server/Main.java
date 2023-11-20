@@ -19,12 +19,7 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		JFrame frame = ServerGUI.getInstance();
-		frame.setSize(900, 600);
-		frame.pack();
-		frame.setVisible(true);
-		Server http = new Server();
-
+		
 		// for testing observer and update of viewer purposes
 		System.out.println("----------------Observer Pattern----------------");
 		OrderController orderController = new OrderController();
@@ -32,19 +27,19 @@ public class Main {
 		System.out.println("------------------------------------------------");
 		
 		
-		AdminDAO a = new AdminDAO();
-		List<User> u = a.retriveUsernameAndPassword();
-
-		for(User user : u) {
-			System.out.println("The username is:" + user.getUsername() +", the password is :" + user.getPassword());
-		}
-		
-		ProductDAO product = new ProductDAO();
-		List<Product> prod = product.retriveProductDetails();
-		
-		for(Product p : prod) {
-			System.out.println("The Id is: " + p.getId() + ", the Name is " + p.getName() + ", the price is " + p.getPrice() + ", the stockQuantity is " + p.getStockQuantity() + " .");
-		}
+//		AdminDAO a = new AdminDAO();
+//		List<User> u = a.retriveUsernameAndPassword();
+//
+//		for(User user : u) {
+//			System.out.println("The username is:" + user.getUsername() +", the password is :" + user.getPassword());
+//		}
+//		
+//		ProductDAO product = new ProductDAO();
+//		List<Product> prod = product.retriveProductDetails();
+//		
+//		for(Product p : prod) {
+//			System.out.println("The Id is: " + p.getId() + ", the Name is " + p.getName() + ", the price is " + p.getPrice() + ", the stockQuantity is " + p.getStockQuantity() + " .");
+//		}
 		
 //		System.out.println("----------------Observer Pattern----------------");
 //		OrderController orderController = new OrderController();
@@ -62,7 +57,7 @@ public class Main {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 			LoginGUI loginGUI = new LoginGUI();
 			loginGUI.setVisible(true);
-			http.start();
+			
 
 		} catch (Exception e) {
 			e.printStackTrace();
