@@ -2,7 +2,7 @@ package model;
 
 import java.sql.Date;
 import java.sql.Time;
-import view.ConcreteSubject;
+import view.ConcretePublisher;
 
 public class Order {
 	private Product orderedProduct;
@@ -57,7 +57,7 @@ public class Order {
 	}
 
 	/* Updates all viewers which result in the Observer pattern */
-	public void updateView(ConcreteSubject concreteSubject) {
+	public void updateView(ConcretePublisher concreteSubject) {
 		concreteSubject.orderCompleted(this.orderedProduct, this.orderedQuantity);
 	}
 }

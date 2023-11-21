@@ -1,9 +1,11 @@
-package utils;
+package util;
 
-import web.*;
 import java.awt.*;
 
 import javax.swing.*;
+
+import frontend.web.*;
+
 
 import com.sun.net.httpserver.HttpHandler;
 
@@ -52,12 +54,6 @@ public final class Constants {
 	public static final Color primary_Colour = new Color(38,37,70);
 	public static final Color Secondary_Colour = new Color(255,171,63);
 	public static final Color Button_Colour = new Color(0,0,0);
-		
-		
-		
-	
-	
-	
 	
 
 }

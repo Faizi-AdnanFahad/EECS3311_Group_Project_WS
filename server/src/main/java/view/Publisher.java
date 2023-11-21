@@ -5,10 +5,10 @@ import java.util.List;
 
 import model.Product;
 
-public abstract class Subject {
+public abstract class Publisher {
 	private List<IView> observerViewers;
 
-	public Subject() {
+	public Publisher() {
 		this.observerViewers = new ArrayList<IView>();
 	}
 

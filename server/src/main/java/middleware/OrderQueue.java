@@ -10,7 +10,7 @@ public class OrderQueue {
 	private int size;
 	
 
-	OrderQueue() {
+	public OrderQueue() {
 		orderQueue = new ArrayList<Order>();
 		size = 0;
 	}

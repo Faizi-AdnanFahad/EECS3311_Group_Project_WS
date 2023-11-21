@@ -1,4 +1,4 @@
-package server;
+package frontend.server;
 
 public interface IServerOperation {
 	public void placeOrder();

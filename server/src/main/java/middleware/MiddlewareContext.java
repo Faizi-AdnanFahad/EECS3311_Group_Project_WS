@@ -16,5 +16,9 @@ public class MiddlewareContext {
 		middlewareMap.put(middleware.getName(), middleware);
 	}
 	
+	public void unregister(Middleware middleware) {
+		Middleware m = middlewareMap.get(middleware.getName());
+		if(m != null) m.disable();
+	}
 	
 }

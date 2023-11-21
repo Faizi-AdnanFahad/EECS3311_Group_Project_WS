@@ -1,6 +1,9 @@
 package model;
 
-import model.statePattern.IProductState;
+import java.util.List;
+
+import database.ProductDAO;
+import model.orderstate.IOrderState;
 
 public class Product {
 	private String id;
@@ -10,7 +13,6 @@ public class Product {
 	private int targetMaxStockQuantity;
 	private int targetMinStockQuantity;
 	private int restockSchedule;
-	private IProductState productState;
 
 	public Product() {
 
@@ -72,20 +74,12 @@ public class Product {
 		this.restockSchedule = restockSchedule;
 	}
 
-	public IProductState getProductState() {
-		return this.productState;
-	}
-
-	public void setProductState(IProductState newState) {
-		this.productState = newState;
-	}
-
-	public void perform() {
-		this.productState.perform();
-	}
-
-	public void restock(String restock) {
-
+	/*
+	 * Returns a list of all products from the database.
+	 */
+	public List<Product> getProductList() {
+		ProductDAO productDAO = new ProductDAO();
+		return productDAO.retriveProductDetails();
 	}
 
 }

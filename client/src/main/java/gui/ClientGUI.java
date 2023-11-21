@@ -33,7 +33,7 @@ public class ClientGUI extends JFrame implements ActionListener, PopupMenuListen
 	private static String quantityReport = null;
 	private static String timeReport = null;
 	private static ClientGUI instance;
-private Client client = null;
+	private Client client = null;
 
 	public static ClientGUI getInstance() {
 		if (instance == null)
@@ -46,26 +46,25 @@ private Client client = null;
 
 // Set window title
 		super("Product Ordering Client");
+
 		// init our HTTP Client
 		client = new Client();
+		Vector<String> p = new Vector<String>();
+		productList = new JComboBox<String>(p);
 
 		// Set top bar
 		JLabel step1 = new JLabel("Step1 Choose Product");
 		JLabel step2 = new JLabel("Step2 Choose Quantity");
 
 		JLabel chooseProductLabel = new JLabel(": ");
-		Vector<String> productNames = new Vector<String>();
-		productList = new JComboBox<String>(productNames);
-		productNames.add("Product1");
-		productNames.add("Product2");
-		productNames.add("Product3");
-		productNames.add("Product4");
-		productNames.add("Product5");
-		productNames.sort(null);
 
-		JButton addProduct = new JButton("Choose");
-		addProduct.setActionCommand("addProduct");
-		addProduct.addActionListener(this);
+		try {
+			String pName = client.getProducts();
+			update(pName);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		JLabel qty = new JLabel(": ");
 		// JLabel to = new JLabel("To");
@@ -82,6 +81,7 @@ private Client client = null;
 
 		productList.addPopupMenuListener(this);
 		productList.addActionListener(this);
+		productList.setActionCommand("selectProduct");
 		quantityList.setActionCommand("selectQuantity");
 		quantityList.addActionListener(this);
 
@@ -89,7 +89,7 @@ private Client client = null;
 		north.add(step1);
 		north.add(chooseProductLabel);
 		north.add(productList);
-		north.add(addProduct);
+//		north.add(addProduct);
 		north.add(step2);
 		north.add(qty);
 		north.add(quantityList);
@@ -112,7 +112,7 @@ private Client client = null;
 		getContentPane().add(north, BorderLayout.NORTH);
 		getContentPane().add(east, BorderLayout.EAST);
 		getContentPane().add(west, BorderLayout.WEST);
-		
+
 //		createCharts(west);
 	}
 
@@ -139,12 +139,16 @@ private Client client = null;
 		String command = e.getActionCommand();
 		System.out.print(command);
 
-		if ("addProduct".equals(command)) {
-
+		if ("placeOrder".equals(command)) {
 			if (productList.getSelectedItem() == null)
 				return;
 			theProduct = productList.getSelectedItem().toString();
 			productReport = "Product : " + theProduct + "\n";
+			try {
+				client.placeOrder();
+			} catch (Exception ee) {
+				ee.printStackTrace();
+			}
 
 		} else if ("addQuantity".equals(command)) {
 			// selectedList.add(cryptoList.getSelectedItem().toString());
@@ -156,27 +160,28 @@ private Client client = null;
 
 		}
 	}
-	// TODO Auto-generated method stub
 
 	public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
-		// TODO Auto-generated method stub
 		System.out.println("Open");
-		try {
-			client.getProducts(33);
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 	}
 
 	public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
-		// TODO Auto-generated method stub
-
 		System.out.println("Closed");
 	}
 
 	public void popupMenuCanceled(PopupMenuEvent e) {
-		// TODO Auto-generated method stub
 		System.out.println("Cancelled");
+	}
+
+	public void update(String name) {
+
+		productList.removeAllItems();
+		String[] nameArray = name.split("\n");
+		for (String s : nameArray) {
+			int hyphenIndex = s.indexOf('-');
+			String pn = s.substring(hyphenIndex + 1);
+			productList.addItem(pn.trim());
+
+		}
 	}
 }

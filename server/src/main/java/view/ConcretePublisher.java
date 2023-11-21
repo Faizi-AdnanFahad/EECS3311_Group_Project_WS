@@ -2,7 +2,7 @@ package view;
 
 import model.Product;
 
-public class ConcreteSubject extends Subject {
+public class ConcretePublisher extends Publisher {
 
 	public void orderCompleted(Product orderedProduct, int orderedQuantity) {
 		/*

@@ -3,8 +3,8 @@ import admin.AuthenticationProxy;
 
 import javax.swing.*;
 
-import utils.Constants;
-import web.Server;
+import util.Constants;
+import frontend.web.Server;
 
 import java.awt.*;
 import java.awt.event.*;
