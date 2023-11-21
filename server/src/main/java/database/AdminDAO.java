@@ -10,7 +10,8 @@ import model.User;
 public class AdminDAO {
     
     
-   //This method retrieves all the data for the credentials of th user at once . 
+
+	//This method retrieves all the data for the credentials of th user at once . 
     public  List<User> retriveUsernameAndPassword() {
     	
     	String path = "jdbc:sqlite:database/admin.db";
