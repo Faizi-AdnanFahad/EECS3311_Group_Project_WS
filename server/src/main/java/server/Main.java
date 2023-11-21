@@ -57,6 +57,9 @@ public class Main {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 			LoginGUI loginGUI = new LoginGUI();
 			loginGUI.setVisible(true);
+			Server http = new Server();
+    	
+				http.start();
 			
 
 		} catch (Exception e) {

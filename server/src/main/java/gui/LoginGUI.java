@@ -94,14 +94,6 @@ public class LoginGUI extends JFrame implements ActionListener {
     		frame.setSize(900, 600);
     		frame.pack();
     		frame.setVisible(true);
-    		Server http = new Server();
-    		try {
-				http.start();
-				
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
     		
     		 this.dispose();
 
