@@ -1,13 +1,12 @@
 package middleware.jobs;
 
 import controller.OrderController;
+import controller.StateFactoryController;
 import middleware.Middleware;
 import middleware.OrderQueue;
 import model.Order;
-import model.Product;
 import model.orderstate.IOrderState;
 import model.orderstatefactory.OrderStateFactoryRepo;
-import model.orderstatefactory.Utilities;
 
 public class OrderProcessorFacade extends Middleware {
 	OrderQueue orderQueue = null;
@@ -53,8 +52,8 @@ public class OrderProcessorFacade extends Middleware {
 		Order order = orderQueue.dequeue();
 
 		/*
-		 *  Step 2 - compare the ordered quantity against the available and target max
-		 *  and create a correct int returning
+		 * Step 2 - compare the ordered quantity against the available and target max
+		 * and create a correct int returning
 		 */
 		int stateNum = this.orderController.compareOrderedQntyAgainstProduct(order);
 
@@ -67,14 +66,16 @@ public class OrderProcessorFacade extends Middleware {
 	}
 
 	private void processOrder(Order order, int stateNum) {
+		StateFactoryController sfc = new StateFactoryController();
+
 		// Setup the factory
-		OrderStateFactoryRepo stateFactoryRepo = Utilities.setUpFactory();
+		OrderStateFactoryRepo repo = sfc.setupFactory();
 
 		/*
 		 * create the right state using factory method based on the correct state
 		 * situation that has been passed as an argument
 		 */
-		IOrderState orderState = stateFactoryRepo.getFactoryItem(stateNum).create();
+		IOrderState orderState = sfc.createFactory(repo, stateNum);
 		// set the correct order state to the state the factory has created.
 		this.orderController.setOrderState(orderState);
 

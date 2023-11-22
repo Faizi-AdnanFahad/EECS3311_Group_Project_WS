@@ -62,16 +62,23 @@ public class Order {
 		this.discountStrategyID = discountStrategyID;
 	}
 
-	/* Updates all viewers which result in the Observer pattern */
+	public ConcretePublisher getConcretePublisher() {
+		return concretePublisher;
+	}
+
+	public void setConcretePublisher(ConcretePublisher concretePublisher) {
+		this.concretePublisher = concretePublisher;
+	}
+
+	/* Informs all viewers with new updates when a change occurs */
 	public void updateViewers() {
 		this.concretePublisher.orderCompleted(this.orderedProduct, this.orderedQuantity);
 	}
 
 	public void addViewers() {
-		ConcretePublisher concretePublisher = new ConcretePublisher();
 		// add viewers as observers
-		IView barChartView = new BarChartView(this.concretePublisher);
-		IView reportView = new ReportView(this.concretePublisher);
+		this.concretePublisher.addViewers(new BarChartView(concretePublisher));
+		this.concretePublisher.addViewers(new ReportView(concretePublisher));
 	}
 
 	public int compareOrderedQntyAgainstProduct() {

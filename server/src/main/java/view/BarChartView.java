@@ -3,9 +3,10 @@ package view;
 import model.Product;
 
 public class BarChartView implements IView {
+	private Publisher publisher;
 
 	public BarChartView(Publisher sub) {
-		sub.addViewers(this);
+		this.publisher = sub;
 	}
 
 	public void update(Product orderedProduct, int orderedQuantity) {

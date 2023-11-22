@@ -3,7 +3,6 @@ package model;
 import java.util.List;
 
 import database.ProductDAO;
-import model.orderstate.IOrderState;
 
 public class Product {
 	private String id;
