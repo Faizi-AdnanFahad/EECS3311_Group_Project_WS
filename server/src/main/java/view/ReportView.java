@@ -9,7 +9,8 @@ public class ReportView implements IView {
 	}
 
 	public void update(Product orderedProduct, int orderedQuantity) {
-		System.out.println("Report View updated!");
+		System.out.println(
+				"REPORT VIEW updated with for " + orderedProduct + " with " + orderedQuantity + " quantity!");
 	}
 
 }

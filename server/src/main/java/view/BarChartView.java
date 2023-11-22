@@ -9,7 +9,8 @@ public class BarChartView implements IView {
 	}
 
 	public void update(Product orderedProduct, int orderedQuantity) {
-		System.out.println("Bar Chart View updated with new");
+		System.out.println(
+				"BAR CHART View updated with for " + orderedProduct + " with " + orderedQuantity + " quantity!");
 	}
 
 }
