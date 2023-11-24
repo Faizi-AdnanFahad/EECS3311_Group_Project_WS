@@ -10,33 +10,27 @@ import model.User;
 public class AdminDAO {
     
     
-
-	//This method retrieves all the data for the credentials of th user at once . 
-    public  List<User> retriveUsernameAndPassword() {
+	// Check if user is Authenticated
+    public boolean checkAuth(String username, String password) {
     	
     	String path = "jdbc:sqlite:database/admin.db";
- 		String query = "SELECT * FROM credentials";
- 		List<User> listOfUser = new ArrayList();
- 		
+ 		String query = "SELECT username, password FROM credentials WHERE username=? AND password=?";
  		
  		try {
  	 		Class.forName("org.sqlite.JDBC");
+
  			Connection conn = DriverManager.getConnection(path);
  			PreparedStatement pstmt = conn.prepareStatement(query);
- 			
+
+ 			pstmt.setString(1, username);
+ 			pstmt.setString(2, password);
+
  			ResultSet resultSet = pstmt.executeQuery();
+
+ 			if(!resultSet.next()) return false;
+ 			else 
+ 				return true;
  	      
- 	      while(resultSet.next()) {
- 	    	  String u = resultSet.getString("Username");
- 	    	  String p = resultSet.getString("Password");
-
- 	    	  User temp = new User();
- 	    	  temp.setUsername(u);
- 	    	  temp.setPassword(p);
- 	    	  
- 	    	 listOfUser.add(temp);
-
- 	      }
  		}
  	     catch (SQLException e) {
  			// TODO Auto-generated catch block
@@ -46,7 +40,7 @@ public class AdminDAO {
  			e.printStackTrace();
  		} 	
  		
- 		return listOfUser;
+ 		return false;
  		
     }
     
