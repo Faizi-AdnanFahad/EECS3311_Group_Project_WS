@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import controller.ProductController;
 import database.ProductDAO;
 
 public class Product {
@@ -15,7 +14,6 @@ public class Product {
 	private int targetMaxStockQuantity;
 	private int targetMinStockQuantity;
 	private int restockSchedule;
-
 
 	public Product() {
 

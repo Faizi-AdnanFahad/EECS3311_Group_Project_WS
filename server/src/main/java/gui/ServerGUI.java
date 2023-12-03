@@ -215,10 +215,10 @@ public class ServerGUI extends JFrame implements ActionListener, PopupMenuListen
 		chartPanel.setBackground(Color.white);
 		west.add(chartPanel);
 	}
-	
+
 	/*
-	 * Upon call, can update the  bar chart with the latest database stock
-	 * quantity and products.
+	 * Upon call, can update the bar chart with the latest database stock quantity
+	 * and products.
 	 */
 	public void updateBar() {
 		// get the latest data from the database

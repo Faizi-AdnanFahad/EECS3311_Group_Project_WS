@@ -1,12 +1,14 @@
 package middleware.jobs;
 
 import controller.OrderController;
-import controller.StateFactoryController;
+import controller.FactoryController;
 import middleware.Middleware;
 import middleware.OrderQueue;
 import model.Order;
 import model.orderstate.IOrderState;
 import model.orderstatefactory.OrderStateFactoryRepo;
+import model.pricingStrategy.IPricingStrategy;
+import model.pricingStrategyFactory.PricingStrategyFactoryRepo;
 
 public class OrderProcessorFacade extends Middleware {
 	private OrderQueue orderQueue = null;
@@ -51,39 +53,59 @@ public class OrderProcessorFacade extends Middleware {
 		// Send the data where it needs to go (Controller)
 		System.out.println("Order will go for order processing in Controller Package");
 
-		// Step 1 - get the first order in the queue
+		/*
+		 * Step 1 - get the first order in the queue
+		 */
 		Order order = orderQueue.dequeue();
 
 		/*
-		 * Step 2 - compare the ordered quantity against the available and target max
-		 * and create a correct int returning
+		 * Step 2 - determine the price of an order
 		 */
-		int stateNum = this.orderController.compareOrderedQntyAgainstProduct(order);
+		setOrderPrice(order);
 
-		// Step 3 - process the order the order
-		processOrder(order, stateNum);
+		/*
+		 *  Step 3 - process the order to completion
+		 */
+		processOrder(order);
 
 		// For testing
 		this.disable();
 
 	}
 
-	private void processOrder(Order order, int stateNum) {
-		StateFactoryController sfc = new StateFactoryController();
+	private void setOrderPrice(Order order) {
+		// Find out which pricing strategy is relevant based on the order - used to create the relevant strategy using the factory
+		int pricintStrategyNum = this.orderController.determineDiscountStrategy(order);
+		
+		// setup pricing strategy factory
+		FactoryController fc = new FactoryController();
+		PricingStrategyFactoryRepo repo = fc.setUpPricingFactory();
+		IPricingStrategy pricingStrategy = fc.createPricingStrategy(repo, pricintStrategyNum);
+		
+		// calculate and set the correct price for the order
+		this.orderController.setPricingStrategy(pricingStrategy);
+		this.orderController.calculateOrderPrice(order);
+	}
 
-		// Step 4 - Setup the factory
-		OrderStateFactoryRepo repo = sfc.setupFactory();
+	private void processOrder(Order order) {
+		/*
+		 * compare the ordered quantity against the available and target max
+		 * and return the correct index - used to create the correct state factory
+		 */
+		int stateNum = this.orderController.compareOrderedQntyAgainstProduct(order);
+
+		// Setup the factory
+		FactoryController sfc = new FactoryController();
+		OrderStateFactoryRepo repo = sfc.setupStateFactory();
 
 		/*
-		 * Step 5
-		 * create the right state using factory method based on the correct state
-		 * situation that has been passed as an argument
+		 * create the right state using factory method
 		 */
-		IOrderState orderState = sfc.createFactory(repo, stateNum);
+		IOrderState orderState = sfc.createState(repo, stateNum);
 		// set the correct order state to the state the factory has created.
 		this.orderController.setOrderState(orderState);
-		
-		// Step 6 - process the order based on the state of the order against the database.
+
+		// process the order based on the state of the order against the database.
 		this.orderController.processOrder(order);
 	}
 
