@@ -22,16 +22,18 @@ import javax.swing.event.PopupMenuListener;
 
 import http.Client;
 
-public class ClientGUI extends JFrame implements ActionListener, PopupMenuListener {
+public class ClientGUI extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private static JComboBox<String> productList;
 	private static JComboBox<String> quantityList;
-	private static String theProduct;
-	private static String theQuantity;
 	private JTextArea orderDetails;
 	private static String productReport = null;
 	private static String quantityReport = null;
 	private static String timeReport = null;
+
+	private String selectedProduct = null;
+	private String selectedQty = null;
+
 	private static ClientGUI instance;
 	private Client client = null;
 
@@ -79,7 +81,7 @@ public class ClientGUI extends JFrame implements ActionListener, PopupMenuListen
 		addQuantity.setActionCommand("placeOrder");
 		addQuantity.addActionListener(this);
 
-		productList.addPopupMenuListener(this);
+//		productList.addPopupMenuListener(this);
 		productList.addActionListener(this);
 		productList.setActionCommand("selectProduct");
 		quantityList.setActionCommand("selectQuantity");
@@ -128,7 +130,7 @@ public class ClientGUI extends JFrame implements ActionListener, PopupMenuListen
 		report.setBackground(Color.white);
 		String reportMessage;
 
-		reportMessage = "Product " + theProduct + "\n" + "Quantity " + theQuantity + "\n";
+		reportMessage = "Product " + selectedProduct + "\n" + "Quantity " + selectedQty + "\n";
 
 		report.setText(reportMessage);
 		JScrollPane outputScrollPane = new JScrollPane(report);
@@ -138,43 +140,23 @@ public class ClientGUI extends JFrame implements ActionListener, PopupMenuListen
 	public void actionPerformed(ActionEvent e) {
 		String command = e.getActionCommand();
 		System.out.print(command);
-
+		
 		if ("placeOrder".equals(command)) {
 			if (productList.getSelectedItem() == null)
 				return;
-			theProduct = productList.getSelectedItem().toString();
-			productReport = "Product : " + theProduct + "\n";
+
+			selectedProduct = productList.getSelectedItem().toString();
+			selectedQty = quantityList.getSelectedItem().toString();
+
 			try {
-				client.placeOrder();
+				client.placeOrder(selectedProduct, Integer.parseInt(selectedQty));
 			} catch (Exception ee) {
 				ee.printStackTrace();
 			}
 
-		} else if ("addQuantity".equals(command)) {
-			// selectedList.add(cryptoList.getSelectedItem().toString());
-			theQuantity = quantityList.getSelectedItem().toString();
-			quantityReport = "Quantity : " + theQuantity + "\n";
-			timeReport = "Client Time Stamp : " + java.time.LocalDateTime.now().toString() + "\n";
-
-			orderDetails.setText(productReport + quantityReport + timeReport + "\n");
-
-		}
+		} 
 	}
-
-	public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
-		System.out.println("Open");
-	}
-
-	public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
-		System.out.println("Closed");
-	}
-
-	public void popupMenuCanceled(PopupMenuEvent e) {
-		System.out.println("Cancelled");
-	}
-
 	public void update(String name) {
-
 		productList.removeAllItems();
 		String[] nameArray = name.split("\n");
 		for (String s : nameArray) {

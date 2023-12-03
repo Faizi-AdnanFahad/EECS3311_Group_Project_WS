@@ -31,8 +31,8 @@ public class Client {
 	
 
 
-	public void placeOrder() throws Exception {
-		String requestData = "Data from client";
+	public void placeOrder(String product, int qty) throws Exception {
+		String requestData = String.format("%s,%d", product, qty);
 
 		BodyPublisher bp = BodyPublishers.ofString(requestData);
 		HttpRequest request = HttpRequest.newBuilder()
@@ -41,7 +41,5 @@ public class Client {
 				.build();
 
 		HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
-
-		System.out.println(response.body());
 	}
 }
