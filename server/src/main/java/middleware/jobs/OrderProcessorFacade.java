@@ -3,16 +3,17 @@ package middleware.jobs;
 import controller.OrderController;
 import controller.FactoryController;
 import middleware.Middleware;
-import middleware.OrderQueue;
 import model.Order;
 import model.orderstate.IOrderState;
 import model.orderstatefactory.OrderStateFactoryRepo;
 import model.pricingStrategy.IPricingStrategy;
 import model.pricingStrategyFactory.PricingStrategyFactoryRepo;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingDeque;
 
 public class OrderProcessorFacade extends Middleware {
-	private OrderQueue orderQueue = null;
 	private OrderController orderController;
+	private BlockingQueue<Order> orderQueue;
 
 	public static OrderProcessorFacade instance = null;
 
@@ -20,14 +21,13 @@ public class OrderProcessorFacade extends Middleware {
 		super("Order Processor", true);
 		this.activate();
 
-		orderQueue = new OrderQueue();
+		orderQueue = new LinkedBlockingDeque<Order>();
 		this.orderController = new OrderController();
 	}
 
 	public static OrderProcessorFacade getInstance() {
 		if (instance == null) {
 			instance = new OrderProcessorFacade();
-			return instance;
 		}
 
 		return instance;
@@ -35,17 +35,17 @@ public class OrderProcessorFacade extends Middleware {
 
 	public void add(Order order) {
 		// Add order to the OrderQueue
-		orderQueue.enqueue(order);
+		orderQueue.add(order);
 	}
 
-	public OrderQueue getQueue() {
-		return orderQueue;
-	}
+//	public OrderQueue getQueue() {
+//		return orderQueue;
+//	}
 
 	public void process() {
 		// Grab next in line for processing
-//		System.out.printf("Queue size is %d, state: %b\n", orderQueue.getSize(), this.isActive());
-		if (orderQueue.getSize() == 0) {
+		System.out.printf("Queue size is %d, state: %b\n", orderQueue.size(), this.isActive());
+		if (orderQueue.size() == 0) {
 //			System.out.println("Queue is empty, nothing to process");
 			return;
 		}
@@ -56,8 +56,12 @@ public class OrderProcessorFacade extends Middleware {
 		/*
 		 * Step 1 - get the first order in the queue
 		 */
-		Order order = orderQueue.dequeue();
+		Order order = orderQueue.poll();
+		
+		if(order == null) return;
 
+		System.out.println(order.getOrderPrice());
+		System.out.println(order.getOrderedProduct().getName());
 		/*
 		 * Step 2 - determine the price of an order
 		 */
@@ -69,7 +73,7 @@ public class OrderProcessorFacade extends Middleware {
 		processOrder(order);
 
 		// For testing
-		this.disable();
+//		this.disable();
 
 	}
 

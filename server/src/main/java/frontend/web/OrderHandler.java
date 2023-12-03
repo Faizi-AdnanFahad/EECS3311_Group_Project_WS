@@ -11,7 +11,6 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
 import controller.ProductController;
-import middleware.OrderQueue;
 import middleware.jobs.OrderProcessorFacade;
 import model.Order;
 import model.Product;
