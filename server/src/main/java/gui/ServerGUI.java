@@ -28,7 +28,7 @@ import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
 
-import util.AvailableProductList;
+import middleware.jobs.ServerOperation;
 import util.LastOrder;
 
 public class ServerGUI extends JFrame implements ActionListener, PopupMenuListener {
@@ -235,7 +235,7 @@ public class ServerGUI extends JFrame implements ActionListener, PopupMenuListen
 	 * Retrieve up to date data to be displayed in the server GUI
 	 */
 	private Map<String, Integer> getDataFromDB() {
-		return AvailableProductList.getInstance().findAvailableProductsAndQuantities();
+		return ServerOperation.getInstance().getProducts();
 	}
 
 	public void popupMenuWillBecomeVisible(PopupMenuEvent e) {

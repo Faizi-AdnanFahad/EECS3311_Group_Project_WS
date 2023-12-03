@@ -1,7 +1,10 @@
 package model;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import controller.ProductController;
 import database.ProductDAO;
 
 public class Product {
@@ -12,6 +15,7 @@ public class Product {
 	private int targetMaxStockQuantity;
 	private int targetMinStockQuantity;
 	private int restockSchedule;
+
 
 	public Product() {
 
@@ -81,4 +85,14 @@ public class Product {
 		return productDAO.retriveProductDetails();
 	}
 
+	public Map<String, Integer> findAvailableProductsAndQuantities() {
+		List<Product> productList = getProductList();
+
+		Map<String, Integer> productMap = new HashMap<String, Integer>();
+		for (Product product : productList) {
+			productMap.put(product.getName(), product.getStockQuantity());
+		}
+
+		return productMap;
+	}
 }
