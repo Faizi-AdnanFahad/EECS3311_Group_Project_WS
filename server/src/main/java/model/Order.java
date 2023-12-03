@@ -6,13 +6,15 @@ import java.sql.Time;
 import database.ProductDAO;
 import view.BarChartView;
 import view.ConcretePublisher;
-import view.IView;
 import view.ReportView;
 
 public class Order {
+	private final int MIN_AMOUNT_FOR_BASIC_DISCOUNT = 20;
+	private final int TOTAL_ORDER_PRICE_DISCOUNT = 1000;
 	private Product orderedProduct;
 	private int orderedQuantity;
 	private int discountStrategyID;
+	private int orderPrice;
 	private Date orderedRecievedDate;
 	private Time orderedRecievedTime;
 	private ConcretePublisher concretePublisher;
@@ -37,6 +39,14 @@ public class Order {
 
 	public void setOrderedQuantity(int orderedQuantity) {
 		this.orderedQuantity = orderedQuantity;
+	}
+
+	public int getOrderPrice() {
+		return orderPrice;
+	}
+
+	public void setOrderPrice(int orderPrice) {
+		this.orderPrice = orderPrice;
 	}
 
 	public Date getOrderedRecievedDate() {
@@ -78,7 +88,7 @@ public class Order {
 			this.concretePublisher.orderCompleted(this.orderedProduct, this.orderedQuantity);
 		}
 	}
-	
+
 	// helper method to update the product db with ordered quantity
 	private boolean updateDBWithOrderedQunatity() {
 		ProductDAO productDAO = new ProductDAO();
@@ -107,4 +117,27 @@ public class Order {
 			return 4;
 		}
 	}
+
+	public int determineDiscountStrategy() {
+		/*
+		 * If an order quantity is of more than MIN_AMOUNT_FOR_BASIC_DISCOUNT number of
+		 * units then a y% discount is applied AND If the total value of the order is
+		 * more than TOTAL_ORDER_PRICE_DISCOUNT dollars, an additional 5% discount is applied
+		 */
+		if (this.orderedQuantity > MIN_AMOUNT_FOR_BASIC_DISCOUNT
+				&& (this.orderedQuantity * this.orderedProduct.getPrice() > TOTAL_ORDER_PRICE_DISCOUNT)) {
+			return 2;
+		}
+
+		/*
+		 * If ONLY an order quantity is of more than MIN_AMOUNT_FOR_BASIC_DISCOUNT number of
+		 * units then a y% discount is applied
+		 */
+		if (this.orderedQuantity > MIN_AMOUNT_FOR_BASIC_DISCOUNT) {
+			return 1;
+		}
+
+		return 0; /* If no discount applies */
+	}
+
 }

@@ -59,7 +59,11 @@ public class OrderProcessorFacade extends Middleware {
 		 * and create a correct int returning
 		 */
 		int stateNum = this.orderController.compareOrderedQntyAgainstProduct(order);
-
+		
+		// Determine the price of the order based on the relevant strategy
+		int pricintStrategyNum = this.orderController.determineDiscountStrategy(order);
+		System.out.println("PRICINTY STRATEGY TO BE APPLIED IS " + pricintStrategyNum);
+		
 		// Step 3 - process the order the order
 		processOrder(order, stateNum);
 
