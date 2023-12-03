@@ -27,9 +27,7 @@ public class AdminDAO {
 
  			ResultSet resultSet = pstmt.executeQuery();
 
- 			if(!resultSet.next()) return false;
- 			else 
- 				return true;
+ 			return resultSet.next();
  	      
  		}
  	     catch (SQLException e) {

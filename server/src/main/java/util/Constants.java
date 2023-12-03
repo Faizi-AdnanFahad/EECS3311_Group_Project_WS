@@ -1,28 +1,35 @@
 package util;
 
 import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.*;
 
 import frontend.web.*;
-
+import middleware.Middleware;
+import middleware.MiddlewareContext;
+import middleware.jobs.OrderProcessorFacade;
+import middleware.jobs.ServerOperation;
 
 import com.sun.net.httpserver.HttpHandler;
 
 public final class Constants {
 	private Constants() { } 
 
-	public static String[] ROUTES = { 
-		"/order", 
-		"/products" 
+	public static String[] ROUTES = {
+	    "/order",
+	    "/products"
 	};
-
+	
 	public static HttpHandler[] HANDLERS = { 
-		new OrderHandler(), 
-		new ProductHandler() 
+			new OrderHandler(), 
+			new ProductHandler() 
 	};
+		
 	
-	
+	public static int PORT = 8000;
+
 	public static final Dimension FRAME_SIZE = new Dimension(500,200);
 	public static final Dimension TEXTFIELD_SIZE = new Dimension((int)(FRAME_SIZE.width * 0.80), 50);
 	public static final String loginTitle = "Server Login";
@@ -54,6 +61,4 @@ public final class Constants {
 	public static final Color primary_Colour = new Color(38,37,70);
 	public static final Color Secondary_Colour = new Color(255,171,63);
 	public static final Color Button_Colour = new Color(0,0,0);
-	
-
 }

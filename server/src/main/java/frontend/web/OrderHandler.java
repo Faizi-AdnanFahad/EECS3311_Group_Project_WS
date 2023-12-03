@@ -42,8 +42,8 @@ public class OrderHandler implements HttpHandler {
 		System.out.println(data);
 		
 		
-		// hard coded for now - in deliverable 3, this data would be coming from server.
-		String orderedProductName = "Product1";
+		// hard coded for now - in deliverable 3, this data would be coming from client.
+		String orderedProductName = data;
 		
 		Product orderedProduct = searchProductByName(orderedProductName);		
 		
@@ -54,6 +54,7 @@ public class OrderHandler implements HttpHandler {
 		
 		// Add to Order Queue
 		processor.add(order);
+		
 
 		// Close our input stream
 		in.close();
