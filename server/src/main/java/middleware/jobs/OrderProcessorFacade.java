@@ -42,9 +42,9 @@ public class OrderProcessorFacade extends Middleware {
 
 	public void process() {
 		// Grab next in line for processing
-		System.out.printf("Queue size is %d, state: %b\n", orderQueue.getSize(), this.isActive());
+//		System.out.printf("Queue size is %d, state: %b\n", orderQueue.getSize(), this.isActive());
 		if (orderQueue.getSize() == 0) {
-			System.out.println("Queue is empty, nothing to process");
+//			System.out.println("Queue is empty, nothing to process");
 			return;
 		}
 
