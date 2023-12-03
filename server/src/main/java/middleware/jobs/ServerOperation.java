@@ -1,7 +1,11 @@
 package middleware.jobs;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.swing.UIManager;
 
+import controller.ProductController;
 import frontend.server.IServerOperation;
 import frontend.web.OrderHandler;
 import frontend.web.Server;
@@ -26,9 +30,9 @@ public class ServerOperation extends Middleware implements IServerOperation {
 		return instance;
 	}
 
-	public void getProducts() {
-		// TODO Auto-generated method stub
-
+	public Map<String, Integer> getProducts() {
+		ProductController pc = new ProductController();
+		return pc.getAvaliableProducts();
 	}
 
 	public void Init(OrderProcessorFacade opf) {
