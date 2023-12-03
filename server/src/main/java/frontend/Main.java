@@ -1,38 +1,29 @@
 package frontend;
-
-import javax.swing.UIManager;
-import frontend.web.Server;
-import gui.LoginGUI;
 import middleware.MiddlewareContext;
 import middleware.jobs.*;
+import util.Constants;
 
 public class Main {
 
 	public static void main(String[] args) {
 
-		// Create our middleware Context
-		MiddlewareContext mCtx = new MiddlewareContext();
+		MiddlewareContext mCtx = MiddlewareContext.getInstance();
 
-		OrderProcessorFacade op = OrderProcessorFacade.getInstance();
-		// Register our Order Processor middleware
-		mCtx.register(op);
+		OrderProcessorFacade orderProcessor = OrderProcessorFacade.getInstance();
+		// Server operation proxy
+		ServerOperation serverOperation = ServerOperation.getInstance();
 
-		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-			LoginGUI loginGUI = new LoginGUI();
-			loginGUI.setVisible(true);
+		// Order processor
+		
+		// Register our middlewares
+		mCtx.register(orderProcessor);
+		mCtx.register(serverOperation);
 
-			Server http = new Server(op);
-			http.start();
+		// Init systems
+		serverOperation.Init(orderProcessor);
 
-			// Process orders if they exist
-			while (op.isActive())
-				op.process();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
+		// Start processing orders in the OrderQueue
+		while (orderProcessor.isActive()) orderProcessor.process();
 	}
 
 }

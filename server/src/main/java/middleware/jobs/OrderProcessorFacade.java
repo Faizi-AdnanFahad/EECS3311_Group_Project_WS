@@ -9,23 +9,26 @@ import model.orderstate.IOrderState;
 import model.orderstatefactory.OrderStateFactoryRepo;
 
 public class OrderProcessorFacade extends Middleware {
-	OrderQueue orderQueue = null;
-	public static OrderProcessorFacade instance = null;
+	private OrderQueue orderQueue = null;
 	private OrderController orderController;
+
+	public static OrderProcessorFacade instance = null;
 
 	private OrderProcessorFacade() {
 		super("Order Processor", true);
-		orderQueue = new OrderQueue();
 		this.activate();
+
+		orderQueue = new OrderQueue();
 		this.orderController = new OrderController();
 	}
 
 	public static OrderProcessorFacade getInstance() {
-		System.out.println(instance);
-
-		if (instance != null)
+		if (instance == null) {
+			instance = new OrderProcessorFacade();
 			return instance;
-		return new OrderProcessorFacade();
+		}
+
+		return instance;
 	}
 
 	public void add(Order order) {

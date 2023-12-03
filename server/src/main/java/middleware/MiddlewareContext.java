@@ -6,12 +6,22 @@ import java.util.List;
 import java.util.Map;
 
 public class MiddlewareContext {
+	public static MiddlewareContext instance = null;
 	Map<String, Middleware> middlewareMap;
 
-	public MiddlewareContext() {
+	private MiddlewareContext() {
 		middlewareMap = new HashMap<String, Middleware>();
 	}
 	
+	public static MiddlewareContext getInstance() {
+		if(instance == null) {
+			instance = new MiddlewareContext();
+			return instance;
+		}
+		
+		return instance;
+	}
+
 	public void register(Middleware middleware) {
 		middlewareMap.put(middleware.getName(), middleware);
 	}

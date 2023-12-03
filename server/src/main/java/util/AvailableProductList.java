@@ -36,18 +36,6 @@ public class AvailableProductList {
 		// findAvailableProductsAndQuantities();
 	}
 
-	public HashMap<String, Integer> findAvailableProductsAndQuantities() {
 
-		availableProductList.clear();
-
-		// Here we query the Product DB and we get the product names or the product IDs
-		ProductController productController = new ProductController();
-		List<Product> products = productController.getAllProduct();
-
-		for (Product product : products) {
-			availableProductList.put(product.getName(), product.getStockQuantity());
-		}
-		return availableProductList;
-	}
 
 }
