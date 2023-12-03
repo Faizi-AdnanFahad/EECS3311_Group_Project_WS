@@ -30,7 +30,7 @@ public class FactoryController {
 	}
 
 	/*
-	 * Creating a state using the factory
+	 * Creating a pricing strategy using the pricing strategy factory
 	 */
 	public IPricingStrategy createPricingStrategy(PricingStrategyFactoryRepo repo, int index) {
 		return repo.getFactoryItem(index).create();

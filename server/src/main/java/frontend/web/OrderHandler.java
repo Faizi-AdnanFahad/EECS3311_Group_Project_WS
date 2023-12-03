@@ -48,7 +48,7 @@ public class OrderHandler implements HttpHandler {
 		Product orderedProduct = searchProductByName(orderedProductName);
 
 		// Create our order
-		Order order = new Order(orderedProduct, 33);
+		Order order = new Order(orderedProduct, 160);
 
 		// Fill our order object with data
 

@@ -1,7 +1,7 @@
 package frontend;
+
 import middleware.MiddlewareContext;
 import middleware.jobs.*;
-import util.Constants;
 
 public class Main {
 
@@ -14,7 +14,7 @@ public class Main {
 		ServerOperation serverOperation = ServerOperation.getInstance();
 
 		// Order processor
-		
+
 		// Register our middlewares
 		mCtx.register(orderProcessor);
 		mCtx.register(serverOperation);
@@ -23,7 +23,8 @@ public class Main {
 		serverOperation.Init(orderProcessor);
 
 		// Start processing orders in the OrderQueue
-		while (orderProcessor.isActive()) orderProcessor.process();
+		while (orderProcessor.isActive())
+			orderProcessor.process();
 	}
 
 }

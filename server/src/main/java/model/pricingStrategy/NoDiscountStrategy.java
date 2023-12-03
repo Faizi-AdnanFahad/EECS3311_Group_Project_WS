@@ -1,10 +1,13 @@
 package model.pricingStrategy;
 
+import model.Order;
+
 public class NoDiscountStrategy implements IPricingStrategy {
 
-	public int calculateOrderPrice(int orderedQunatity) {
-		System.out.println(this.getClass().getSimpleName());
-		return 0;
+	public double calculateOrderPrice(Order order) {
+		System.out.println("No Discount applied!");
+		int regularPrice = order.getOrderedQuantity() * order.getOrderedProduct().getPrice();
+		return regularPrice;
 	}
 
 }

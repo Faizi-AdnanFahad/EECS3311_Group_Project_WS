@@ -9,12 +9,12 @@ import view.ConcretePublisher;
 import view.ReportView;
 
 public class Order {
-	private final int MIN_AMOUNT_FOR_BASIC_DISCOUNT = 20;
+	private final int MIN_AMOUNT_FOR_BASIC_DISCOUNT = 150;
 	private final int TOTAL_ORDER_PRICE_DISCOUNT = 1000;
 	private Product orderedProduct;
 	private int orderedQuantity;
 	private int discountStrategyID;
-	private int orderPrice;
+	private double orderPrice;
 	private Date orderedRecievedDate;
 	private Time orderedRecievedTime;
 	private ConcretePublisher concretePublisher;
@@ -41,11 +41,11 @@ public class Order {
 		this.orderedQuantity = orderedQuantity;
 	}
 
-	public int getOrderPrice() {
+	public double getOrderPrice() {
 		return orderPrice;
 	}
 
-	public void setOrderPrice(int orderPrice) {
+	public void setOrderPrice(double orderPrice) {
 		this.orderPrice = orderPrice;
 	}
 
@@ -95,12 +95,21 @@ public class Order {
 		return productDAO.updateProduct(this.orderedProduct.getName(), this.orderedQuantity);
 	}
 
+	/*
+	 * Adds all viewers to the list of observers - Observer Design Pattern
+	 */
 	public void addViewers() {
 		// add viewers as observers
 		this.concretePublisher.addViewers(new BarChartView(concretePublisher));
 		this.concretePublisher.addViewers(new ReportView(concretePublisher));
 	}
 
+	/*
+	 * This method is mainly used to find which state of the order is in. The
+	 * relevant state is created with the state factory. The numbers returned have
+	 * been mapped to the relevant state factory in the Utility class of factory for
+	 * state factory.
+	 */
 	public int compareOrderedQntyAgainstProduct() {
 		int targetMaxQnty = this.orderedProduct.getTargetMaxStockQuantity();
 		int targetMinQnty = this.orderedProduct.getTargetMinStockQuantity();
@@ -118,6 +127,11 @@ public class Order {
 		}
 	}
 
+	/*
+	 * This method is mainly used to find which pricing strategy to create with the
+	 * factory. The numbers returned have been mapped to the relevant pricing
+	 * strategies in the Utility class of factory for pricing strategy
+	 */
 	public int determineDiscountStrategy() {
 		/*
 		 * If an order quantity is of more than MIN_AMOUNT_FOR_BASIC_DISCOUNT number of

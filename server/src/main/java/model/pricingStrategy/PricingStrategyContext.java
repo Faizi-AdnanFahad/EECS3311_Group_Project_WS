@@ -1,5 +1,7 @@
 package model.pricingStrategy;
 
+import model.Order;
+
 public class PricingStrategyContext {
 	private IPricingStrategy pricingStrategy;
 
@@ -7,8 +9,8 @@ public class PricingStrategyContext {
 		this.pricingStrategy = newPricingStrategy;
 	}
 
-	public int determineOrderPrice(int orderdQnty) {
-		return this.pricingStrategy.calculateOrderPrice(orderdQnty);
+	public double determineOrderPrice(Order order) {
+		return this.pricingStrategy.calculateOrderPrice(order);
 	}
 
 }

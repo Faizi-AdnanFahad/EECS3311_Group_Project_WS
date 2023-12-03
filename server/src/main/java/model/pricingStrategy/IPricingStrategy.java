@@ -1,5 +1,7 @@
 package model.pricingStrategy;
 
+import model.Order;
+
 public interface IPricingStrategy {
-	int calculateOrderPrice(int orderedQunatity);
+	double calculateOrderPrice(Order order);
 }
