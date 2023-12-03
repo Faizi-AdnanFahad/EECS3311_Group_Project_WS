@@ -44,6 +44,17 @@ public class ServerGUI extends JFrame implements ActionListener, PopupMenuListen
 	private static String timeReport = null;
 	private static Map<String, Integer> productData;
 	private static LastOrder theLastOrder;
+	private JPanel west = new JPanel();
+	private JPanel east = new JPanel();
+	private JTextArea report = new JTextArea();
+	private CategoryPlot plot = new CategoryPlot();
+
+	/*
+	 * stores the content for the report view as two parts. Part 1 (index 0) stores
+	 * the Last Order info and Part 2 (Index 1)stores the info about current product
+	 * stocks in db.
+	 */
+	private String[] reportViewContect = new String[2];
 
 	private static ServerGUI instance;
 
@@ -57,31 +68,38 @@ public class ServerGUI extends JFrame implements ActionListener, PopupMenuListen
 
 	public ServerGUI() {
 		// Set window title
-		super("Ali's Environment");
-		productData = AvailableProductList.getInstance().findAvailableProductsAndQuantities();
-		theLastOrder = LastOrder.getInstance().findLastOrder();
+		super("Warehouse Back-end Stock");
+
+		// get data from the database
+		productData = this.getDataFromDB();
 
 		// Set charts region
-		JPanel west = new JPanel();
 		west.setLayout(new GridLayout(2, 0));
-
-		JPanel east = new JPanel();
 		east.setLayout(new GridLayout(2, 0));
 
 		getContentPane().add(west, BorderLayout.WEST);
 		getContentPane().add(east, BorderLayout.EAST);
 
+		// create views
 		createCharts(west, east);
 
+		createOrderDetailsSection();
+
+		getContentPane().add(east, BorderLayout.EAST);
+		getContentPane().add(west, BorderLayout.WEST);
+	}
+
+	/*
+	 * the section used to represent messages shows in the server GUI during order
+	 * processing.
+	 */
+	private void createOrderDetailsSection() {
 		JLabel orderDetailsLabel = new JLabel("Order Details: ");
 		orderDetails = new JTextArea(30, 60);
 		JScrollPane orderDetailsScrollPane = new JScrollPane(orderDetails);
 		east.setLayout(new BoxLayout(east, BoxLayout.Y_AXIS));
 		east.add(orderDetailsLabel);
 		east.add(orderDetailsScrollPane);
-
-		getContentPane().add(east, BorderLayout.EAST);
-		getContentPane().add(west, BorderLayout.WEST);
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -105,7 +123,6 @@ public class ServerGUI extends JFrame implements ActionListener, PopupMenuListen
 			timeReport = "Client Time Stamp : " + java.time.LocalDateTime.now().toString() + "\n";
 
 			orderDetails.setText(productReport + quantityReport + timeReport + "\n");
-
 		}
 	}
 
@@ -114,30 +131,59 @@ public class ServerGUI extends JFrame implements ActionListener, PopupMenuListen
 		createReport(east);
 	}
 
-	private void createReport(JPanel west) {
-		JTextArea report = new JTextArea();
+	/*
+	 * Creates the Report View on the
+	 */
+	private void createReport(JPanel east) {
 		report.setEditable(false);
-		report.setPreferredSize(new Dimension(400, 300));
+		report.setPreferredSize(new Dimension(400, 500));
 		report.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 		report.setBackground(Color.white);
-		String reportMessage1, reportMessage2;
 
+		// String messages to be displayed in the report view
+		String reportMessage1;
+		StringBuilder reportMessage2 = new StringBuilder();
+
+		// get information about last order
 		reportMessage1 = "Last Order\n" + "==========================\n" + "\t";
 		reportMessage1 = reportMessage1 + "Product: " + theLastOrder.getProductName() + "\n" + "\tQuantity:"
 				+ theLastOrder.getQuantity() + "\n" + "\tTimeStamp:" + theLastOrder.getDate() + "\n";
 
-		reportMessage2 = "Current Product Quantity in Watehouse\n" + "==============================\n";
+		// store this as the first part of the displaying content
+		reportViewContect[0] = reportMessage1;
 
+		// get information for the second part of the content
+		reportMessage2.append("Current Product Quantity in Watehouse\n" + "==============================\n");
 		for (Map.Entry<String, Integer> entry : productData.entrySet()) {
-			// System.out.println("IN LOOP " + entry.getKey() + " " + entry.getValue());
-			reportMessage2 = reportMessage2 + entry.getKey();
-			reportMessage2 = reportMessage2 + "\n \t Quantity ==> " + entry.getValue() + "\n";
-
+			reportMessage2.append(entry.getKey());
+			reportMessage2.append("\n \t Quantity ==> " + entry.getValue() + "\n");
 		}
+		reportViewContect[1] = reportMessage2.toString();
 
-		report.setText(reportMessage1 + reportMessage2);
+		report.setText(reportViewContect[0] + reportViewContect[1]);
+
 		JScrollPane outputScrollPane = new JScrollPane(report);
-		west.add(outputScrollPane);
+		east.add(outputScrollPane);
+	}
+
+	/*
+	 * Upon call, can update the report section with the latest database stock
+	 * quantity and products.
+	 */
+	public void updateReportData() {
+		// get the latest data from the database
+		productData = this.getDataFromDB();
+
+		StringBuilder reportMessage2 = new StringBuilder();
+		reportMessage2.append("Current Product Quantity in Watehouse\n" + "==============================\n");
+		for (Map.Entry<String, Integer> entry : productData.entrySet()) {
+			reportMessage2.append(entry.getKey());
+			reportMessage2.append("\n \t Quantity ==> " + entry.getValue() + "\n");
+		}
+		reportViewContect[1] = reportMessage2.toString();
+
+		// update the data
+		report.setText(reportViewContect[0] + reportViewContect[1]);
 	}
 
 	private void createBar(JPanel west) {
@@ -145,10 +191,8 @@ public class ServerGUI extends JFrame implements ActionListener, PopupMenuListen
 
 		for (Map.Entry<String, Integer> entry : productData.entrySet()) {
 			dataset.setValue(entry.getValue(), entry.getKey(), "");
-
 		}
 
-		CategoryPlot plot = new CategoryPlot();
 		BarRenderer barrenderer1 = new BarRenderer();
 		BarRenderer barrenderer2 = new BarRenderer();
 
@@ -170,6 +214,28 @@ public class ServerGUI extends JFrame implements ActionListener, PopupMenuListen
 		chartPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 		chartPanel.setBackground(Color.white);
 		west.add(chartPanel);
+	}
+	
+	/*
+	 * Upon call, can update the  bar chart with the latest database stock
+	 * quantity and products.
+	 */
+	public void updateBar() {
+		// get the latest data from the database
+		productData = this.getDataFromDB();
+
+		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+		for (Map.Entry<String, Integer> entry : productData.entrySet()) {
+			dataset.setValue(entry.getValue(), entry.getKey(), "");
+		}
+		plot.setDataset(0, dataset);
+	}
+
+	/*
+	 * Retrieve up to date data to be displayed in the server GUI
+	 */
+	private Map<String, Integer> getDataFromDB() {
+		return AvailableProductList.getInstance().findAvailableProductsAndQuantities();
 	}
 
 	public void popupMenuWillBecomeVisible(PopupMenuEvent e) {

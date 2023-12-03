@@ -57,6 +57,37 @@ public class ProductDAO {
 		return listOfProduct;
 	}
 
+	/*
+	 * Given product name and a quantity, updates the database for the product with
+	 * the old quantity - ordered quantity
+	 */
+	public boolean updateProduct(String productName, int orderedQuantity) {
+		String path = "jdbc:sqlite:database/product.db";
+		String query = "UPDATE product SET StockQuantity = StockQuantity - ? WHERE Name = ?";
+
+		try {
+			Class.forName("org.sqlite.JDBC");
+			Connection conn = DriverManager.getConnection(path);
+			PreparedStatement pstmt = conn.prepareStatement(query);
+
+			pstmt.setInt(1, orderedQuantity);
+			pstmt.setString(2, productName);
+
+			int rowsAffected = pstmt.executeUpdate();
+
+			if (rowsAffected > 0) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
 	// This method retrieves the StockQuantity of the respective Product from the
 	// user
 //	public static int retriveStockQuantity(String productName) {
