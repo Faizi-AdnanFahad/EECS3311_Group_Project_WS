@@ -1,5 +1,5 @@
 package model.pricingStrategy;
 
-public interface PricingStrategy {
+public interface IPricingStrategy {
 	int calculateOrderPrice(int orderedQunatity);
 }

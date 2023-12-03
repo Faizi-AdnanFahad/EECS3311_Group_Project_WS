@@ -1,12 +1,14 @@
 package middleware.jobs;
 
 import controller.OrderController;
-import controller.StateFactoryController;
+import controller.FactoryController;
 import middleware.Middleware;
 import middleware.OrderQueue;
 import model.Order;
 import model.orderstate.IOrderState;
 import model.orderstatefactory.OrderStateFactoryRepo;
+import model.pricingStrategy.IPricingStrategy;
+import model.pricingStrategyFactory.PricingStrategyFactoryRepo;
 
 public class OrderProcessorFacade extends Middleware {
 	private OrderQueue orderQueue = null;
@@ -59,11 +61,15 @@ public class OrderProcessorFacade extends Middleware {
 		 * and create a correct int returning
 		 */
 		int stateNum = this.orderController.compareOrderedQntyAgainstProduct(order);
-		
+
 		// Determine the price of the order based on the relevant strategy
 		int pricintStrategyNum = this.orderController.determineDiscountStrategy(order);
+		FactoryController sfc = new FactoryController();
+		PricingStrategyFactoryRepo repo = sfc.setUpPricingFactory();
+		IPricingStrategy pricingStrategy = sfc.createPricingStrategy(repo, pricintStrategyNum);
+		pricingStrategy.calculateOrderPrice(order.getOrderedQuantity());
 		System.out.println("PRICINTY STRATEGY TO BE APPLIED IS " + pricintStrategyNum);
-		
+
 		// Step 3 - process the order the order
 		processOrder(order, stateNum);
 
@@ -73,21 +79,21 @@ public class OrderProcessorFacade extends Middleware {
 	}
 
 	private void processOrder(Order order, int stateNum) {
-		StateFactoryController sfc = new StateFactoryController();
+		FactoryController sfc = new FactoryController();
 
 		// Step 4 - Setup the factory
-		OrderStateFactoryRepo repo = sfc.setupFactory();
+		OrderStateFactoryRepo repo = sfc.setupStateFactory();
 
 		/*
-		 * Step 5
-		 * create the right state using factory method based on the correct state
+		 * Step 5 create the right state using factory method based on the correct state
 		 * situation that has been passed as an argument
 		 */
-		IOrderState orderState = sfc.createFactory(repo, stateNum);
+		IOrderState orderState = sfc.createState(repo, stateNum);
 		// set the correct order state to the state the factory has created.
 		this.orderController.setOrderState(orderState);
-		
-		// Step 6 - process the order based on the state of the order against the database.
+
+		// Step 6 - process the order based on the state of the order against the
+		// database.
 		this.orderController.processOrder(order);
 	}
 

@@ -1,9 +1,9 @@
 package model.pricingStrategy;
 
 public class PricingStrategyContext {
-	private PricingStrategy pricingStrategy;
+	private IPricingStrategy pricingStrategy;
 
-	public void setPricingStrategy(PricingStrategy newPricingStrategy) {
+	public void setPricingStrategy(IPricingStrategy newPricingStrategy) {
 		this.pricingStrategy = newPricingStrategy;
 	}
 

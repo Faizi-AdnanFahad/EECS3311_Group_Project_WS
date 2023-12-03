@@ -2,11 +2,11 @@ package controller;
 
 import model.Order;
 import model.orderstate.IOrderState;
-import model.pricingStrategy.PricingStrategy;
+import model.pricingStrategy.IPricingStrategy;
 
 public class OrderController {
 	private IOrderState orderState;
-	private PricingStrategy pricingStrategy;
+	private IPricingStrategy pricingStrategy;
 	
 	public IOrderState getOrderState() {
 		return this.orderState;

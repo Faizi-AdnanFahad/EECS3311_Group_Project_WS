@@ -122,7 +122,8 @@ public class Order {
 		/*
 		 * If an order quantity is of more than MIN_AMOUNT_FOR_BASIC_DISCOUNT number of
 		 * units then a y% discount is applied AND If the total value of the order is
-		 * more than TOTAL_ORDER_PRICE_DISCOUNT dollars, an additional 5% discount is applied
+		 * more than TOTAL_ORDER_PRICE_DISCOUNT dollars, an additional 5% discount is
+		 * applied
 		 */
 		if (this.orderedQuantity > MIN_AMOUNT_FOR_BASIC_DISCOUNT
 				&& (this.orderedQuantity * this.orderedProduct.getPrice() > TOTAL_ORDER_PRICE_DISCOUNT)) {
@@ -130,8 +131,8 @@ public class Order {
 		}
 
 		/*
-		 * If ONLY an order quantity is of more than MIN_AMOUNT_FOR_BASIC_DISCOUNT number of
-		 * units then a y% discount is applied
+		 * If ONLY an order quantity is of more than MIN_AMOUNT_FOR_BASIC_DISCOUNT
+		 * number of units then a y% discount is applied
 		 */
 		if (this.orderedQuantity > MIN_AMOUNT_FOR_BASIC_DISCOUNT) {
 			return 1;
