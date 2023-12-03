@@ -30,27 +30,22 @@ public class OrderHandler implements HttpHandler {
 		// Construct our response to be sent
 		String response = "Order placed Succesfully";
 
-		// Add the order to the OrderQueue
 
 		// First get our input stream
 		InputStream in = exchange.getRequestBody();
 
 		// Read all the bytes of data as UTF-8 character encoding
 		String data = new String(in.readAllBytes(), Charset.forName("UTF8"));
+		
+		String[] parsedData = data.split(",");
+		
+		String product = parsedData[0];
+		String qty = parsedData[1];
 
-		// Print out all our data
-		System.out.println(data);
-
-		// hard coded for now - in deliverable 3, this data would be coming from client.
-//		String orderedProductName = data;
-		String orderedProductName = "Product1";
-
-		Product orderedProduct = searchProductByName(orderedProductName);
+		Product orderedProduct = searchProductByName(product);
 
 		// Create our order
-		Order order = new Order(orderedProduct, 160);
-
-		// Fill our order object with data
+		Order order = new Order(orderedProduct, Integer.parseInt(qty));
 
 		// Add to Order Queue
 		processor.add(order);
