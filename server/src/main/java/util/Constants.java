@@ -10,7 +10,6 @@ import frontend.web.*;
 import middleware.Middleware;
 import middleware.MiddlewareContext;
 import middleware.jobs.OrderProcessorFacade;
-import middleware.jobs.ServerOperation;
 
 import com.sun.net.httpserver.HttpHandler;
 
