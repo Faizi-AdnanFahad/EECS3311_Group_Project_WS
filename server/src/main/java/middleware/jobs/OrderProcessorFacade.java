@@ -68,18 +68,19 @@ public class OrderProcessorFacade extends Middleware {
 	private void processOrder(Order order, int stateNum) {
 		StateFactoryController sfc = new StateFactoryController();
 
-		// Setup the factory
+		// Step 4 - Setup the factory
 		OrderStateFactoryRepo repo = sfc.setupFactory();
 
 		/*
+		 * Step 5
 		 * create the right state using factory method based on the correct state
 		 * situation that has been passed as an argument
 		 */
 		IOrderState orderState = sfc.createFactory(repo, stateNum);
 		// set the correct order state to the state the factory has created.
 		this.orderController.setOrderState(orderState);
-
-		// process the order based on the state of the order against the database.
+		
+		// Step 6 - process the order based on the state of the order against the database.
 		this.orderController.processOrder(order);
 	}
 

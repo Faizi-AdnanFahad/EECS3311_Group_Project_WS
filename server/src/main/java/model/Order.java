@@ -3,6 +3,7 @@ package model;
 import java.sql.Date;
 import java.sql.Time;
 
+import database.ProductDAO;
 import view.BarChartView;
 import view.ConcretePublisher;
 import view.IView;
@@ -72,7 +73,16 @@ public class Order {
 
 	/* Informs all viewers with new updates when a change occurs */
 	public void updateViewers() {
-		this.concretePublisher.orderCompleted(this.orderedProduct, this.orderedQuantity);
+		boolean rowsUpdated = updateDBWithOrderedQunatity();
+		if (rowsUpdated) {
+			this.concretePublisher.orderCompleted(this.orderedProduct, this.orderedQuantity);
+		}
+	}
+	
+	// helper method to update the product db with ordered quantity
+	private boolean updateDBWithOrderedQunatity() {
+		ProductDAO productDAO = new ProductDAO();
+		return productDAO.updateProduct(this.orderedProduct.getName(), this.orderedQuantity);
 	}
 
 	public void addViewers() {

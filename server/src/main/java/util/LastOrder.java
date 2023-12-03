@@ -2,8 +2,8 @@ package util;
 
 import java.util.Date;
 import java.util.HashMap;
-import java.time.LocalDateTime;  
-import java.time.format.DateTimeFormatter; 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class LastOrder {
 	public static String getProductName() {
@@ -35,10 +35,6 @@ public class LastOrder {
 	private static String productName;
 	private static int quantity;
 	private static LocalDateTime date;
-	
-	
-
-	
 
 	public static LastOrder getInstance() {
 		if (instance == null)
@@ -48,22 +44,20 @@ public class LastOrder {
 	}
 
 	private LastOrder() {
-		//findAvailableProductsAndQuantities();
+		// findAvailableProductsAndQuantities();
 	}
 
 	public LastOrder findLastOrder() {
 
 		// Here we query the Product DB and we get the product names or the product IDs
-		
+
 		productName = "Product1";
 		quantity = 22;
 		date = java.time.LocalDateTime.now();
-		
 
 		return this;
 
 		// Here we query the Product DB and we get the product names or the product IDs
-
 
 	}
 
