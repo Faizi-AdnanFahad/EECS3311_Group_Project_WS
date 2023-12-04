@@ -5,6 +5,7 @@ import controller.FactoryController;
 import middleware.Middleware;
 import model.Order;
 import model.orderstate.IOrderState;
+import model.orderstate.OrderedQntySMEqualToAvailableQntyState;
 import model.orderstatefactory.OrderStateFactoryRepo;
 import model.pricingStrategy.IPricingStrategy;
 import model.pricingStrategyFactory.PricingStrategyFactoryRepo;
@@ -12,7 +13,6 @@ import util.Constants;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
-
 
 public class OrderProcessorFacade extends Middleware {
 	private OrderController orderController;
@@ -52,7 +52,7 @@ public class OrderProcessorFacade extends Middleware {
 			Thread.sleep(Constants.PROCESSING_LOOP_DELAY);
 
 			if (orderQueue.size() == 0) {
-			//	System.out.println("Queue is empty, nothing to process");
+				// System.out.println("Queue is empty, nothing to process");
 				return;
 			}
 
@@ -63,14 +63,22 @@ public class OrderProcessorFacade extends Middleware {
 			Order order = orderQueue.take();
 
 			/*
-			 * Step 2 - determine the price of an order
+			 * Step 2 - Determine order state
 			 */
-			setOrderPrice(order);
+			IOrderState orderState = determineOrderState(order);
 
 			/*
-			 * Step 3 - process the order to completion
+			 * Step 3 - determine the price of an order only if the client order is eligible
+			 * for order processing.
 			 */
-			processOrder(order);
+			if (orderState instanceof OrderedQntySMEqualToAvailableQntyState) {
+				setOrderPrice(order);
+			}
+
+			/*
+			 * Step 4 - process the order to completion
+			 */
+			processOrder(order, orderState);
 
 			// Disable the loop
 			// testing - Will disable the processing loop
@@ -98,7 +106,16 @@ public class OrderProcessorFacade extends Middleware {
 		this.orderController.calculateOrderPrice(order);
 	}
 
-	private void processOrder(Order order) {
+	private void processOrder(Order order, IOrderState orderState) {
+
+		// set the correct order state to the state the factory has created.
+		this.orderController.setOrderState(orderState);
+
+		// process the order based on the state of the order against the database.
+		this.orderController.processOrder(order);
+	}
+
+	private IOrderState determineOrderState(Order order) {
 		/*
 		 * compare the ordered quantity against the available and target max and return
 		 * the correct index - used to create the correct state factory
@@ -113,11 +130,7 @@ public class OrderProcessorFacade extends Middleware {
 		 * create the right state using factory method
 		 */
 		IOrderState orderState = sfc.createState(repo, stateNum);
-		// set the correct order state to the state the factory has created.
-		this.orderController.setOrderState(orderState);
-
-		// process the order based on the state of the order against the database.
-		this.orderController.processOrder(order);
+		return orderState;
 	}
 
 }
