@@ -141,30 +141,46 @@ public class ClientGUI extends JFrame implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		String command = e.getActionCommand();
-		System.out.print(command);
-		
-		if ("placeOrder".equals(command)) {
-			if (productList.getSelectedItem() == null)
-				return;
 
-			if (quantityList.getSelectedItem() == null)
-				return;
-			
-			
-			selectedProduct = productList.getSelectedItem().toString();
-			selectedQty = quantityList.getSelectedItem().toString();
+		try {
 
-			orderDetails.setText(String.format(Messages.MSG_ORDER_PLACED, selectedProduct, Integer.parseInt(selectedQty), LocalDate.now()));
-			// Re-paint
-			orderDetails.updateUI();
-			try {
-				client.placeOrder(selectedProduct, Integer.parseInt(selectedQty));
-			} catch (Exception ee) {
-				ee.printStackTrace();
+			if ("placeOrder".equals(command)) {
+				if (productList.getSelectedItem() == null)
+					return;
+
+				if (quantityList.getSelectedItem() == null)
+					return;
+
+				// Grab data from the ui components
+				selectedProduct = productList.getSelectedItem().toString();
+				selectedQty = quantityList.getSelectedItem().toString();
+
+				String transactionMessage = String.format(Messages.MSG_ORDER_PLACED, selectedProduct,
+						Integer.parseInt(selectedQty), LocalDate.now());
+
+				// Set client message
+				orderDetails.setText(transactionMessage);
+
+				// Re-paint
+				orderDetails.updateUI();
+
+				// Place order
+				String serverResponse = client.placeOrder(selectedProduct, Integer.parseInt(selectedQty));
+
+				String toDisplay = transactionMessage + "\n" + serverResponse;
+
+				// Set client message
+				orderDetails.setText(toDisplay);
+
+				orderDetails.updateUI();
 			}
 
-		} 
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
 	}
+
 	public void update(String name) {
 		productList.removeAllItems();
 		String[] nameArray = name.split("\n");
