@@ -56,36 +56,46 @@ public class OrderProcessorFacade extends Middleware {
 		/*
 		 * Step 1 - get the first order in the queue
 		 */
-		Order order = orderQueue.poll();
-		
-		if(order == null) return;
 
-		System.out.println(order.getOrderPrice());
-		System.out.println(order.getOrderedProduct().getName());
-		/*
-		 * Step 2 - determine the price of an order
-		 */
-		setOrderPrice(order);
+		try {
+			Order order = orderQueue.take();
 
-		/*
-		 *  Step 3 - process the order to completion
-		 */
-		processOrder(order);
+			if (order == null)
+				return;
 
-		// For testing
-//		this.disable();
+			System.out.println(order.getOrderPrice());
+			System.out.println(order.getOrderedProduct().getName());
+
+			/*
+			 * Step 2 - determine the price of an order
+			 */
+			setOrderPrice(order);
+
+			/*
+			 * Step 3 - process the order to completion
+			 */
+			processOrder(order);
+
+			// For testing
+			// this.disable();
+
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 
 	private void setOrderPrice(Order order) {
-		// Find out which pricing strategy is relevant based on the order - used to create the relevant strategy using the factory
+		// Find out which pricing strategy is relevant based on the order - used to
+		// create the relevant strategy using the factory
 		int pricintStrategyNum = this.orderController.determineDiscountStrategy(order);
-		
+
 		// setup pricing strategy factory
 		FactoryController fc = new FactoryController();
 		PricingStrategyFactoryRepo repo = fc.setUpPricingFactory();
 		IPricingStrategy pricingStrategy = fc.createPricingStrategy(repo, pricintStrategyNum);
-		
+
 		// calculate and set the correct price for the order
 		this.orderController.setPricingStrategy(pricingStrategy);
 		this.orderController.calculateOrderPrice(order);
@@ -93,8 +103,8 @@ public class OrderProcessorFacade extends Middleware {
 
 	private void processOrder(Order order) {
 		/*
-		 * compare the ordered quantity against the available and target max
-		 * and return the correct index - used to create the correct state factory
+		 * compare the ordered quantity against the available and target max and return
+		 * the correct index - used to create the correct state factory
 		 */
 		int stateNum = this.orderController.compareOrderedQntyAgainstProduct(order);
 
