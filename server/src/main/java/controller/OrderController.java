@@ -3,6 +3,7 @@ package controller;
 import model.Order;
 import model.orderstate.IOrderState;
 import model.pricingStrategy.IPricingStrategy;
+import model.pricingStrategyFactory.PricingStrategyFactoryRepo;
 
 public class OrderController {
 	private IOrderState orderState;
@@ -37,6 +38,18 @@ public class OrderController {
 	 * may include normal pricing or discounted pricing.
 	 */
 	public void calculateOrderPrice(Order order) {
+		// Find out which pricing strategy is relevant based on the order - used to
+		// create the relevant strategy using the factory
+		int pricintStrategyNum = this.determineDiscountStrategy(order);
+
+		// setup pricing strategy factory
+		FactoryController fc = new FactoryController();
+		PricingStrategyFactoryRepo repo = fc.setUpPricingFactory();
+		IPricingStrategy pricingStrategy = fc.createPricingStrategy(repo, pricintStrategyNum);
+
+		// calculate and set the correct price for the order
+		this.setPricingStrategy(pricingStrategy);
+
 		double orderPrice = this.pricingStrategy.calculateOrderPrice(order);
 		this.updateOrderPrice(order, orderPrice);
 	}

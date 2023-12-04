@@ -98,8 +98,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="11" language="java" name="model.orderstate.OrderedQntyLT_TargetMinState" project="server" 
-    file="/server/src/main/java/model/orderstate/OrderedQntyLT_TargetMinState.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="11" language="java" name="model.orderstate.StockFellBelowMinQntyState" project="server" 
+    file="/server/src/main/java/model/orderstate/StockFellBelowMinQntyState.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1301" y="546"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -117,17 +117,12 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="13" language="java" name="middleware.jobs.OrderProcessorFacade" project="server" 
-    file="/server/src/main/java/middleware/jobs/OrderProcessorFacade.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="221" y="386"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
+  <realization id="13">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="1"/>  
+  </realization>  
   <realization id="14">    
-    <end type="SOURCE" refId="9"/>    
+    <end type="SOURCE" refId="10"/>    
     <end type="TARGET" refId="8"/>  
   </realization>  
   <realization id="15">    
@@ -135,50 +130,46 @@
     <end type="TARGET" refId="8"/>  
   </realization>  
   <realization id="16">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="1"/>  
-  </realization>  
-  <association id="17">    
-    <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="18" name="instance"/>      
-      <multiplicity id="19" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="6" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="20">    
     <end type="SOURCE" refId="12"/>    
     <end type="TARGET" refId="8"/>  
   </realization>  
-  <association id="21">    
-    <end type="SOURCE" refId="13" navigable="false">      
-      <attribute id="22" name="instance"/>      
-      <multiplicity id="23" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="13" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="24">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="1"/>  
+  <realization id="17">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="8"/>  
   </realization>  
-  <association id="25">    
+  <association id="18">    
     <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="26" name="mapping"/>      
-      <multiplicity id="27" minimum="0" maximum="2147483647"/>    
+      <attribute id="19" name="mapping">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="20" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="1" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="28">    
+  <realization id="21">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="1"/>  
+  </realization>  
+  <association id="22">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="23" name="instance">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="24" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="25">    
     <end type="SOURCE" refId="5"/>    
     <end type="TARGET" refId="1"/>  
   </realization>  
-  <realization id="29">    
-    <end type="SOURCE" refId="10"/>    
-    <end type="TARGET" refId="8"/>  
-  </realization>  
-  <realization id="30">    
+  <realization id="26">    
     <end type="SOURCE" refId="2"/>    
     <end type="TARGET" refId="1"/>  
   </realization>  

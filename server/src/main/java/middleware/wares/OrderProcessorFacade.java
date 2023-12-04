@@ -59,7 +59,6 @@ public class OrderProcessorFacade extends Middleware {
 			/*
 			 * Step 1 - get the first order in the queue
 			 */
-
 			Order order = orderQueue.take();
 
 			/*
@@ -72,7 +71,7 @@ public class OrderProcessorFacade extends Middleware {
 			 * for order processing.
 			 */
 			if (orderState instanceof OrderedQntySMEqualToAvailableQntyState) {
-				setOrderPrice(order);
+				this.orderController.calculateOrderPrice(order);
 			}
 
 			/*
@@ -91,20 +90,20 @@ public class OrderProcessorFacade extends Middleware {
 
 	}
 
-	private void setOrderPrice(Order order) {
-		// Find out which pricing strategy is relevant based on the order - used to
-		// create the relevant strategy using the factory
-		int pricintStrategyNum = this.orderController.determineDiscountStrategy(order);
-
-		// setup pricing strategy factory
-		FactoryController fc = new FactoryController();
-		PricingStrategyFactoryRepo repo = fc.setUpPricingFactory();
-		IPricingStrategy pricingStrategy = fc.createPricingStrategy(repo, pricintStrategyNum);
-
-		// calculate and set the correct price for the order
-		this.orderController.setPricingStrategy(pricingStrategy);
-		this.orderController.calculateOrderPrice(order);
-	}
+//	private void setOrderPrice(Order order) {
+//		// Find out which pricing strategy is relevant based on the order - used to
+//		// create the relevant strategy using the factory
+//		int pricintStrategyNum = this.orderController.determineDiscountStrategy(order);
+//
+//		// setup pricing strategy factory
+//		FactoryController fc = new FactoryController();
+//		PricingStrategyFactoryRepo repo = fc.setUpPricingFactory();
+//		IPricingStrategy pricingStrategy = fc.createPricingStrategy(repo, pricintStrategyNum);
+//
+//		// calculate and set the correct price for the order
+//		this.orderController.setPricingStrategy(pricingStrategy);
+//		this.orderController.calculateOrderPrice(order);
+//	}
 
 	private void processOrder(Order order, IOrderState orderState) {
 

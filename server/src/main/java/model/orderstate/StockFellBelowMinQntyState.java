@@ -1,13 +1,12 @@
 package model.orderstate;
 
-import controller.OrderController;
 import model.Order;
 
-public class OrderedQntyLT_TargetMinState implements IOrderState {
+public class StockFellBelowMinQntyState implements IOrderState {
 
 	public void processOrder(Order order) {
 		System.out.println("------------------------------");
-		String message = "Product quantity is below the target min quantity";
+		String message = "Product quantity fell below the target min quantity - Low Stock";
 		System.out.println(message);
 
 		// invoke the stock operation
@@ -15,12 +14,5 @@ public class OrderedQntyLT_TargetMinState implements IOrderState {
 		System.out.println(message);
 		System.out.println("------------------------------");
 		order.getOrderedProduct().restocking();
-		OrderController cont = new OrderController();
-		cont.setOrderState(new OrderedQntySMEqualToAvailableQntyState());
-		cont.processOrder(order);
-		
-		
-
 	}
-
 }

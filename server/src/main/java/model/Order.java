@@ -156,7 +156,5 @@ public class Order {
 
 		return 0; /* If no discount applies */
 	}
-	
-	
 
 }

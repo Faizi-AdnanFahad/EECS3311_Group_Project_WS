@@ -15,7 +15,12 @@ public class OrderedQntyGTAvailableQntyState implements IOrderState {
 		message = String.format("Restocking Operation for Product %s initiated", order.getOrderedProduct().getName());
 		System.out.println("------------------------------");
 		order.getOrderedProduct().restocking();
+		
 		OrderController cont = new OrderController();
+		/* Calculate the price for the order */
+		cont.calculateOrderPrice(order);
+		
+		/* change order state */
 		cont.setOrderState(new OrderedQntySMEqualToAvailableQntyState());
 		cont.processOrder(order);
 		
