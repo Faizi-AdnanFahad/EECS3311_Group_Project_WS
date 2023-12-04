@@ -1,5 +1,6 @@
 package model.orderstate;
 
+import controller.OrderController;
 import model.Order;
 
 public class OrderedQntyGTAvailableQntyState implements IOrderState {
@@ -13,5 +14,11 @@ public class OrderedQntyGTAvailableQntyState implements IOrderState {
 		/* Perform Restocking */
 		message = String.format("Restocking Operation for Product %s initiated", order.getOrderedProduct().getName());
 		System.out.println("------------------------------");
+		order.getOrderedProduct().restocking();
+		OrderController cont = new OrderController();
+		cont.setOrderState(new OrderedQntySMEqualToAvailableQntyState());
+		cont.processOrder(order);
+		
+		
 	}
 }
