@@ -9,26 +9,20 @@ import com.sun.net.httpserver.HttpServer;
 
 import middleware.Middleware;
 import middleware.MiddlewareContext;
-import middleware.jobs.OrderProcessorFacade;
+import middleware.wares.OrderProcessorFacade;
 import util.Constants;
 
 public class Server {
 	private HttpServer server = null;
-	private OrderProcessorFacade orderProcessor = null;
+//	private OrderProcessorFacade orderProcessor = null;
 
-	// Init HttpServer
-	public Server(OrderProcessorFacade opf) {
-		orderProcessor = opf;
+	public Server() {
 
 		try {
 			server = HttpServer.create(new InetSocketAddress(Constants.PORT), 0);
 
-			HttpHandler oh =  Constants.HANDLERS[0];
-
-			((OrderHandler) oh).setProcessor(opf);
-
-			for (int i = 0; i < Constants.ROUTES.length; ++i) {
-				server.createContext(Constants.ROUTES[i], Constants.HANDLERS[i]);
+			for (String route : Constants.ROUTE_MAP.keySet()) {
+				server.createContext(route, Constants.ROUTE_MAP.get(route));
 			}
 
 			server.setExecutor(Executors.newCachedThreadPool());
@@ -38,7 +32,6 @@ public class Server {
 			e.printStackTrace();
 		}
 	}
-	
 
 	// Start our server
 	public void start() throws Exception {
@@ -47,7 +40,7 @@ public class Server {
 		System.out.printf("Started server on http://localhost:%d\n", Constants.PORT);
 		System.out.printf("Avaliable routes are: \n");
 
-		for (String route : Constants.ROUTES)
+		for (String route : Constants.ROUTE_MAP.keySet())
 			System.out.println(route);
 	}
 

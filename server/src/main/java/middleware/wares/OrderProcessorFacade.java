@@ -1,4 +1,4 @@
-package middleware.jobs;
+package middleware.wares;
 
 import controller.OrderController;
 import controller.FactoryController;
@@ -8,8 +8,11 @@ import model.orderstate.IOrderState;
 import model.orderstatefactory.OrderStateFactoryRepo;
 import model.pricingStrategy.IPricingStrategy;
 import model.pricingStrategyFactory.PricingStrategyFactoryRepo;
+import util.Constants;
+
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
+
 
 public class OrderProcessorFacade extends Middleware {
 	private OrderController orderController;
@@ -43,28 +46,21 @@ public class OrderProcessorFacade extends Middleware {
 //	}
 
 	public void process() {
-		// Grab next in line for processing
-		System.out.printf("Queue size is %d, state: %b\n", orderQueue.size(), this.isActive());
-		if (orderQueue.size() == 0) {
-//			System.out.println("Queue is empty, nothing to process");
-			return;
-		}
-
-		// Send the data where it needs to go (Controller)
-		System.out.println("Order will go for order processing in Controller Package");
-
-		/*
-		 * Step 1 - get the first order in the queue
-		 */
-
 		try {
-			Order order = orderQueue.take();
 
-			if (order == null)
+			// Let's not overload the CPU
+			Thread.sleep(Constants.PROCESSING_LOOP_DELAY);
+
+			if (orderQueue.size() == 0) {
+				System.out.println("Queue is empty, nothing to process");
 				return;
+			}
 
-			System.out.println(order.getOrderPrice());
-			System.out.println(order.getOrderedProduct().getName());
+			/*
+			 * Step 1 - get the first order in the queue
+			 */
+
+			Order order = orderQueue.take();
 
 			/*
 			 * Step 2 - determine the price of an order
@@ -76,7 +72,8 @@ public class OrderProcessorFacade extends Middleware {
 			 */
 			processOrder(order);
 
-			// For testing
+			// Disable the loop
+			// testing - Will disable the processing loop
 			// this.disable();
 
 		} catch (InterruptedException e) {
