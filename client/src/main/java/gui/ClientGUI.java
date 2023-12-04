@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
@@ -21,6 +23,7 @@ import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 
 import http.Client;
+import util.Messages;
 
 public class ClientGUI extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
@@ -131,7 +134,6 @@ public class ClientGUI extends JFrame implements ActionListener {
 		String reportMessage;
 
 		reportMessage = "Product " + selectedProduct + "\n" + "Quantity " + selectedQty + "\n";
-
 		report.setText(reportMessage);
 		JScrollPane outputScrollPane = new JScrollPane(report);
 		west.add(outputScrollPane);
@@ -145,9 +147,16 @@ public class ClientGUI extends JFrame implements ActionListener {
 			if (productList.getSelectedItem() == null)
 				return;
 
+			if (quantityList.getSelectedItem() == null)
+				return;
+			
+			
 			selectedProduct = productList.getSelectedItem().toString();
 			selectedQty = quantityList.getSelectedItem().toString();
 
+			orderDetails.setText(String.format(Messages.MSG_ORDER_PLACED, selectedProduct, Integer.parseInt(selectedQty), LocalDate.now()));
+			// Re-paint
+			orderDetails.updateUI();
 			try {
 				client.placeOrder(selectedProduct, Integer.parseInt(selectedQty));
 			} catch (Exception ee) {
