@@ -28,7 +28,7 @@ import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
 
-import middleware.jobs.ServerOperation;
+import middleware.wares.ServerOperation;
 import util.LastOrder;
 
 public class ServerGUI extends JFrame implements ActionListener, PopupMenuListener {

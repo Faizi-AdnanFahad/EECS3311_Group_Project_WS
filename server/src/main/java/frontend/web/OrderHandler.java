@@ -11,17 +11,18 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
 import controller.ProductController;
-import middleware.jobs.OrderProcessorFacade;
+import middleware.wares.OrderProcessorFacade;
 import model.Order;
 import model.Product;
+import util.Constants;
 
 public class OrderHandler implements HttpHandler {
 
-	private OrderProcessorFacade processor = null;
+//	private OrderProcessorFacade processor = null;
 
-	public void setProcessor(OrderProcessorFacade opf) {
-		this.processor = opf;
-	}
+//	public void setProcessor(OrderProcessorFacade opf) {
+//		this.processor = opf;
+//	}
 
 	public void handle(HttpExchange exchange) throws IOException {
 		System.out.println("Order recieved.");
@@ -47,8 +48,8 @@ public class OrderHandler implements HttpHandler {
 		Order order = new Order(orderedProduct, Integer.parseInt(qty));
 
 		// Add to Order Queue
-		processor.add(order);
-
+		((OrderProcessorFacade) Constants.MIDDLEWARE_MAP.get("/order")).add(order);
+		
 		// Close our input stream
 		in.close();
 

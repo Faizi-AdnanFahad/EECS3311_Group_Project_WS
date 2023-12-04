@@ -1,30 +1,20 @@
 package frontend;
-
-import middleware.MiddlewareContext;
-import middleware.jobs.*;
+import middleware.wares.*;
 
 public class Main {
 
 	public static void main(String[] args) {
-
-		MiddlewareContext mCtx = MiddlewareContext.getInstance();
-
+		// Order processor
 		OrderProcessorFacade orderProcessor = OrderProcessorFacade.getInstance();
+
 		// Server operation proxy
 		ServerOperation serverOperation = ServerOperation.getInstance();
 
-		// Order processor
-
-		// Register our middlewares
-		mCtx.register(orderProcessor);
-		mCtx.register(serverOperation);
-
 		// Init systems
-		serverOperation.Init(orderProcessor);
+		serverOperation.Init();
 
 		// Start processing orders in the OrderQueue
-		while (orderProcessor.isActive())
-			orderProcessor.process();
+		while (orderProcessor.isActive()) orderProcessor.process();
 	}
 
 }

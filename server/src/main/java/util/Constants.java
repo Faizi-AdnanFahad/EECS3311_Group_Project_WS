@@ -8,26 +8,27 @@ import javax.swing.*;
 
 import frontend.web.*;
 import middleware.Middleware;
-import middleware.MiddlewareContext;
-import middleware.jobs.OrderProcessorFacade;
+import middleware.wares.OrderProcessorFacade;
+import middleware.wares.ServerOperation;
 
 import com.sun.net.httpserver.HttpHandler;
 
 public final class Constants {
 	private Constants() { } 
 
-	public static String[] ROUTES = {
-	    "/order",
-	    "/products"
-	};
-	
-	public static HttpHandler[] HANDLERS = { 
-			new OrderHandler(), 
-			new ProductHandler() 
-	};
-		
-	
+	public static int PROCESSING_LOOP_DELAY = 100; // ms
 	public static int PORT = 8000;
+	public static String VERSION = "1.0.0";
+
+	public static Map<String, Middleware> MIDDLEWARE_MAP = new HashMap<String, Middleware>(){{
+		put("/order", OrderProcessorFacade.getInstance());
+		put("/products", ServerOperation.getInstance());
+	}};
+
+	public static Map<String, HttpHandler> ROUTE_MAP = new HashMap<String, HttpHandler>(){{
+		put("/order", new OrderHandler());
+		put("/products", new ProductHandler());
+	}};
 
 	public static final Dimension FRAME_SIZE = new Dimension(500,200);
 	public static final Dimension TEXTFIELD_SIZE = new Dimension((int)(FRAME_SIZE.width * 0.80), 50);

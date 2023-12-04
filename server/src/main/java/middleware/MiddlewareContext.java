@@ -16,7 +16,6 @@ public class MiddlewareContext {
 	public static MiddlewareContext getInstance() {
 		if(instance == null) {
 			instance = new MiddlewareContext();
-			return instance;
 		}
 		
 		return instance;
