@@ -88,37 +88,39 @@ public class ProductDAO {
 		return false;
 	}
 
-	// This method retrieves the StockQuantity of the respective Product from the
-	// user
-//	public static int retriveStockQuantity(String productName) {
-//
-//		String path = "jdbc:sqlite:database\\product.db";
-//		String query = "SELECT StockQuantity FROM product WHERE Name = ?;";
-//		int stockQuantity = 0;
-//
-//
-//		try {
-//			Class.forName("org.sqlite.JDBC");
-//			Connection conn = DriverManager.getConnection(path);
-//			PreparedStatement pstmt = conn.prepareStatement(query);
-//
-//			pstmt.setString(1,productName);
-//			ResultSet  resultSet = pstmt.executeQuery();
-//
-//			if(resultSet.next()) {
-//				stockQuantity = resultSet.getInt("StockQuantity");
-//			}
-//		}
-//		catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (ClassNotFoundException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} 		
-//
-//		return 0;
-//
-//	}
+	public void updateProductQuantity(String ProductName, int newStockQuantity) {
+		
+		
+		String path = "jdbc:sqlite:database/product.db";
+		String query = "UPDATE product SET StockQuantity = ? WHERE Name = ?;";
+		
+		try {
+			Class.forName("org.sqlite.JDBC");
+			Connection conn = DriverManager.getConnection(path);
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			
+			
+			
+			pstmt.setInt(1, newStockQuantity);
+			pstmt.setString(2, ProductName);
+			
+			int rowsAffected = pstmt.executeUpdate();
+			
+			if (rowsAffected > 0) {
+                System.out.println("Product stock updated successfully!");
+            } else {
+                System.out.println("No product found with the provided ID.");
+            }
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+
+	}
 
 }

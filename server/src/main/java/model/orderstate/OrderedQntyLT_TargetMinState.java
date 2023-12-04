@@ -1,5 +1,6 @@
 package model.orderstate;
 
+import controller.OrderController;
 import model.Order;
 
 public class OrderedQntyLT_TargetMinState implements IOrderState {
@@ -13,6 +14,12 @@ public class OrderedQntyLT_TargetMinState implements IOrderState {
 		message = String.format("Restocking Operation for Product %s initiated", order.getOrderedProduct().getName());
 		System.out.println(message);
 		System.out.println("------------------------------");
+		order.getOrderedProduct().restocking();
+		OrderController cont = new OrderController();
+		cont.setOrderState(new OrderedQntySMEqualToAvailableQntyState());
+		cont.processOrder(order);
+		
+		
 
 	}
 

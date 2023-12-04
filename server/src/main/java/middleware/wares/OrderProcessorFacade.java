@@ -52,7 +52,7 @@ public class OrderProcessorFacade extends Middleware {
 			Thread.sleep(Constants.PROCESSING_LOOP_DELAY);
 
 			if (orderQueue.size() == 0) {
-				System.out.println("Queue is empty, nothing to process");
+			//	System.out.println("Queue is empty, nothing to process");
 				return;
 			}
 
