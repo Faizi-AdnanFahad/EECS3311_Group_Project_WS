@@ -25,4 +25,8 @@ public abstract class Publisher {
 			view.update(orderedProduct, orderedQuantity);
 		}
 	}
+	
+	public void resetViewers() {
+		this.observerViewers.clear();
+	}
 }
