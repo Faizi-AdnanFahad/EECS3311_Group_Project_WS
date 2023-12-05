@@ -27,7 +27,7 @@ public class OrderController {
 		this.pricingStrategy = pricingStrategy;
 	}
 
-	private void processOrder(Order order) {
+	public void processOrder(Order order) {
 		this.orderState.processOrder(order);
 	}
 

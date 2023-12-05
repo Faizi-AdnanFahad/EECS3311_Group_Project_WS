@@ -29,7 +29,10 @@ import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
 
 import middleware.wares.ServerOperation;
-import util.LastOrder;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter; 
+
 
 public class ServerGUI extends JFrame implements ActionListener, PopupMenuListener {
 
@@ -43,11 +46,14 @@ public class ServerGUI extends JFrame implements ActionListener, PopupMenuListen
 	private static String quantityReport = null;
 	private static String timeReport = null;
 	private static Map<String, Integer> productData;
-	private static LastOrder theLastOrder;
+	
+
+	
 	private JPanel west = new JPanel();
 	private JPanel east = new JPanel();
 	private JTextArea report = new JTextArea();
 	private CategoryPlot plot = new CategoryPlot();
+	private JTextArea message = new JTextArea();
 
 	/*
 	 * stores the content for the report view as two parts. Part 1 (index 0) stores
@@ -66,9 +72,12 @@ public class ServerGUI extends JFrame implements ActionListener, PopupMenuListen
 		return instance;
 	}
 
-	public ServerGUI() {
+	private ServerGUI() {
 		// Set window title
+		
 		super("Warehouse Back-end Stock");
+		reportViewContect[0] = "No Last Order \n" + "==============================\n";
+		reportViewContect[1] = "";
 
 		// get data from the database
 		productData = this.getDataFromDB();
@@ -87,6 +96,7 @@ public class ServerGUI extends JFrame implements ActionListener, PopupMenuListen
 
 		getContentPane().add(east, BorderLayout.EAST);
 		getContentPane().add(west, BorderLayout.WEST);
+		
 	}
 
 	/*
@@ -100,6 +110,9 @@ public class ServerGUI extends JFrame implements ActionListener, PopupMenuListen
 		east.setLayout(new BoxLayout(east, BoxLayout.Y_AXIS));
 		east.add(orderDetailsLabel);
 		east.add(orderDetailsScrollPane);
+		
+		
+		
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -143,15 +156,13 @@ public class ServerGUI extends JFrame implements ActionListener, PopupMenuListen
 		// String messages to be displayed in the report view
 		String reportMessage1;
 		StringBuilder reportMessage2 = new StringBuilder();
+		
+		
 
-		// get information about last order
-		reportMessage1 = "Last Order\n" + "==========================\n" + "\t";
-		reportMessage1 = reportMessage1 + "Product: " + theLastOrder.getProductName() + "\n" + "\tQuantity:"
-				+ theLastOrder.getQuantity() + "\n" + "\tTimeStamp:" + theLastOrder.getDate() + "\n";
 
-		// store this as the first part of the displaying content
-		reportViewContect[0] = reportMessage1;
-
+		
+	
+	
 		// get information for the second part of the content
 		reportMessage2.append("Current Product Quantity in Watehouse\n" + "==============================\n");
 		for (Map.Entry<String, Integer> entry : productData.entrySet()) {
@@ -175,7 +186,7 @@ public class ServerGUI extends JFrame implements ActionListener, PopupMenuListen
 		productData = this.getDataFromDB();
 
 		StringBuilder reportMessage2 = new StringBuilder();
-		reportMessage2.append("Current Product Quantity in Watehouse\n" + "==============================\n");
+		reportMessage2.append("Current Product Quantity in Warehouse\n" + "==============================\n");
 		for (Map.Entry<String, Integer> entry : productData.entrySet()) {
 			reportMessage2.append(entry.getKey());
 			reportMessage2.append("\n \t Quantity ==> " + entry.getValue() + "\n");
@@ -249,5 +260,21 @@ public class ServerGUI extends JFrame implements ActionListener, PopupMenuListen
 
 	public void popupMenuCanceled(PopupMenuEvent e) {
 		System.out.println("Cancelled");
+	}
+
+	public void stateMessage(String m) {
+	
+		orderDetails.setText(m);
+		orderDetails.updateUI();
+	}
+	
+	public void populateLastOrder(String prodName, int prodQuantity) {
+		LocalDateTime date = java.time.LocalDateTime.now();
+		
+	   String	reportMessage1 = "Last Order\n" + "==========================\n" + "\t";		
+		reportMessage1 +=  "Product: " + prodName + "\n" + "\tQuantity:" + prodQuantity + "\n" + "\tTime: " +  date + "\n";
+		reportMessage1 += "==========================\n";
+		reportViewContect[0] = reportMessage1;
+		
 	}
 }

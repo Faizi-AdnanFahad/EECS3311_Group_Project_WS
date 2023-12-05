@@ -3,7 +3,7 @@ package model;
 import java.sql.Date;
 import java.sql.Time;
 
-import database.ProductDAO;
+import database.DAO.ProductDAO;
 import view.BarChartView;
 import view.ConcretePublisher;
 import view.ReportView;
@@ -18,6 +18,9 @@ public class Order {
 	private Date orderedRecievedDate;
 	private Time orderedRecievedTime;
 	private ConcretePublisher concretePublisher;
+
+	public Order() {
+	}
 
 	public Order(Product orderedProduct, int orderedQuantity) {
 		this.orderedProduct = orderedProduct;
@@ -115,7 +118,7 @@ public class Order {
 		int targetMaxQnty = this.orderedProduct.getTargetMaxStockQuantity();
 		int targetMinQnty = this.orderedProduct.getTargetMinStockQuantity();
 		int stockQnty = this.orderedProduct.getStockQuantity();
-		
+
 		if (this.orderedProduct.getStockQuantity() < targetMinQnty) {
 			return 2;
 		}
@@ -157,5 +160,4 @@ public class Order {
 
 		return 0; /* If no discount applies */
 	}
-
 }

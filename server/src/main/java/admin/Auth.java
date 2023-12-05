@@ -1,16 +1,12 @@
 package admin;
 
-import java.util.List;
-
-import database.AdminDAO;
-import model.User;
+import database.AdminProxy;
 
 public class Auth {
-	   AdminDAO admin = new AdminDAO();
-	    
-	    
-	    public boolean authenticateUser(String username, String password) {
-	        return admin.checkAuth(username, password);
-	    }
-	
+	AdminProxy admin = new AdminProxy();
+
+	public boolean authenticateUser(String username, String password) {
+		return admin.checkAuth(username, password);
+	}
+
 }

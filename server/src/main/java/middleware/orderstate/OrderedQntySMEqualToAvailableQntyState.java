@@ -1,8 +1,10 @@
 package middleware.orderstate;
 
 import controller.OrderController;
+import gui.ServerGUI;
 import model.Order;
 import model.Product;
+import util.Messages;
 
 public class OrderedQntySMEqualToAvailableQntyState implements IOrderState {
 
@@ -35,6 +37,26 @@ public class OrderedQntySMEqualToAvailableQntyState implements IOrderState {
 			OrderController cont = new OrderController();
 			cont.completeProcessOrdering(order);
 		}
+	}
+
+	public void sendMessage(Order order) {
+		// TODO Auto-generated method stub
+		
+		ServerGUI serverGUI = ServerGUI.getInstance();
+		System.out.println("------------------------------");
+		String message = String.format(Messages.MSG_ORDER_COMPLETED,
+				order.getOrderedProduct().getName(), order.getOrderedQuantity());
+		System.out.println(message);
+		
+		/* Perform Restocking */
+		message +=  String.format(Messages.MSG_ORDER_COMPLETED, order.getOrderedProduct().getName(), order.getOrderedQuantity(), order.getOrderPrice());
+		
+		message +=  String.format(Messages.MSG_SERVER_RESTOCKING, order.getOrderedProduct().getName());
+		
+		message +=  String.format(Messages.MSG_SERVER_RESTOCKING_COMPLETED, order.getOrderedProduct().getName());
+
+		serverGUI.stateMessage(message);
+		
 	}
 
 }

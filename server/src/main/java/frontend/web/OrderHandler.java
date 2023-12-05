@@ -52,6 +52,9 @@ public class OrderHandler implements HttpHandler {
 		
 		// Close our input stream
 		in.close();
+		
+		
+		
 
 		// Send the response headers
 		exchange.sendResponseHeaders(200, response.length());
