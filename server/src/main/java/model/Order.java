@@ -2,7 +2,6 @@ package model;
 
 import java.sql.Date;
 import java.sql.Time;
-import java.util.List;
 
 import database.ProductDAO;
 import view.BarChartView;

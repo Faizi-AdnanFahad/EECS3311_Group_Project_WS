@@ -35,6 +35,37 @@ public class OrderController {
 		return order.compareOrderedQntyAgainstProduct();
 	}
 
+	private IOrderState determineOrderState(Order order) {
+		/*
+		 * compare the ordered quantity against the available and target max and return
+		 * the correct index - used to create the correct state factory
+		 */
+		int stateNum = this.compareOrderedQntyAgainstProduct(order);
+
+		// Setup the factory
+		FactoryController sfc = new FactoryController();
+		OrderStateFactoryRepo repo = sfc.setupStateFactory();
+
+		/*
+		 * create the right state using factory method
+		 */
+		IOrderState orderState = sfc.createState(repo, stateNum);
+		return orderState;
+	}
+
+	public void checkPricingEligiblity(Order order) {
+		// Determine the order state
+		IOrderState orderState = determineOrderState(order);
+
+		/*
+		 * determine the price of an order only if the client order is eligible for
+		 * order processing.
+		 */
+		if (orderState instanceof OrderedQntySMEqualToAvailableQntyState) {
+			this.calculateOrderPrice(order);
+		}
+	}
+
 	/*
 	 * Based on the current pricing strategy, calculates the price of an order. This
 	 * may include normal pricing or discounted pricing.
@@ -56,39 +87,6 @@ public class OrderController {
 		this.updateOrderPrice(order, orderPrice);
 	}
 
-	private IOrderState determineOrderState(Order order) {
-		/*
-		 * compare the ordered quantity against the available and target max and return
-		 * the correct index - used to create the correct state factory
-		 */
-		int stateNum = this.compareOrderedQntyAgainstProduct(order);
-
-		// Setup the factory
-		FactoryController sfc = new FactoryController();
-		OrderStateFactoryRepo repo = sfc.setupStateFactory();
-
-		/*
-		 * create the right state using factory method
-		 */
-		IOrderState orderState = sfc.createState(repo, stateNum);
-		return orderState;
-	}
-
-	public void checkPricingEligiblity(Order order) {
-		/*
-		 * Step 2 - Determine the order state
-		 */
-		IOrderState orderState = determineOrderState(order);
-
-		/*
-		 * Step 3 - determine the price of an order only if the client order is eligible
-		 * for order processing.
-		 */
-		if (orderState instanceof OrderedQntySMEqualToAvailableQntyState) {
-			this.calculateOrderPrice(order);
-		}
-	}
-
 	/*
 	 * Given an order and a price, updates price of that order with the given price.
 	 */
@@ -101,7 +99,7 @@ public class OrderController {
 	}
 
 	public void completeProcessOrdering(Order order) {
-		
+
 		IOrderState orderState = determineOrderState(order);
 		// set the correct order state to the state the factory has created.
 		this.setOrderState(orderState);
