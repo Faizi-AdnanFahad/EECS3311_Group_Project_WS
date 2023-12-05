@@ -19,7 +19,6 @@ public class Order {
 	private Date orderedRecievedDate;
 	private Time orderedRecievedTime;
 	private ConcretePublisher concretePublisher;
-	
 
 	public Order(Product orderedProduct, int orderedQuantity) {
 		this.orderedProduct = orderedProduct;
@@ -85,15 +84,13 @@ public class Order {
 
 	/* Informs all viewers with new updates when a change occurs */
 	public void updateViewers() {
-		boolean rowsUpdated = updateDBWithOrderedQunatity();
-		if (rowsUpdated) {
-			this.concretePublisher.orderCompleted(this.orderedProduct, this.orderedQuantity);
-		}
+		this.concretePublisher.orderCompleted(this.orderedProduct, this.orderedQuantity);
 	}
 
 	// helper method to update the product db with ordered quantity
-	private boolean updateDBWithOrderedQunatity() {
+	public boolean performOrder() {
 		ProductDAO productDAO = new ProductDAO();
+		this.orderedProduct.setStockQuantity(this.orderedProduct.getStockQuantity() - this.orderedQuantity);
 		return productDAO.updateProduct(this.orderedProduct.getName(), this.orderedQuantity);
 	}
 
@@ -101,6 +98,9 @@ public class Order {
 	 * Adds all viewers to the list of observers - Observer Design Pattern
 	 */
 	public void addViewers() {
+		// reset if any viewers exist already
+		this.concretePublisher.resetViewers();
+
 		// add viewers as observers
 		this.concretePublisher.addViewers(new BarChartView(concretePublisher));
 		this.concretePublisher.addViewers(new ReportView(concretePublisher));
