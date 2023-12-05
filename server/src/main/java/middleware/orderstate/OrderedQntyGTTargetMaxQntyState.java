@@ -16,11 +16,8 @@ public class OrderedQntyGTTargetMaxQntyState implements IOrderState {
 
 		ServerGUI serverGUI = ServerGUI.getInstance();
 
-		System.out.println("------------------------------");
 		String message = Messages.MSG_SERVER_EXCEED_MAX;
-		System.out.println(message);
-		System.out.println("------------------------------");
-		
+
 		// Trigger the unblock
 		// sends the message to the client
 		OrderProcessorFacade processor = OrderProcessorFacade.getInstance();

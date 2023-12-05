@@ -96,13 +96,16 @@ public class Order {
 		return productDAO.updateProduct(this.orderedProduct.getName(), this.orderedQuantity);
 	}
 
+	private void resetViewers() {
+		// reset if any viewers exist already
+		this.concretePublisher.resetViewers();
+	}
+
 	/*
 	 * Adds all viewers to the list of observers - Observer Design Pattern
 	 */
 	public void addViewers() {
-		// reset if any viewers exist already
-		this.concretePublisher.resetViewers();
-
+		resetViewers();
 		// add viewers as observers
 		this.concretePublisher.addViewers(new BarChartView(concretePublisher));
 		this.concretePublisher.addViewers(new ReportView(concretePublisher));

@@ -12,10 +12,6 @@ public class ProductController {
 		return product.getProductList();
 	}
 
-	public void restock(String productId) {
-
-	}
-	
 	public Map<String, Integer> getAvaliableProducts() {
 		return (new Product()).findAvailableProductsAndQuantities();
 	}

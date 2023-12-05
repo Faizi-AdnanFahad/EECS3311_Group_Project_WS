@@ -31,10 +31,9 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import middleware.wares.ServerOperation;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter; 
 
 
-public class ServerGUI extends JFrame implements ActionListener, PopupMenuListener {
+public class ServerGUI extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private static JComboBox<String> productList;
@@ -46,14 +45,12 @@ public class ServerGUI extends JFrame implements ActionListener, PopupMenuListen
 	private static String quantityReport = null;
 	private static String timeReport = null;
 	private static Map<String, Integer> productData;
-	
 
 	
 	private JPanel west = new JPanel();
 	private JPanel east = new JPanel();
 	private JTextArea report = new JTextArea();
 	private CategoryPlot plot = new CategoryPlot();
-	private JTextArea message = new JTextArea();
 
 	/*
 	 * stores the content for the report view as two parts. Part 1 (index 0) stores
@@ -117,7 +114,6 @@ public class ServerGUI extends JFrame implements ActionListener, PopupMenuListen
 
 	public void actionPerformed(ActionEvent e) {
 		String command = e.getActionCommand();
-		System.out.print(command);
 
 		if ("addProduct".equals(command)) {
 			/*
@@ -247,19 +243,6 @@ public class ServerGUI extends JFrame implements ActionListener, PopupMenuListen
 	 */
 	private Map<String, Integer> getDataFromDB() {
 		return ServerOperation.getInstance().getProducts();
-	}
-
-	public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
-		System.out.println("Open");
-
-	}
-
-	public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
-		System.out.println("Closed");
-	}
-
-	public void popupMenuCanceled(PopupMenuEvent e) {
-		System.out.println("Cancelled");
 	}
 
 	public void stateMessage(String m) {

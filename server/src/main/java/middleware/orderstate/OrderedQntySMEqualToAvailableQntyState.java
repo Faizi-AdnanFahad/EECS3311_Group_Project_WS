@@ -17,19 +17,20 @@ public class OrderedQntySMEqualToAvailableQntyState implements IOrderState {
 		boolean orderTransaction = order.performOrder();
 
 		// Update all viewers for Observer pattern
-		/********************* Observer pattern ************************/
 		if (orderTransaction) {
-			System.out.println("/*********************Observer pattern************************/");
 			order.addViewers();
 			order.updateViewers();
-			System.out.println("/*********************Observer pattern************************/");
 		}
-		/*************************************************************/
+		
+		checkIfBelowStockTargetMinQty(order);
+	}
 
-		/*
-		 * If after completing an order, the stock quantity for a product fells below
-		 * the target min quantity, set the state to lowStock.
-		 */
+	/*
+	 * If after completing an order, the stock quantity for a product fells below
+	 * the target min quantity, set the state to lowStock.
+	 */
+	public void checkIfBelowStockTargetMinQty(Order order) {
+
 		Product orderedProduct = order.getOrderedProduct();
 		if (orderedProduct.getStockQuantity() < orderedProduct.getTargetMinStockQuantity()) {
 			sendMessage(order);
@@ -42,32 +43,22 @@ public class OrderedQntySMEqualToAvailableQntyState implements IOrderState {
 
 			OrderController cont = new OrderController();
 			cont.completeProcessOrdering(order);
-		} else {
-			sendMessage(order);
+
+		} else { 
+			sendMessage(order); 
 		}
-
-		// Trigger the unblock
-//		OrderProcessorFacade processor = OrderProcessorFacade.getInstance();
-//		processor.addMessage("");
-//		processor.getLatch().countDown();
-
 	}
 
 	public void sendMessage(Order order) {
 
-		System.out.println("------------------------------");
-
 		String message = String.format(Messages.MSG_ORDER_COMPLETED, order.getOrderedProduct().getName(),
 				order.getOrderedQuantity(), order.getOrderPrice());
-		System.out.println(message);
 
 		// Trigger the unblock
 		OrderProcessorFacade processor = OrderProcessorFacade.getInstance();
 
 		processor.addMessage(message);
-
 		processor.getLatch().countDown();
-
 		serverGUI.stateMessage(message);
 
 	}

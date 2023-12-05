@@ -22,12 +22,6 @@ public class OrderHandler implements HttpHandler {
 	public void handle(HttpExchange exchange) throws IOException {
 
 		try {
-			System.out.println("Order recieved.");
-			
-
-			// Construct our response to be sent
-			String response = "Order placed Succesfully";
-
 			// First get our input stream
 			InputStream in = exchange.getRequestBody();
 
@@ -53,9 +47,7 @@ public class OrderHandler implements HttpHandler {
 			// Close our input stream
 			in.close();
 
-
 			// Get our output stream
-
 			processor.getLatch().await();
 
 			String message = processor.getMessageQueue().take();

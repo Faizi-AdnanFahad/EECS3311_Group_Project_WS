@@ -2,9 +2,9 @@ package controller;
 
 import middleware.orderstate.IOrderState;
 import middleware.orderstatefactory.OrderStateFactoryRepo;
-import middleware.orderstatefactory.Utilities;
 import middleware.pricingstrategy.IPricingStrategy;
 import middleware.pricingstrategyfactory.PricingStrategyFactoryRepo;
+import util.Utilities;
 
 public class FactoryController {
 
@@ -12,7 +12,7 @@ public class FactoryController {
 	 * Setting up state Factory
 	 */
 	public OrderStateFactoryRepo setupStateFactory() {
-		return Utilities.setUpFactory();
+		return Utilities.setUpOrderFactory();
 	}
 
 	/*
@@ -26,7 +26,7 @@ public class FactoryController {
 	 * Setting up Pricing Factory
 	 */
 	public PricingStrategyFactoryRepo setUpPricingFactory() {
-		return middleware.pricingstrategyfactory.Utilities.setUpFactory();
+		return Utilities.setUpPricingFactory();
 	}
 
 	/*
