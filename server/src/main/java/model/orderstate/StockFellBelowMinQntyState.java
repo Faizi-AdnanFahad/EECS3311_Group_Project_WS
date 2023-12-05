@@ -14,5 +14,14 @@ public class StockFellBelowMinQntyState implements IOrderState {
 		System.out.println(message);
 		System.out.println("------------------------------");
 		order.getOrderedProduct().restocking();
+
+		// Update all viewers for Observer pattern
+		/********************* Observer pattern ************************/
+		System.out.println("/*********************Observer pattern************************/");
+		order.addViewers();
+		order.updateViewers();
+		System.out.println("/*********************Observer pattern************************/");
+		/*************************************************************/
+
 	}
 }

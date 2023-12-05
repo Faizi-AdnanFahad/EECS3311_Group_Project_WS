@@ -12,13 +12,18 @@ public class OrderedQntySMEqualToAvailableQntyState implements IOrderState {
 				order.getOrderedProduct().getName(), order.getOrderedQuantity(), order.getOrderPrice());
 		System.out.println(message);
 		System.out.println("------------------------------");
+		
+		/* Complete the order */
+		boolean orderTransaction = order.performOrder();
 
 		// Update all viewers for Observer pattern
 		/********************* Observer pattern ************************/
-		System.out.println("/*********************Observer pattern************************/");
-		order.addViewers();
-		order.updateViewers();
-		System.out.println("/*********************Observer pattern************************/");
+		if (orderTransaction) {
+			System.out.println("/*********************Observer pattern************************/");
+			order.addViewers();
+			order.updateViewers();
+			System.out.println("/*********************Observer pattern************************/");
+		}
 		/*************************************************************/
 
 		/*
