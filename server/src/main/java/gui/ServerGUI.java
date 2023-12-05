@@ -48,6 +48,7 @@ public class ServerGUI extends JFrame implements ActionListener, PopupMenuListen
 	private JPanel east = new JPanel();
 	private JTextArea report = new JTextArea();
 	private CategoryPlot plot = new CategoryPlot();
+	private JTextArea message = new JTextArea();
 
 	/*
 	 * stores the content for the report view as two parts. Part 1 (index 0) stores
@@ -87,6 +88,7 @@ public class ServerGUI extends JFrame implements ActionListener, PopupMenuListen
 
 		getContentPane().add(east, BorderLayout.EAST);
 		getContentPane().add(west, BorderLayout.WEST);
+		
 	}
 
 	/*
@@ -100,6 +102,9 @@ public class ServerGUI extends JFrame implements ActionListener, PopupMenuListen
 		east.setLayout(new BoxLayout(east, BoxLayout.Y_AXIS));
 		east.add(orderDetailsLabel);
 		east.add(orderDetailsScrollPane);
+		
+		
+		
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -249,5 +254,11 @@ public class ServerGUI extends JFrame implements ActionListener, PopupMenuListen
 
 	public void popupMenuCanceled(PopupMenuEvent e) {
 		System.out.println("Cancelled");
+	}
+
+	public void stateMessage(String m) {
+	
+		orderDetails.setText(m);
+		orderDetails.updateUI();
 	}
 }

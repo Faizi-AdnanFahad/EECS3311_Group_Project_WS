@@ -4,16 +4,22 @@ public final class Messages {
 	private Messages() {
 	}
 
-	private static String MSG_ORDER_RECIEVED = "Order is received for Product %s and Quantity %d";
+	public static String MSG_ORDER_RECIEVED = "Order is received for Product %s and Quantity %d \n";
 
-	private static String MSG_ORDER_PENDING = "Order for Product %s Quantity %d is pending"
-											+ " – order exceeds available quantity";
+	public static String MSG_ORDER_PENDING = "Order for Product %s Quantity %d is pending"
+											+ " – order exceeds available quantity \n";
 
-	private static String MSG_ORDER_COMPLETED = "Order is finalized for Product %s and"
-											+ "Quantity %d with total price %f";
+	public static String MSG_ORDER_COMPLETED = "Order is finalized for Product %s and"
+											+ "Quantity %d with total price %.2f \n";
 
-	private static String MSG_SERVER_RESTOCKING = "Restocking Operation for Product %s "
-												+ "initiated";
+	public static String MSG_SERVER_RESTOCKING = "Restocking Operation for Product %s "
+												+ "initiated \n";
 
-	private static String MSG_SERVER_RESTOCKING_COMPLETED = "Restocking Operation for Product %s completed";
+	public static String MSG_SERVER_RESTOCKING_COMPLETED = "Restocking Operation for Product %s completed \n";
+
+	public static String MSG_SERVER_EXCEED_MAX = "Order exceeds the max quantity set for this product and cannot be processed\n";
+	
+	public static String MSG_SERVER_BELOW_MIN = "Product quantity fell below the target min quantity - Low Stock";
+
+
 }
