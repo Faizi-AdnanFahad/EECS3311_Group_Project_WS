@@ -30,11 +30,11 @@ public class OrderedQntySMEqualToAvailableQntyState implements IOrderState {
 		 * If after completing an order, the stock quantity for a product fells below
 		 * the target min quantity, set the state to lowStock.
 		 */
-		System.out.println("Product state set to Low Stock");
 		Product orderedProduct = order.getOrderedProduct();
 		System.out.println("orderedProduct.getStockQuantity()" + orderedProduct.getStockQuantity());
 		System.out.println("orderedProduct.getTargetMinStockQuantity()" + orderedProduct.getTargetMinStockQuantity());
 		if (orderedProduct.getStockQuantity() < orderedProduct.getTargetMinStockQuantity()) {
+			System.out.println("Product state set to Low Stock");
 			OrderController cont = new OrderController();
 			/* change order state */
 			cont.setOrderState(new StockFellBelowMinQntyState());
