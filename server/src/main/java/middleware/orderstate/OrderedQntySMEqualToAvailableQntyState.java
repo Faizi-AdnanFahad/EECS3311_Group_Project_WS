@@ -2,8 +2,10 @@ package middleware.orderstate;
 
 import controller.OrderController;
 import gui.ServerGUI;
+import middleware.wares.OrderProcessorFacade;
 import model.Order;
 import model.Product;
+import util.Constants;
 import util.Messages;
 
 public class OrderedQntySMEqualToAvailableQntyState implements IOrderState {
@@ -17,6 +19,11 @@ public class OrderedQntySMEqualToAvailableQntyState implements IOrderState {
 
 		/* Complete the order */
 		boolean orderTransaction = order.performOrder();
+
+		// Trigger the unblock
+		OrderProcessorFacade processor = OrderProcessorFacade.getInstance();
+		processor.addMessage(message);
+		processor.getLatch().countDown();
 
 		// Update all viewers for Observer pattern
 		/********************* Observer pattern ************************/
@@ -36,7 +43,9 @@ public class OrderedQntySMEqualToAvailableQntyState implements IOrderState {
 		if (orderedProduct.getStockQuantity() < orderedProduct.getTargetMinStockQuantity()) {
 			OrderController cont = new OrderController();
 			cont.completeProcessOrdering(order);
-		}
+
+
+		}					
 	}
 
 	public void sendMessage(Order order) {

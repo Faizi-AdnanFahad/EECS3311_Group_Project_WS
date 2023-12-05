@@ -11,12 +11,16 @@ import middleware.pricingstrategyfactory.PricingStrategyFactoryRepo;
 import model.Order;
 import util.Constants;
 
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.LinkedBlockingDeque;
 
 public class OrderProcessorFacade extends Middleware {
 	private OrderController orderController;
 	private BlockingQueue<Order> orderQueue;
+	private BlockingQueue<String> messageQueue;
+	private CountDownLatch countDownLatch;
 
 	public static OrderProcessorFacade instance = null;
 	
@@ -26,6 +30,8 @@ public class OrderProcessorFacade extends Middleware {
 		this.activate();
 
 		orderQueue = new LinkedBlockingDeque<Order>();
+		messageQueue = new ArrayBlockingQueue<String>(64);
+
 		this.orderController = new OrderController();
 	}
 
@@ -40,8 +46,25 @@ public class OrderProcessorFacade extends Middleware {
 	public void add(Order order) {
 		// Add order to the OrderQueue
 		orderQueue.add(order);
+	}	
+
+	public void setLatch(CountDownLatch cdl) {
+		// Add order to the OrderQueue
+		countDownLatch = cdl;
 	}
 
+	public CountDownLatch getLatch() {
+		return countDownLatch;
+	}
+
+	public void addMessage(String msg) {
+		// Add order to the OrderQueue
+		messageQueue.add(msg);
+	}
+
+	public BlockingQueue<String> getMessageQueue() {
+		return messageQueue;
+	}
 //	public OrderQueue getQueue() {
 //		return orderQueue;
 //	}
