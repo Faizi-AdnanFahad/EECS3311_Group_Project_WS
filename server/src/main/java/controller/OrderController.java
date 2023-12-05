@@ -2,6 +2,8 @@ package controller;
 
 import model.Order;
 import model.orderstate.IOrderState;
+import model.orderstate.OrderedQntySMEqualToAvailableQntyState;
+import model.orderstatefactory.OrderStateFactoryRepo;
 import model.pricingStrategy.IPricingStrategy;
 import model.pricingStrategyFactory.PricingStrategyFactoryRepo;
 
@@ -25,7 +27,7 @@ public class OrderController {
 		this.pricingStrategy = pricingStrategy;
 	}
 
-	public void processOrder(Order order) {
+	private void processOrder(Order order) {
 		this.orderState.processOrder(order);
 	}
 
@@ -54,6 +56,39 @@ public class OrderController {
 		this.updateOrderPrice(order, orderPrice);
 	}
 
+	private IOrderState determineOrderState(Order order) {
+		/*
+		 * compare the ordered quantity against the available and target max and return
+		 * the correct index - used to create the correct state factory
+		 */
+		int stateNum = this.compareOrderedQntyAgainstProduct(order);
+
+		// Setup the factory
+		FactoryController sfc = new FactoryController();
+		OrderStateFactoryRepo repo = sfc.setupStateFactory();
+
+		/*
+		 * create the right state using factory method
+		 */
+		IOrderState orderState = sfc.createState(repo, stateNum);
+		return orderState;
+	}
+
+	public void checkPricingEligiblity(Order order) {
+		/*
+		 * Step 2 - Determine the order state
+		 */
+		IOrderState orderState = determineOrderState(order);
+
+		/*
+		 * Step 3 - determine the price of an order only if the client order is eligible
+		 * for order processing.
+		 */
+		if (orderState instanceof OrderedQntySMEqualToAvailableQntyState) {
+			this.calculateOrderPrice(order);
+		}
+	}
+
 	/*
 	 * Given an order and a price, updates price of that order with the given price.
 	 */
@@ -63,6 +98,16 @@ public class OrderController {
 
 	public int determineDiscountStrategy(Order order) {
 		return order.determineDiscountStrategy();
+	}
+
+	public void completeProcessOrdering(Order order) {
+		
+		IOrderState orderState = determineOrderState(order);
+		// set the correct order state to the state the factory has created.
+		this.setOrderState(orderState);
+
+		// process the order based on the state of the order against the database.
+		this.processOrder(order);
 	}
 
 }

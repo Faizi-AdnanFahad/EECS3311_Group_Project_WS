@@ -57,27 +57,19 @@ public class OrderProcessorFacade extends Middleware {
 			}
 
 			/*
-			 * Step 1 - get the first order in the queue
+			 * Step 1 - get the first order in the queue to check processing.
 			 */
 			Order order = orderQueue.take();
 
 			/*
-			 * Step 2 - Determine order state
+			 * Step 2 - determine order total if the order is eligible for completion.
 			 */
-			IOrderState orderState = determineOrderState(order);
+			this.orderController.checkPricingEligiblity(order);
 
 			/*
-			 * Step 3 - determine the price of an order only if the client order is eligible
-			 * for order processing.
+			 * Step 3 - Process order the order
 			 */
-			if (orderState instanceof OrderedQntySMEqualToAvailableQntyState) {
-				this.orderController.calculateOrderPrice(order);
-			}
-
-			/*
-			 * Step 4 - process the order to completion
-			 */
-			processOrder(order, orderState);
+			this.orderController.completeProcessOrdering(order);
 
 			// Disable the loop
 			// testing - Will disable the processing loop
@@ -104,32 +96,5 @@ public class OrderProcessorFacade extends Middleware {
 //		this.orderController.setPricingStrategy(pricingStrategy);
 //		this.orderController.calculateOrderPrice(order);
 //	}
-
-	private void processOrder(Order order, IOrderState orderState) {
-
-		// set the correct order state to the state the factory has created.
-		this.orderController.setOrderState(orderState);
-
-		// process the order based on the state of the order against the database.
-		this.orderController.processOrder(order);
-	}
-
-	private IOrderState determineOrderState(Order order) {
-		/*
-		 * compare the ordered quantity against the available and target max and return
-		 * the correct index - used to create the correct state factory
-		 */
-		int stateNum = this.orderController.compareOrderedQntyAgainstProduct(order);
-
-		// Setup the factory
-		FactoryController sfc = new FactoryController();
-		OrderStateFactoryRepo repo = sfc.setupStateFactory();
-
-		/*
-		 * create the right state using factory method
-		 */
-		IOrderState orderState = sfc.createState(repo, stateNum);
-		return orderState;
-	}
 
 }

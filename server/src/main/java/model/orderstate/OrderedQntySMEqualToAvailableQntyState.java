@@ -12,7 +12,7 @@ public class OrderedQntySMEqualToAvailableQntyState implements IOrderState {
 				order.getOrderedProduct().getName(), order.getOrderedQuantity(), order.getOrderPrice());
 		System.out.println(message);
 		System.out.println("------------------------------");
-		
+
 		/* Complete the order */
 		boolean orderTransaction = order.performOrder();
 
@@ -31,14 +31,16 @@ public class OrderedQntySMEqualToAvailableQntyState implements IOrderState {
 		 * the target min quantity, set the state to lowStock.
 		 */
 		Product orderedProduct = order.getOrderedProduct();
-		System.out.println("orderedProduct.getStockQuantity()" + orderedProduct.getStockQuantity());
-		System.out.println("orderedProduct.getTargetMinStockQuantity()" + orderedProduct.getTargetMinStockQuantity());
+//		System.out.println("orderedProduct.getStockQuantity()" + orderedProduct.getStockQuantity());
+//		System.out.println("orderedProduct.getTargetMinStockQuantity()" + orderedProduct.getTargetMinStockQuantity());
 		if (orderedProduct.getStockQuantity() < orderedProduct.getTargetMinStockQuantity()) {
-			System.out.println("Product state set to Low Stock");
+//			System.out.println("Product state set to Low Stock");
+//			OrderController cont = new OrderController();
+//			/* change order state */
+//			cont.setOrderState(new StockFellBelowMinQntyState());
+//			cont.processOrder(order);
 			OrderController cont = new OrderController();
-			/* change order state */
-			cont.setOrderState(new StockFellBelowMinQntyState());
-			cont.processOrder(order);
+			cont.completeProcessOrdering(order);
 		}
 	}
 

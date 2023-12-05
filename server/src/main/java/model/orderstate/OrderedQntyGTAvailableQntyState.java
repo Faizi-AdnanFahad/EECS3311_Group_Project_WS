@@ -21,8 +21,10 @@ public class OrderedQntyGTAvailableQntyState implements IOrderState {
 		cont.calculateOrderPrice(order);
 		
 		/* change order state */
-		cont.setOrderState(new OrderedQntySMEqualToAvailableQntyState());
-		cont.processOrder(order);
+//		cont.setOrderState(new OrderedQntySMEqualToAvailableQntyState());
+//		cont.processOrder(order);
+		
+		cont.completeProcessOrdering(order);
 		
 		
 	}

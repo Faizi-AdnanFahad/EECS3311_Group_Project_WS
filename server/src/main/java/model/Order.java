@@ -116,11 +116,13 @@ public class Order {
 		int targetMaxQnty = this.orderedProduct.getTargetMaxStockQuantity();
 		int targetMinQnty = this.orderedProduct.getTargetMinStockQuantity();
 		int stockQnty = this.orderedProduct.getStockQuantity();
+		
+		if (this.orderedProduct.getStockQuantity() < targetMinQnty) {
+			return 2;
+		}
 
 		if (this.orderedQuantity > targetMaxQnty) {
 			return 1;
-		} else if (this.orderedQuantity < targetMinQnty) {
-			return 2;
 		} else if (this.orderedQuantity > stockQnty) {
 			return 3;
 		} else { // ordered quantity must be less than stock quantity and does not exceed above
