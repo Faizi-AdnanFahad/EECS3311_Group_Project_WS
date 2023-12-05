@@ -11,9 +11,6 @@ public class ReportView implements IView {
 	}
 
 	public void update(Product orderedProduct, int orderedQuantity) {
-		System.out
-				.println("REPORT VIEW updated with for " + orderedProduct.getName() + " with " + orderedQuantity + " quantity!");
-
 		// update the GUI
 		ServerGUI serverGUI = ServerGUI.getInstance();
 		serverGUI.updateReportData();

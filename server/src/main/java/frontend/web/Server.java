@@ -7,14 +7,10 @@ import java.util.concurrent.Executors;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
-import middleware.Middleware;
-import middleware.MiddlewareContext;
-import middleware.wares.OrderProcessorFacade;
 import util.Constants;
 
 public class Server {
 	private HttpServer server = null;
-//	private OrderProcessorFacade orderProcessor = null;
 
 	public Server() {
 
@@ -28,7 +24,6 @@ public class Server {
 			server.setExecutor(Executors.newCachedThreadPool());
 
 		} catch (Exception e) {
-			System.out.println("Error occured in Server: ");
 			e.printStackTrace();
 		}
 	}

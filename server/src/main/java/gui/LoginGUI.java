@@ -5,12 +5,9 @@ import admin.AuthenticationProxy;
 import javax.swing.*;
 
 import util.Constants;
-import frontend.web.Server;
 
 import java.awt.*;
 import java.awt.event.*;
-
-import admin.Auth;
 
 public class LoginGUI extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;

@@ -18,35 +18,30 @@ public class OrderedQntyGTAvailableQntyState implements IOrderState {
 		cont.calculateOrderPrice(order);
 
 		cont.completeProcessOrdering(order);
-		
+
 		sendMessage(order);
 	}
 
-	public void sendMessage(Order order) {		
+	public void sendMessage(Order order) {
 		ServerGUI serverGUI = ServerGUI.getInstance();
-		System.out.println("------------------------------");
-		String message = String.format(Messages.MSG_ORDER_PENDING,
-				order.getOrderedProduct().getName(), order.getOrderedQuantity());
-		System.out.println(message);
-		
+		String message = String.format(Messages.MSG_ORDER_PENDING, order.getOrderedProduct().getName(),
+				order.getOrderedQuantity());
 
-		
-		message +=  String.format(Messages.MSG_SERVER_RESTOCKING, order.getOrderedProduct().getName());
-		
-		message +=  String.format(Messages.MSG_SERVER_RESTOCKING_COMPLETED, order.getOrderedProduct().getName());
+		message += String.format(Messages.MSG_SERVER_RESTOCKING, order.getOrderedProduct().getName());
 
-		message +=  String.format(Messages.MSG_ORDER_COMPLETED, order.getOrderedProduct().getName(), order.getOrderedQuantity(), order.getOrderPrice());
+		message += String.format(Messages.MSG_SERVER_RESTOCKING_COMPLETED, order.getOrderedProduct().getName());
 
-		
+		message += String.format(Messages.MSG_ORDER_COMPLETED, order.getOrderedProduct().getName(),
+				order.getOrderedQuantity(), order.getOrderPrice());
+
 		// Trigger the unblock
+		String msg = String.format(Messages.MSG_ORDER_COMPLETED, order.getOrderedProduct().getName(),
+				order.getOrderedQuantity(), order.getOrderPrice());
+
 		OrderProcessorFacade processor = OrderProcessorFacade.getInstance();
-		String msg = String.format(Messages.MSG_ORDER_COMPLETED, order.getOrderedProduct().getName(), order.getOrderedQuantity(), order.getOrderPrice());
 		processor.addMessage(msg);
 		processor.getLatch().countDown();
-		
 		serverGUI.stateMessage(message);
-		
 	}
-
 
 }

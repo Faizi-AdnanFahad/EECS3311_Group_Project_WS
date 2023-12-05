@@ -15,19 +15,13 @@ import model.Product;
 public class ProductHandler implements HttpHandler {
 
 	public void handle(HttpExchange exchange) throws IOException {
-		System.out.println("Getting products...");
 
 		// First get our input stream
 		InputStream in = exchange.getRequestBody();
 		String query = exchange.getRequestURI().getQuery();
 
-		System.out.println(query);
-
 		// Read all the bytes of data as UTF-8 character encoding
 		String data = new String(in.readAllBytes(), Charset.forName("UTF8"));
-
-		// Print out all our data
-		System.out.println(data);
 
 		// Close our input stream
 		in.close();
