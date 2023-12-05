@@ -2,7 +2,9 @@ package model;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.time.LocalDateTime;
 import java.util.List;
+
 
 import database.DAO.ProductDAO;
 import view.BarChartView;
@@ -19,6 +21,8 @@ public class Order {
 	private Date orderedRecievedDate;
 	private Time orderedRecievedTime;
 	private ConcretePublisher concretePublisher;
+	
+	public Order() {}
 	
 
 	public Order(Product orderedProduct, int orderedQuantity) {
@@ -156,6 +160,10 @@ public class Order {
 
 		return 0; /* If no discount applies */
 	}
+	
+	
+
+	
 	
 	
 
