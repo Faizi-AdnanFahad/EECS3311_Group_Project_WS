@@ -7,6 +7,8 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.Vector;
 
@@ -156,7 +158,7 @@ public class ClientGUI extends JFrame implements ActionListener {
 				selectedQty = quantityList.getSelectedItem().toString();
 
 				String transactionMessage = String.format(Messages.MSG_ORDER_PLACED, selectedProduct,
-						Integer.parseInt(selectedQty), LocalDate.now());
+						Integer.parseInt(selectedQty), LocalDateTime.now());
 
 				// Set client message
 				orderDetails.setText(transactionMessage);

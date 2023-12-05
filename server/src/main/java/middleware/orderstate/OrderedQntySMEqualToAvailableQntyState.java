@@ -9,21 +9,12 @@ import util.Constants;
 import util.Messages;
 
 public class OrderedQntySMEqualToAvailableQntyState implements IOrderState {
+	private ServerGUI serverGUI = ServerGUI.getInstance();
 
 	public void processOrder(Order order) {
-		System.out.println("------------------------------");
-		String message = String.format("Order is finalized for Product %s and Quantity %d with total price %.2f.",
-				order.getOrderedProduct().getName(), order.getOrderedQuantity(), order.getOrderPrice());
-		System.out.println(message);
-		System.out.println("------------------------------");
 
 		/* Complete the order */
 		boolean orderTransaction = order.performOrder();
-
-		// Trigger the unblock
-		OrderProcessorFacade processor = OrderProcessorFacade.getInstance();
-		processor.addMessage(message);
-		processor.getLatch().countDown();
 
 		// Update all viewers for Observer pattern
 		/********************* Observer pattern ************************/
@@ -41,31 +32,44 @@ public class OrderedQntySMEqualToAvailableQntyState implements IOrderState {
 		 */
 		Product orderedProduct = order.getOrderedProduct();
 		if (orderedProduct.getStockQuantity() < orderedProduct.getTargetMinStockQuantity()) {
+			sendMessage(order);
+			
+			// Trigger the unblock
+			OrderProcessorFacade processor = OrderProcessorFacade.getInstance();
+			processor.addMessage(String.format(Messages.MSG_ORDER_COMPLETED, order.getOrderedProduct().getName(),
+					order.getOrderedQuantity(), order.getOrderPrice()));
+			processor.getLatch().countDown();
+
+		
 			OrderController cont = new OrderController();
 			cont.completeProcessOrdering(order);
+		}
+		else {
+			sendMessage(order);
+		}
 
+		// Trigger the unblock
+		OrderProcessorFacade processor = OrderProcessorFacade.getInstance();
+		processor.addMessage("");
+		processor.getLatch().countDown();
 
-		}					
 	}
 
 	public void sendMessage(Order order) {
-		// TODO Auto-generated method stub
-		
-		ServerGUI serverGUI = ServerGUI.getInstance();
+
 		System.out.println("------------------------------");
-		String message = String.format(Messages.MSG_ORDER_COMPLETED,
-				order.getOrderedProduct().getName(), order.getOrderedQuantity());
+
+		String message = String.format(Messages.MSG_ORDER_COMPLETED, order.getOrderedProduct().getName(),
+				order.getOrderedQuantity(), order.getOrderPrice());
 		System.out.println(message);
-		
-		/* Perform Restocking */
-		message +=  String.format(Messages.MSG_ORDER_COMPLETED, order.getOrderedProduct().getName(), order.getOrderedQuantity(), order.getOrderPrice());
-		
-		message +=  String.format(Messages.MSG_SERVER_RESTOCKING, order.getOrderedProduct().getName());
-		
-		message +=  String.format(Messages.MSG_SERVER_RESTOCKING_COMPLETED, order.getOrderedProduct().getName());
+
+		// Trigger the unblock
+		OrderProcessorFacade processor = OrderProcessorFacade.getInstance();
+		processor.addMessage(message);
+		processor.getLatch().countDown();
 
 		serverGUI.stateMessage(message);
-		
+
 	}
 
 }

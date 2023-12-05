@@ -19,7 +19,7 @@ public final class Messages {
 
 	public static String MSG_SERVER_EXCEED_MAX = "Order exceeds the max quantity set for this product and cannot be processed\n";
 	
-	public static String MSG_SERVER_BELOW_MIN = "Product quantity fell below the target min quantity - Low Stock";
+	public static String MSG_SERVER_BELOW_MIN = "Product quantity fell below the target min quantity - Low Stock\n";
 
 
 }

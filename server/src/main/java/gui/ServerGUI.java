@@ -277,4 +277,9 @@ public class ServerGUI extends JFrame implements ActionListener, PopupMenuListen
 		reportViewContect[0] = reportMessage1;
 		
 	}
+
+	public void updateMessage(String message) {
+		orderDetails.setText(orderDetails.getText() + "\n" + message);
+		orderDetails.updateUI();
+	}
 }
