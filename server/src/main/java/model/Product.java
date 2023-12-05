@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import database.ProductDAO;
+import database.ProductProxy;
 
 public class Product {
 	private String id;
@@ -14,7 +14,7 @@ public class Product {
 	private int targetMaxStockQuantity;
 	private int targetMinStockQuantity;
 	private int restockSchedule;
-	private ProductDAO productDAO = new ProductDAO();
+	private ProductProxy productProxy = new ProductProxy();
 
 	public Product() {
 
@@ -81,7 +81,7 @@ public class Product {
 	 */
 	public List<Product> getProductList() {
 		
-		return productDAO.retriveProductDetails();
+		return productProxy.retriveProductDetails();
 	}
 
 	public Map<String, Integer> findAvailableProductsAndQuantities() {
@@ -131,7 +131,7 @@ public class Product {
 		//		 productDAO.updateProductQuantity(productName, restockSched);
 				currentStock = currentStock + restockSched;
 					
-				productDAO.updateProductQuantity(productName, currentStock);
+				productProxy.updateProductQuantity(productName, currentStock);
 				 System.out.println(currentStock);	
 				 System.out.println("We are Working");
 				}
@@ -140,7 +140,7 @@ public class Product {
 					int remainingQuantity = (targetMaxStockQuan - currentStock);
 //					productDAO.updateProductQuantity(productName, remainingQuantity);
 					
-					productDAO.updateProductQuantity(productName, remainingQuantity + currentStock);
+					productProxy.updateProductQuantity(productName, remainingQuantity + currentStock);
 					System.out.println(remainingQuantity + currentStock);
 					System.out.println(noOfRestockOperation);
 					
