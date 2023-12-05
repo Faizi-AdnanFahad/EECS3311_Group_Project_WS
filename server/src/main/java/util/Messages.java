@@ -10,7 +10,7 @@ public final class Messages {
 											+ " – order exceeds available quantity \n";
 
 	public static String MSG_ORDER_COMPLETED = "Order is finalized for Product %s and"
-											+ "Quantity %d with total price %.2f \n";
+											+ " Quantity %d with total price %.2f \n";
 
 	public static String MSG_SERVER_RESTOCKING = "Restocking Operation for Product %s "
 												+ "initiated \n";

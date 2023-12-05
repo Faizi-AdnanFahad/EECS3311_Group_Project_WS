@@ -19,6 +19,7 @@ public class OrderProcessorFacade extends Middleware {
 	private BlockingQueue<Order> orderQueue;
 
 	public static OrderProcessorFacade instance = null;
+	
 
 	private OrderProcessorFacade() {
 		super("Order Processor", true);
@@ -53,6 +54,7 @@ public class OrderProcessorFacade extends Middleware {
 
 			if (orderQueue.size() == 0) {
 				// System.out.println("Queue is empty, nothing to process");
+				
 				return;
 			}
 
