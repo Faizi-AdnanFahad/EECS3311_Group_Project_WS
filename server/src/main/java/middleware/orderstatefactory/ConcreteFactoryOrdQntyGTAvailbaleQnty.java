@@ -1,7 +1,7 @@
-package model.orderstatefactory;
+package middleware.orderstatefactory;
 
-import model.orderstate.IOrderState;
-import model.orderstate.OrderedQntyGTAvailableQntyState;
+import middleware.orderstate.IOrderState;
+import middleware.orderstate.OrderedQntyGTAvailableQntyState;
 
 public class ConcreteFactoryOrdQntyGTAvailbaleQnty implements IFactoryOrderState {
 

@@ -1,4 +1,4 @@
-package model.orderstate;
+package middleware.orderstate;
 
 import model.Order;
 

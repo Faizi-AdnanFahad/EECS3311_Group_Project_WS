@@ -1,4 +1,4 @@
-package model.pricingStrategyFactory;
+package middleware.pricingstrategyfactory;
 
 public class Utilities {
 	public static PricingStrategyFactoryRepo setUpFactory() {

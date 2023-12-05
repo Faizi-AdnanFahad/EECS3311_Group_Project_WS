@@ -1,4 +1,4 @@
-package model.pricingStrategy;
+package middleware.pricingstrategy;
 
 import model.Order;
 

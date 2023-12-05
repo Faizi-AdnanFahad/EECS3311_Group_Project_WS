@@ -3,12 +3,12 @@ package middleware.wares;
 import controller.OrderController;
 import controller.FactoryController;
 import middleware.Middleware;
+import middleware.orderstate.IOrderState;
+import middleware.orderstate.OrderedQntySMEqualToAvailableQntyState;
+import middleware.orderstatefactory.OrderStateFactoryRepo;
+import middleware.pricingstrategy.IPricingStrategy;
+import middleware.pricingstrategyfactory.PricingStrategyFactoryRepo;
 import model.Order;
-import model.orderstate.IOrderState;
-import model.orderstate.OrderedQntySMEqualToAvailableQntyState;
-import model.orderstatefactory.OrderStateFactoryRepo;
-import model.pricingStrategy.IPricingStrategy;
-import model.pricingStrategyFactory.PricingStrategyFactoryRepo;
 import util.Constants;
 
 import java.util.concurrent.BlockingQueue;

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.2.4" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
   associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
-  <interface id="1" language="java" name="model.orderstatefactory.IFactoryOrderState" project="server" 
-    file="/server/src/main/java/model/orderstatefactory/IFactoryOrderState.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="1" language="java" name="middleware.orderstatefactory.IFactoryOrderState" project="server" 
+    file="/server/src/main/java/middleware/orderstatefactory/IFactoryOrderState.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1014" y="113"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -10,8 +11,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="2" language="java" name="model.orderstatefactory.ConcreteFactoryOrdQntyGTAvailbaleQnty" project="server" 
-    file="/server/src/main/java/model/orderstatefactory/ConcreteFactoryOrdQntyGTAvailbaleQnty.java" binary="false" 
+  <class id="2" language="java" name="middleware.orderstatefactory.ConcreteFactoryOrdQntyGTAvailbaleQnty" 
+    project="server" 
+    file="/server/src/main/java/middleware/orderstatefactory/ConcreteFactoryOrdQntyGTAvailbaleQnty.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="684" y="379"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -20,8 +22,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="3" language="java" name="model.orderstatefactory.ConcreteFactoryOrdQntyGTTargetMaxQnty" project="server" 
-    file="/server/src/main/java/model/orderstatefactory/ConcreteFactoryOrdQntyGTTargetMaxQnty.java" binary="false" 
+  <class id="3" language="java" name="middleware.orderstatefactory.ConcreteFactoryOrdQntyGTTargetMaxQnty" 
+    project="server" 
+    file="/server/src/main/java/middleware/orderstatefactory/ConcreteFactoryOrdQntyGTTargetMaxQnty.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="992" y="379"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -30,9 +33,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="4" language="java" name="model.orderstatefactory.ConcreteFactoryStockFellBelowMinQnty" project="server" 
-    file="/server/src/main/java/model/orderstatefactory/ConcreteFactoryStockFellBelowMinQnty.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
+  <class id="4" language="java" name="middleware.orderstatefactory.ConcreteFactoryStockFellBelowMinQnty" 
+    project="server" file="/server/src/main/java/middleware/orderstatefactory/ConcreteFactoryStockFellBelowMinQnty.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1286" y="379"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -40,9 +43,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="5" language="java" name="model.orderstatefactory.ConcreteFactoryOrdQntySMEqualToAvalialbleQnty" 
+  <class id="5" language="java" name="middleware.orderstatefactory.ConcreteFactoryOrdQntySMEqualToAvalialbleQnty" 
     project="server" 
-    file="/server/src/main/java/model/orderstatefactory/ConcreteFactoryOrdQntySMEqualToAvalialbleQnty.java" 
+    file="/server/src/main/java/middleware/orderstatefactory/ConcreteFactoryOrdQntySMEqualToAvalialbleQnty.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1601" y="378"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -51,8 +54,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="6" language="java" name="model.orderstatefactory.OrderStateFactoryRepo" project="server" 
-    file="/server/src/main/java/model/orderstatefactory/OrderStateFactoryRepo.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="6" language="java" name="middleware.orderstatefactory.OrderStateFactoryRepo" project="server" 
+    file="/server/src/main/java/middleware/orderstatefactory/OrderStateFactoryRepo.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="482" y="115"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -60,8 +64,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="7" language="java" name="model.orderstatefactory.Utilities" project="server" 
-    file="/server/src/main/java/model/orderstatefactory/Utilities.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="7" language="java" name="middleware.orderstatefactory.Utilities" project="server" 
+    file="/server/src/main/java/middleware/orderstatefactory/Utilities.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="220" y="604"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -69,8 +73,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="8" language="java" name="model.orderstate.IOrderState" project="server" 
-    file="/server/src/main/java/model/orderstate/IOrderState.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="8" language="java" name="middleware.orderstate.IOrderState" project="server" 
+    file="/server/src/main/java/middleware/orderstate/IOrderState.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1090" y="819"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -78,8 +82,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="9" language="java" name="model.orderstate.OrderedQntyGTAvailableQntyState" project="server" 
-    file="/server/src/main/java/model/orderstate/OrderedQntyGTAvailableQntyState.java" binary="false" 
+  <class id="9" language="java" name="middleware.orderstate.OrderedQntyGTAvailableQntyState" project="server" 
+    file="/server/src/main/java/middleware/orderstate/OrderedQntyGTAvailableQntyState.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="706" y="544"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -88,8 +92,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="10" language="java" name="model.orderstate.OrderedQntyGTTargetMaxQntyState" project="server" 
-    file="/server/src/main/java/model/orderstate/OrderedQntyGTTargetMaxQntyState.java" binary="false" 
+  <class id="10" language="java" name="middleware.orderstate.OrderedQntyGTTargetMaxQntyState" project="server" 
+    file="/server/src/main/java/middleware/orderstate/OrderedQntyGTTargetMaxQntyState.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1008" y="545"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -98,8 +102,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="11" language="java" name="model.orderstate.StockFellBelowMinQntyState" project="server" 
-    file="/server/src/main/java/model/orderstate/StockFellBelowMinQntyState.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="11" language="java" name="middleware.orderstate.StockFellBelowMinQntyState" project="server" 
+    file="/server/src/main/java/middleware/orderstate/StockFellBelowMinQntyState.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1301" y="546"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -107,8 +112,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="12" language="java" name="model.orderstate.OrderedQntySMEqualToAvailableQntyState" project="server" 
-    file="/server/src/main/java/model/orderstate/OrderedQntySMEqualToAvailableQntyState.java" binary="false" 
+  <class id="12" language="java" name="middleware.orderstate.OrderedQntySMEqualToAvailableQntyState" project="server" 
+    file="/server/src/main/java/middleware/orderstate/OrderedQntySMEqualToAvailableQntyState.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1583" y="538"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 

@@ -1,4 +1,4 @@
-package model.pricingStrategyFactory;
+package middleware.pricingstrategyfactory;
 
 import java.util.HashMap;
 import java.util.Map;

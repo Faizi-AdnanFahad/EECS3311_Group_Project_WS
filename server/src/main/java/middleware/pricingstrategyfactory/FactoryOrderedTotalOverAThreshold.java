@@ -1,7 +1,7 @@
-package model.pricingStrategyFactory;
+package middleware.pricingstrategyfactory;
 
-import model.pricingStrategy.IPricingStrategy;
-import model.pricingStrategy.OrderedTotalOverAThresholdStrategy;
+import middleware.pricingstrategy.IPricingStrategy;
+import middleware.pricingstrategy.OrderedTotalOverAThresholdStrategy;
 
 public class FactoryOrderedTotalOverAThreshold implements IFactoryPricingStrategy {
 

@@ -1,4 +1,4 @@
-package model.orderstate;
+package middleware.orderstate;
 
 import controller.OrderController;
 import model.Order;
@@ -31,14 +31,7 @@ public class OrderedQntySMEqualToAvailableQntyState implements IOrderState {
 		 * the target min quantity, set the state to lowStock.
 		 */
 		Product orderedProduct = order.getOrderedProduct();
-//		System.out.println("orderedProduct.getStockQuantity()" + orderedProduct.getStockQuantity());
-//		System.out.println("orderedProduct.getTargetMinStockQuantity()" + orderedProduct.getTargetMinStockQuantity());
 		if (orderedProduct.getStockQuantity() < orderedProduct.getTargetMinStockQuantity()) {
-//			System.out.println("Product state set to Low Stock");
-//			OrderController cont = new OrderController();
-//			/* change order state */
-//			cont.setOrderState(new StockFellBelowMinQntyState());
-//			cont.processOrder(order);
 			OrderController cont = new OrderController();
 			cont.completeProcessOrdering(order);
 		}

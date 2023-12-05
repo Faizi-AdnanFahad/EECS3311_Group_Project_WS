@@ -1,4 +1,4 @@
-package model.orderstatefactory;
+package middleware.orderstatefactory;
 
 import java.util.HashMap;
 import java.util.Map;

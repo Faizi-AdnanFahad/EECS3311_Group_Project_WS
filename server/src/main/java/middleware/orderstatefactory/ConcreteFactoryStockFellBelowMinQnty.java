@@ -1,7 +1,7 @@
-package model.orderstatefactory;
+package middleware.orderstatefactory;
 
-import model.orderstate.IOrderState;
-import model.orderstate.StockFellBelowMinQntyState;
+import middleware.orderstate.IOrderState;
+import middleware.orderstate.StockFellBelowMinQntyState;
 
 public class ConcreteFactoryStockFellBelowMinQnty implements IFactoryOrderState {
 

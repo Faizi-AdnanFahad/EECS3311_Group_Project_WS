@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.2.4" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
   associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
-  <interface id="1" language="java" name="model.orderstate.IOrderState" project="server" 
-    file="/server/src/main/java/model/orderstate/IOrderState.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="1" language="java" name="middleware.orderstate.IOrderState" project="server" 
+    file="/server/src/main/java/middleware/orderstate/IOrderState.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="81" width="153" x="799" y="100"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -10,8 +10,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="2" language="java" name="model.orderstate.OrderedQntyGTAvailableQntyState" project="server" 
-    file="/server/src/main/java/model/orderstate/OrderedQntyGTAvailableQntyState.java" binary="false" 
+  <class id="2" language="java" name="middleware.orderstate.OrderedQntyGTAvailableQntyState" project="server" 
+    file="/server/src/main/java/middleware/orderstate/OrderedQntyGTAvailableQntyState.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="664" y="485"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -20,8 +20,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="3" language="java" name="model.orderstate.OrderedQntyGTTargetMaxQntyState" project="server" 
-    file="/server/src/main/java/model/orderstate/OrderedQntyGTTargetMaxQntyState.java" binary="false" 
+  <class id="3" language="java" name="middleware.orderstate.OrderedQntyGTTargetMaxQntyState" project="server" 
+    file="/server/src/main/java/middleware/orderstate/OrderedQntyGTTargetMaxQntyState.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="945" y="597"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -30,8 +30,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="4" language="java" name="model.orderstate.StockFellBelowMinQntyState" project="server" 
-    file="/server/src/main/java/model/orderstate/StockFellBelowMinQntyState.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="4" language="java" name="middleware.orderstate.StockFellBelowMinQntyState" project="server" 
+    file="/server/src/main/java/middleware/orderstate/StockFellBelowMinQntyState.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1235" y="464"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -39,8 +40,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="5" language="java" name="model.orderstate.OrderedQntySMEqualToAvailableQntyState" project="server" 
-    file="/server/src/main/java/model/orderstate/OrderedQntySMEqualToAvailableQntyState.java" binary="false" 
+  <class id="5" language="java" name="middleware.orderstate.OrderedQntySMEqualToAvailableQntyState" project="server" 
+    file="/server/src/main/java/middleware/orderstate/OrderedQntySMEqualToAvailableQntyState.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="449" y="361"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -58,32 +59,32 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <realization id="7">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="1"/>  
-  </realization>  
-  <realization id="8">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="1"/>  
-  </realization>  
-  <realization id="9">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="1"/>  
-  </realization>  
-  <association id="10">    
+  <association id="7">    
     <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="11" name="orderState">        
+      <attribute id="8" name="orderState">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="12" minimum="0" maximum="1">        
+      <multiplicity id="9" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="1" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="13">    
+  <realization id="10">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="1"/>  
+  </realization>  
+  <realization id="11">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="1"/>  
+  </realization>  
+  <realization id="12">    
     <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="1"/>  
+  </realization>  
+  <realization id="13">    
+    <end type="SOURCE" refId="3"/>    
     <end type="TARGET" refId="1"/>  
   </realization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 

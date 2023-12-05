@@ -1,4 +1,4 @@
-package model.orderstatefactory;
+package middleware.orderstatefactory;
 
 public class Utilities {
 	public static OrderStateFactoryRepo setUpFactory() {
