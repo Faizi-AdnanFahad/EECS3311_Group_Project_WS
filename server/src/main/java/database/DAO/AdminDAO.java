@@ -1,4 +1,4 @@
-package database;
+package database.DAO;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;

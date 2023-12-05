@@ -4,7 +4,7 @@ import java.sql.Date;
 import java.sql.Time;
 import java.util.List;
 
-import database.ProductDAO;
+import database.DAO.ProductDAO;
 import view.BarChartView;
 import view.ConcretePublisher;
 import view.ReportView;
