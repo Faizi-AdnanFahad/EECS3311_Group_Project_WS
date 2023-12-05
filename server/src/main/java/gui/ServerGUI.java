@@ -265,7 +265,6 @@ public class ServerGUI extends JFrame implements ActionListener, PopupMenuListen
 	public void stateMessage(String m) {
 	
 		orderDetails.setText(m);
-		orderDetails.updateUI();
 	}
 	
 	public void populateLastOrder(String prodName, int prodQuantity) {

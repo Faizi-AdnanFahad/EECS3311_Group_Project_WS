@@ -33,25 +33,23 @@ public class OrderedQntySMEqualToAvailableQntyState implements IOrderState {
 		Product orderedProduct = order.getOrderedProduct();
 		if (orderedProduct.getStockQuantity() < orderedProduct.getTargetMinStockQuantity()) {
 			sendMessage(order);
-			
+
 			// Trigger the unblock
 			OrderProcessorFacade processor = OrderProcessorFacade.getInstance();
 			processor.addMessage(String.format(Messages.MSG_ORDER_COMPLETED, order.getOrderedProduct().getName(),
 					order.getOrderedQuantity(), order.getOrderPrice()));
 			processor.getLatch().countDown();
 
-		
 			OrderController cont = new OrderController();
 			cont.completeProcessOrdering(order);
-		}
-		else {
+		} else {
 			sendMessage(order);
 		}
 
 		// Trigger the unblock
-		OrderProcessorFacade processor = OrderProcessorFacade.getInstance();
-		processor.addMessage("");
-		processor.getLatch().countDown();
+//		OrderProcessorFacade processor = OrderProcessorFacade.getInstance();
+//		processor.addMessage("");
+//		processor.getLatch().countDown();
 
 	}
 
@@ -65,7 +63,9 @@ public class OrderedQntySMEqualToAvailableQntyState implements IOrderState {
 
 		// Trigger the unblock
 		OrderProcessorFacade processor = OrderProcessorFacade.getInstance();
+
 		processor.addMessage(message);
+
 		processor.getLatch().countDown();
 
 		serverGUI.stateMessage(message);

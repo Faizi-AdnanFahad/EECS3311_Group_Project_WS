@@ -49,7 +49,6 @@ public class StockFellBelowMinQntyState implements IOrderState {
 
 		// Trigger the unblock
 		OrderProcessorFacade processor = OrderProcessorFacade.getInstance();
-		processor.addMessage(message);
 		processor.getLatch().countDown();
 
 		serverGUI.updateMessage(message);
