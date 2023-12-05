@@ -1,32 +1,34 @@
-package model.orderstate;
+package middleware.orderstate;
+
 import gui.ServerGUI;
-import java.time.LocalDateTime;
 import model.Order;
 import util.Messages;
 
-public class OrderedQntySMEqualToAvailableQntyState implements IOrderState {
-   private ServerGUI serverGUI = ServerGUI.getInstance();
+public class StockFellBelowMinQntyState implements IOrderState {
+	private ServerGUI serverGUI = ServerGUI.getInstance();
 
 	public void processOrder(Order order) {
 
-	    
 		System.out.println("------------------------------");
-		String message = String.format("Order is finalized for Product %s and Quantity %d with total price %.2f.",
-				order.getOrderedProduct().getName(), order.getOrderedQuantity(), order.getOrderPrice());
+		String message = Messages.MSG_SERVER_BELOW_MIN;
 		System.out.println(message);
 		System.out.println("------------------------------");
-	    
-		
 
-		serverGUI.populateLastOrder(order.getOrderedProduct().getName(), order.getOrderedQuantity());
-	
-	
+		// invoke the restock operation
+		message = String.format("Restocking Operation for Product %s initiated", order.getOrderedProduct().getName());
+		System.out.println(message);
+		System.out.println("------------------------------");
+		order.getOrderedProduct().restocking();
+
+		// Update all viewers for Observer pattern
+		/********************* Observer pattern ************************/
 		System.out.println("/*********************Observer pattern************************/");
 		order.addViewers();
 		order.updateViewers();
 		System.out.println("/*********************Observer pattern************************/");
-		/*************************************************************/	
-		
+		/*************************************************************/
+
+		serverGUI.populateLastOrder(order.getOrderedProduct().getName(), order.getOrderedQuantity());
 		sendMessage(order);
 	}
 
@@ -47,6 +49,4 @@ public class OrderedQntySMEqualToAvailableQntyState implements IOrderState {
 		
 		
 	}
-	
-	
 }

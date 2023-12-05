@@ -1,4 +1,4 @@
-package model.orderstate;
+package middleware.orderstate;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -12,22 +12,23 @@ import util.Messages;
 
 import model.Order;
 
-public class OrderedQntyGTAvailableQntyState implements IOrderState{
+public class OrderedQntyGTAvailableQntyState implements IOrderState {
 
 	public void processOrder(Order order) {
-		
-		
+
 		System.out.println("------------------------------");
 		order.getOrderedProduct().restocking();
+
 		OrderController cont = new OrderController();
+		/* Calculate the price for the order */
+		cont.calculateOrderPrice(order);
+
+		cont.completeProcessOrdering(order);
 		cont.setOrderState(new OrderedQntySMEqualToAvailableQntyState());
 		cont.processOrder(order);
-		
-		
-		
+
 		sendMessage(order);
-		
-		
+
 	}
 
 	public void sendMessage(Order order) {
@@ -51,5 +52,4 @@ public class OrderedQntyGTAvailableQntyState implements IOrderState{
 	}
 
 
-	
 }

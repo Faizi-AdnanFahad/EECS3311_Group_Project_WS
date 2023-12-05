@@ -1,7 +1,7 @@
-package model.orderstatefactory;
+package middleware.orderstatefactory;
 
-import model.orderstate.IOrderState;
-import model.orderstate.OrderedQntyGTTargetMaxQntyState;
+import middleware.orderstate.IOrderState;
+import middleware.orderstate.OrderedQntyGTTargetMaxQntyState;
 
 public class ConcreteFactoryOrdQntyGTTargetMaxQnty implements IFactoryOrderState {
 

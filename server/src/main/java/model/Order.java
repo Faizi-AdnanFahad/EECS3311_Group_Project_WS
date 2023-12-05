@@ -2,9 +2,6 @@ package model;
 
 import java.sql.Date;
 import java.sql.Time;
-import java.time.LocalDateTime;
-import java.util.List;
-
 
 import database.DAO.ProductDAO;
 import view.BarChartView;
@@ -21,9 +18,9 @@ public class Order {
 	private Date orderedRecievedDate;
 	private Time orderedRecievedTime;
 	private ConcretePublisher concretePublisher;
-	
-	public Order() {}
-	
+
+	public Order() {
+	}
 
 	public Order(Product orderedProduct, int orderedQuantity) {
 		this.orderedProduct = orderedProduct;
@@ -89,15 +86,13 @@ public class Order {
 
 	/* Informs all viewers with new updates when a change occurs */
 	public void updateViewers() {
-		boolean rowsUpdated = updateDBWithOrderedQunatity();
-		if (rowsUpdated) {
-			this.concretePublisher.orderCompleted(this.orderedProduct, this.orderedQuantity);
-		}
+		this.concretePublisher.orderCompleted(this.orderedProduct, this.orderedQuantity);
 	}
 
 	// helper method to update the product db with ordered quantity
-	private boolean updateDBWithOrderedQunatity() {
+	public boolean performOrder() {
 		ProductDAO productDAO = new ProductDAO();
+		this.orderedProduct.setStockQuantity(this.orderedProduct.getStockQuantity() - this.orderedQuantity);
 		return productDAO.updateProduct(this.orderedProduct.getName(), this.orderedQuantity);
 	}
 
@@ -105,6 +100,9 @@ public class Order {
 	 * Adds all viewers to the list of observers - Observer Design Pattern
 	 */
 	public void addViewers() {
+		// reset if any viewers exist already
+		this.concretePublisher.resetViewers();
+
 		// add viewers as observers
 		this.concretePublisher.addViewers(new BarChartView(concretePublisher));
 		this.concretePublisher.addViewers(new ReportView(concretePublisher));
@@ -121,10 +119,12 @@ public class Order {
 		int targetMinQnty = this.orderedProduct.getTargetMinStockQuantity();
 		int stockQnty = this.orderedProduct.getStockQuantity();
 
+		if (this.orderedProduct.getStockQuantity() < targetMinQnty) {
+			return 2;
+		}
+
 		if (this.orderedQuantity > targetMaxQnty) {
 			return 1;
-		} else if (this.orderedQuantity < targetMinQnty) {
-			return 2;
 		} else if (this.orderedQuantity > stockQnty) {
 			return 3;
 		} else { // ordered quantity must be less than stock quantity and does not exceed above
@@ -160,11 +160,4 @@ public class Order {
 
 		return 0; /* If no discount applies */
 	}
-	
-	
-
-	
-	
-	
-
 }

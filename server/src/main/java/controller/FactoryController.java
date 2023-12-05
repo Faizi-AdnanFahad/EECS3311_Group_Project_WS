@@ -1,10 +1,10 @@
 package controller;
 
-import model.orderstate.IOrderState;
-import model.orderstatefactory.OrderStateFactoryRepo;
-import model.orderstatefactory.Utilities;
-import model.pricingStrategy.IPricingStrategy;
-import model.pricingStrategyFactory.PricingStrategyFactoryRepo;
+import middleware.orderstate.IOrderState;
+import middleware.orderstatefactory.OrderStateFactoryRepo;
+import middleware.orderstatefactory.Utilities;
+import middleware.pricingstrategy.IPricingStrategy;
+import middleware.pricingstrategyfactory.PricingStrategyFactoryRepo;
 
 public class FactoryController {
 
@@ -26,7 +26,7 @@ public class FactoryController {
 	 * Setting up Pricing Factory
 	 */
 	public PricingStrategyFactoryRepo setUpPricingFactory() {
-		return model.pricingStrategyFactory.Utilities.setUpFactory();
+		return middleware.pricingstrategyfactory.Utilities.setUpFactory();
 	}
 
 	/*

@@ -80,7 +80,6 @@ public class Product {
 	 * Returns a list of all products from the database.
 	 */
 	public List<Product> getProductList() {
-		
 		return productProxy.retriveProductDetails();
 	}
 
@@ -94,57 +93,57 @@ public class Product {
 
 		return productMap;
 	}
-	
-	public  void restocking(){
-		 
-		  
-				List<Product> prodList =  getProductList();
-				
-				
-				int targetMaxStockQuan = 0;
-				int currentStock = 0;
-				int restockSched = 0;
-				int toBeOrdered = 0;
-				String productName = null;
-			
-				
-				for(Product p: prodList) {
-					if(p.getName().equals(this.getName())) {
-						 targetMaxStockQuan = p.getTargetMaxStockQuantity();
-					     currentStock = p.getStockQuantity();
-					     restockSched = p.getRestockSchedule();
-					     productName = p.getName();
-					}
-				}       
-				
-				toBeOrdered = targetMaxStockQuan - currentStock;
-				System.out.println(toBeOrdered);
-				System.out.println(targetMaxStockQuan); //100
-				System.out.println(currentStock);// 20
-				System.out.println(restockSched); //30
-				
-				
-				//2
-				int noOfRestockOperation = toBeOrdered / restockSched; //80
-				
-				for(int i = 0;i<noOfRestockOperation;i++) {
-		//		 productDAO.updateProductQuantity(productName, restockSched);
-				currentStock = currentStock + restockSched;
-					
-				productProxy.updateProductQuantity(productName, currentStock);
-				 System.out.println(currentStock);	
-				 System.out.println("We are Working");
-				}
-				
-				if(targetMaxStockQuan > currentStock) {
-					int remainingQuantity = (targetMaxStockQuan - currentStock);
-//					productDAO.updateProductQuantity(productName, remainingQuantity);
-					
-					productProxy.updateProductQuantity(productName, remainingQuantity + currentStock);
-					System.out.println(remainingQuantity + currentStock);
-					System.out.println(noOfRestockOperation);
-					
-				}
-				
+
+	public void restocking() {
+
+		List<Product> prodList = getProductList();
+
+		int targetMaxStockQuan = 0;
+		int currentStock = 0;
+		int restockSched = 0;
+		int toBeOrdered = 0;
+		String productName = null;
+
+		for (Product p : prodList) {
+			if (p.getName().equals(this.getName())) {
+				targetMaxStockQuan = p.getTargetMaxStockQuantity();
+				currentStock = p.getStockQuantity();
+				restockSched = p.getRestockSchedule();
+				productName = p.getName();
+			}
 		}
+
+		toBeOrdered = targetMaxStockQuan - currentStock;
+		System.out.println(toBeOrdered);
+		System.out.println(targetMaxStockQuan); // 100
+		System.out.println(currentStock);// 20
+		System.out.println(restockSched); // 30
+
+		// 2
+		int noOfRestockOperation = toBeOrdered / restockSched; // 80
+
+		for (int i = 0; i < noOfRestockOperation; i++) {
+			// productDAO.updateProductQuantity(productName, restockSched);
+			currentStock = currentStock + restockSched;
+
+			/* Additionally needed for "Low Stock State" */
+			this.stockQuantity += currentStock;
+
+			productProxy.updateProductQuantity(productName, currentStock);
+			System.out.println(currentStock);
+			System.out.println("We are Working");
+		}
+
+		if (targetMaxStockQuan > currentStock) {
+			int remainingQuantity = (targetMaxStockQuan - currentStock);
+//					productDAO.updateProductQuantity(productName, remainingQuantity);
+
+			productProxy.updateProductQuantity(productName, remainingQuantity + currentStock);
+			System.out.println(remainingQuantity + currentStock);
+			System.out.println(noOfRestockOperation);
+
+		}
+
+	}
+
 }
